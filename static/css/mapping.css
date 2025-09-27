@@ -1,0 +1,105 @@
+/* ====================== Theme (aligné à tes pages) ====================== */
+:root{
+  --bg:#f7fafc; --panel:#ffffff; --soft:#f0f7ff; --line:#e2e8f0;
+  --text:#0f172a; --muted:#475569;
+  --brand:#2563eb; --brand2:#06b6d4; --accent:#7c3aed;
+  --eco:#2196f3; --sf:#9c27b0; --map:#ff6b6b;
+  --warn:#ffeaa7; --warnText:#856404;
+  --ring:0 0 0 3px rgba(37,99,235,.22); --shadow:0 18px 50px rgba(2,6,23,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0b1020; --panel:#0f172a; --soft:#0c1428; --line:#202b3b;
+    --text:#e2e8f0; --muted:#94a3b8;
+    --brand:#60a5fa; --brand2:#22d3ee; --accent:#a78bfa;
+    --eco:#5aaefc; --sf:#c789ff; --map:#ff7d7d;
+    --warn:#3d2f12; --warnText:#f7e7a1;
+    --ring:0 0 0 3px rgba(96,165,250,.45); --shadow:0 20px 55px rgba(2,6,23,.35);
+  }
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{
+  margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  color:var(--text);
+  background:
+    radial-gradient(900px 500px at 100% -20%, color-mix(in lab,var(--brand2) 20%,transparent), transparent 40%),
+    radial-gradient(900px 500px at -10% 0%, color-mix(in lab,var(--brand) 20%,transparent), transparent 45%),
+    linear-gradient(180deg,var(--bg),var(--bg));
+}
+a{color:inherit; text-decoration:none}
+
+/* ============================ App layout ============================ */
+.app{display:grid; grid-template-columns:260px 1fr; min-height:100vh}
+.sidebar{background:linear-gradient(180deg,var(--panel),var(--soft)); border-right:1px solid var(--line)}
+.brand{display:flex; align-items:center; gap:.6rem; padding:18px 16px; font-weight:800; border-bottom:1px solid var(--line)}
+.logo{width:32px;height:32px;border-radius:10px;background:
+  radial-gradient(120% 120% at 30% 20%, var(--brand2), transparent 60%),
+  linear-gradient(135deg,var(--brand),var(--accent)); box-shadow:0 8px 20px rgba(2,6,23,.12)}
+
+.nav{padding:10px}
+.nav h4{color:#94a3b8; font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin:16px 12px 8px}
+.link{display:flex;align-items:center;gap:.6rem;padding:12px 14px;border-radius:12px;color:#334155;
+  border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease, background .15s}
+.link:hover{background:color-mix(in lab,var(--brand) 7%, transparent); border-color:#c5d2f7; transform:translateY(-1px); box-shadow:0 10px 24px rgba(2,6,23,.06)}
+.link.active{background:linear-gradient(180deg,#eff6ff,#eaf2ff); border-color:#c5d2f7; color:#0f172a; box-shadow:0 10px 24px rgba(2,6,23,.08)}
+.icon{width:18px; height:18px; stroke:currentColor; stroke-width:1.7; fill:none}
+
+.content{position:relative}
+.topbar{display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid var(--line)}
+.badges{display:flex; gap:8px; flex-wrap:wrap}
+.badge{font-size:12px; background:#eef2ff; border:1px solid #dbe3ff; color:#374151; padding:6px 10px; border-radius:999px; display:flex; align-items:center; gap:6px}
+.logout{background:transparent; border:1px solid #cbd5e1; color:#334155; border-radius:12px; padding:10px 14px; cursor:pointer}
+
+.page{padding:24px}
+.header{
+  padding:22px 24px; text-align:center; background:linear-gradient(90deg, color-mix(in lab,var(--brand) 12%, var(--panel)), color-mix(in lab,var(--brand2) 12%, var(--panel)));
+  border:1px solid var(--line); border-radius:14px; box-shadow:0 8px 24px rgba(2,6,23,.05)
+}
+.header h1{margin:0; font-size:clamp(22px,2.2vw,28px); font-weight:800}
+.subtitle{margin:6px 0 0; color:var(--muted)}
+
+.toolbar{
+  display:flex; gap:10px; align-items:center; justify-content:space-between;
+  margin-top:14px; padding:12px 16px; border:1px solid var(--line); border-radius:12px;
+  background:linear-gradient(180deg,var(--panel),var(--soft));
+}
+.left,.right{display:flex; gap:10px; align-items:center}
+.chip{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:#fff0; color:var(--muted)}
+.search{display:flex; align-items:center; gap:8px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:8px 12px; min-width:260px}
+.search input{border:0; outline:none; width:100%; background:transparent; color:var(--text)}
+.btn{border:1px solid var(--line); background:transparent; color:var(--text); padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:700}
+.btn.primary{ border-color: color-mix(in lab,var(--brand) 45%, transparent); background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#fff }
+
+/* ======================= Mapping / Columns ======================= */
+.mapping-container{ position:relative; display:flex; gap:28px; padding:22px; min-height:760px; margin-top:18px;
+  background:linear-gradient(180deg,var(--panel),color-mix(in lab,var(--soft) 65%, transparent)); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow) }
+.api-column{ flex:1; background:var(--panel); border-radius:14px; padding:18px 18px 26px; border:1px solid var(--line); box-shadow:0 8px 30px rgba(2,6,23,.04) }
+.api-title{ text-align:center; font-size:1.05rem; font-weight:800; margin:0 0 12px; padding:10px; border-radius:10px; background:linear-gradient(90deg,#eef6ff,#f7f1ff); border:1px solid var(--line) }
+.ecotrack-title{ color:var(--eco) } .servicefusion-title{ color:var(--sf) }
+.scroll-container{ max-height:720px; overflow:auto; padding-right:6px }
+.scroll-container::-webkit-scrollbar{ width:10px } .scroll-container::-webkit-scrollbar-thumb{ background:color-mix(in lab,var(--brand) 15%, #b8c1d6); border-radius:8px }
+
+.field-group{ background:var(--panel); border-radius:12px; padding:14px 14px 12px; margin:12px 0; border-left:4px solid #ddd; border:1px solid var(--line);
+  transition:transform .15s ease, box-shadow .25s ease, border-left-color .2s ease, background .2s ease; position:relative }
+.field-group:hover{ transform:translateY(-2px); box-shadow:0 12px 26px rgba(2,6,23,.08) }
+.ecotrack-field{ border-left-color:var(--eco) } .servicefusion-field{ border-left-color:var(--sf) }
+.field-path{ font-family: ui-monospace, Menlo, Consolas, monospace; font-size:.85rem; color:var(--muted); margin-bottom:4px; word-break:break-all }
+.field-value{ font-weight:600; color:var(--text); margin-bottom:2px }
+.field-type{ font-size:.78rem; color:color-mix(in lab,var(--muted) 75%, transparent); font-style:italic }
+.transformation-note{ background:var(--warn); color:var(--warnText); border:1px solid color-mix(in lab,var(--warnText) 22%, transparent);
+  border-radius:8px; padding:8px; margin-top:8px; font-size:.83rem }
+.nested-field{ margin-left:16px; padding-left:12px; border-left:2px dashed #cbd5e1; margin-top:8px }
+.array-indicator{ background:#e8f5e8; color:#2e7d32; font-size:.75rem; padding:2px 6px; border-radius:6px; margin-left:6px }
+
+.legend{ position:sticky; top:8px; align-self:flex-start; margin-left:auto; margin-right:8px; background:var(--panel);
+  padding:12px 14px; border-radius:12px; border:1px solid var(--line); box-shadow:0 8px 24px rgba(2,6,23,.06); z-index:5 }
+.legend h4{ margin:0 0 6px; font-size:.95rem } .legend-item{ display:flex; align-items:center; gap:8px; margin:8px 0; font-size:.9rem; color:var(--muted) }
+.legend-color{ width:16px; height:16px; border-radius:4px }
+
+.wires{ position:absolute; inset:22px; pointer-events:none; z-index:2 } .wire{ stroke:var(--map); stroke-width:3; fill:none; filter: drop-shadow(0 2px 2px rgba(0,0,0,.12)); opacity:0; transition:opacity .15s ease }
+.wire.active{ opacity:1 }
+
+.hl{ background:linear-gradient(180deg, #fff19c 40%, transparent 41%); border-radius:2px; padding:0 2px }
+.link.disabled { pointer-events: none; opacity: 0.5; cursor: not-allowed; }
+
+

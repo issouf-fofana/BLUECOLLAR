@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>API Payload Mapping: Ecotrack → Service Fusion</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ====================== Theme (aligné à tes pages) ====================== */
+    :root{
+      --bg:#f7fafc; --panel:#ffffff; --soft:#f0f7ff; --line:#e2e8f0;
+      --text:#0f172a; --muted:#475569;
+      --brand:#2563eb; --brand2:#06b6d4; --accent:#7c3aed;
+      --eco:#2196f3; --sf:#9c27b0; --map:#ff6b6b;
+      --warn:#ffeaa7; --warnText:#856404;
+      --ring:0 0 0 3px rgba(37,99,235,.22); --shadow:0 18px 50px rgba(2,6,23,.08);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0b1020; --panel:#0f172a; --soft:#0c1428; --line:#202b3b;
+        --text:#e2e8f0; --muted:#94a3b8;
+        --brand:#60a5fa; --brand2:#22d3ee; --accent:#a78bfa;
+        --eco:#5aaefc; --sf:#c789ff; --map:#ff7d7d;
+        --warn:#3d2f12; --warnText:#f7e7a1;
+        --ring:0 0 0 3px rgba(96,165,250,.45); --shadow:0 20px 55px rgba(2,6,23,.35);
+      }
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 100% -20%, color-mix(in lab,var(--brand2) 20%,transparent), transparent 40%),
+        radial-gradient(900px 500px at -10% 0%, color-mix(in lab,var(--brand) 20%,transparent), transparent 45%),
+        linear-gradient(180deg,var(--bg),var(--bg));
+    }
+    a{color:inherit; text-decoration:none}
+
+    /* ============================ App layout ============================ */
+    .app{display:grid; grid-template-columns:260px 1fr; min-height:100vh}
+    .sidebar{background:linear-gradient(180deg,var(--panel),var(--soft)); border-right:1px solid var(--line)}
+    .brand{display:flex; align-items:center; gap:.6rem; padding:18px 16px; font-weight:800; border-bottom:1px solid var(--line)}
+    .logo{width:32px;height:32px;border-radius:10px;background:
+      radial-gradient(120% 120% at 30% 20%, var(--brand2), transparent 60%),
+      linear-gradient(135deg,var(--brand),var(--accent)); box-shadow:0 8px 20px rgba(2,6,23,.12)}
+
+    .nav{padding:10px}
+    .nav h4{color:#94a3b8; font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin:16px 12px 8px}
+    .link{display:flex;align-items:center;gap:.6rem;padding:12px 14px;border-radius:12px;color:#334155;
+      border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease, background .15s}
+    .link:hover{background:color-mix(in lab,var(--brand) 7%, transparent); border-color:#c5d2f7; transform:translateY(-1px); box-shadow:0 10px 24px rgba(2,6,23,.06)}
+    .link.active{background:linear-gradient(180deg,#eff6ff,#eaf2ff); border-color:#c5d2f7; color:#0f172a; box-shadow:0 10px 24px rgba(2,6,23,.08)}
+    .icon{width:18px; height:18px; stroke:currentColor; stroke-width:1.7; fill:none}
+
+    .content{position:relative}
+    .topbar{display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid var(--line)}
+    .badges{display:flex; gap:8px; flex-wrap:wrap}
+    .badge{font-size:12px; background:#eef2ff; border:1px solid #dbe3ff; color:#374151; padding:6px 10px; border-radius:999px; display:flex; align-items:center; gap:6px}
+    .logout{background:transparent; border:1px solid #cbd5e1; color:#334155; border-radius:12px; padding:10px 14px; cursor:pointer}
+
+    .page{padding:24px}
+    .header{
+      padding:22px 24px; text-align:center; background:linear-gradient(90deg, color-mix(in lab,var(--brand) 12%, var(--panel)), color-mix(in lab,var(--brand2) 12%, var(--panel)));
+      border:1px solid var(--line); border-radius:14px; box-shadow:0 8px 24px rgba(2,6,23,.05)
+    }
+    .header h1{margin:0; font-size:clamp(22px,2.2vw,28px); font-weight:800}
+    .subtitle{margin:6px 0 0; color:var(--muted)}
+
+    .toolbar{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      margin-top:14px; padding:12px 16px; border:1px solid var(--line); border-radius:12px;
+      background:linear-gradient(180deg,var(--panel),var(--soft));
+    }
+    .left,.right{display:flex; gap:10px; align-items:center}
+    .chip{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:#fff0; color:var(--muted)}
+    .search{display:flex; align-items:center; gap:8px; border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:8px 12px; min-width:260px}
+    .search input{border:0; outline:none; width:100%; background:transparent; color:var(--text)}
+    .btn{border:1px solid var(--line); background:transparent; color:var(--text); padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:700}
+    .btn.primary{ border-color: color-mix(in lab,var(--brand) 45%, transparent); background:linear-gradient(135deg,var(--brand),var(--brand2)); color:#fff }
+
+    /* ======================= Mapping / Columns ======================= */
+    .mapping-container{ position:relative; display:flex; gap:28px; padding:22px; min-height:760px; margin-top:18px;
+      background:linear-gradient(180deg,var(--panel),color-mix(in lab,var(--soft) 65%, transparent)); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow) }
+    .api-column{ flex:1; background:var(--panel); border-radius:14px; padding:18px 18px 26px; border:1px solid var(--line); box-shadow:0 8px 30px rgba(2,6,23,.04) }
+    .api-title{ text-align:center; font-size:1.05rem; font-weight:800; margin:0 0 12px; padding:10px; border-radius:10px; background:linear-gradient(90deg,#eef6ff,#f7f1ff); border:1px solid var(--line) }
+    .ecotrack-title{ color:var(--eco) } .servicefusion-title{ color:var(--sf) }
+    .scroll-container{ max-height:720px; overflow:auto; padding-right:6px }
+    .scroll-container::-webkit-scrollbar{ width:10px } .scroll-container::-webkit-scrollbar-thumb{ background:color-mix(in lab,var(--brand) 15%, #b8c1d6); border-radius:8px }
+
+    .field-group{ background:var(--panel); border-radius:12px; padding:14px 14px 12px; margin:12px 0; border-left:4px solid #ddd; border:1px solid var(--line);
+      transition:transform .15s ease, box-shadow .25s ease, border-left-color .2s ease, background .2s ease; position:relative }
+    .field-group:hover{ transform:translateY(-2px); box-shadow:0 12px 26px rgba(2,6,23,.08) }
+    .ecotrack-field{ border-left-color:var(--eco) } .servicefusion-field{ border-left-color:var(--sf) }
+    .field-path{ font-family: ui-monospace, Menlo, Consolas, monospace; font-size:.85rem; color:var(--muted); margin-bottom:4px; word-break:break-all }
+    .field-value{ font-weight:600; color:var(--text); margin-bottom:2px }
+    .field-type{ font-size:.78rem; color:color-mix(in lab,var(--muted) 75%, transparent); font-style:italic }
+    .transformation-note{ background:var(--warn); color:var(--warnText); border:1px solid color-mix(in lab,var(--warnText) 22%, transparent);
+      border-radius:8px; padding:8px; margin-top:8px; font-size:.83rem }
+    .nested-field{ margin-left:16px; padding-left:12px; border-left:2px dashed #cbd5e1; margin-top:8px }
+    .array-indicator{ background:#e8f5e8; color:#2e7d32; font-size:.75rem; padding:2px 6px; border-radius:6px; margin-left:6px }
+
+    .legend{ position:sticky; top:8px; align-self:flex-start; margin-left:auto; margin-right:8px; background:var(--panel);
+      padding:12px 14px; border-radius:12px; border:1px solid var(--line); box-shadow:0 8px 24px rgba(2,6,23,.06); z-index:5 }
+    .legend h4{ margin:0 0 6px; font-size:.95rem } .legend-item{ display:flex; align-items:center; gap:8px; margin:8px 0; font-size:.9rem; color:var(--muted) }
+    .legend-color{ width:16px; height:16px; border-radius:4px }
+
+    .wires{ position:absolute; inset:22px; pointer-events:none; z-index:2 } .wire{ stroke:var(--map); stroke-width:3; fill:none; filter: drop-shadow(0 2px 2px rgba(0,0,0,.12)); opacity:0; transition:opacity .15s ease }
+    .wire.active{ opacity:1 }
+
+    .hl{ background:linear-gradient(180deg, #fff19c 40%, transparent 41%); border-radius:2px; padding:0 2px }
+    .link.disabled {
+pointer-events: none;
+opacity: 0.5;
+cursor: not-allowed;
+}
+  </style>
+</head>
+<body>
+
+<section class="app">
+  <!-- ============================== SIDEBAR ============================== -->
+  <aside class="sidebar">
+    <div class="brand"><div class="logo"></div><div>FS</div></div>
+    <nav class="nav">
+      <h4>Core Modules</h4>
+      <a class="link" href="{% url 'platform_server' %}" id="navFsm">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 7h18M5 7v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        Field Service Management
+      </a>
+      <a class="link active" href="#" id="navIntegration">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11 4"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L13 20"/></svg>
+        Work Order Integration
+      </a>
+      <a class="link disabled" href="#" id="navWarranty">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v16l-3-2-3 2-3-2-3 2V5a2 2 0 0 1 2-2Z"/><path d="M8 10h8M8 14h8M8 6h8"/></svg>
+        Warranty Processing
+      </a>
+
+      <a class="link" href="{% url 'platform_server' %}#answering" id="navAnswering">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 1 18 0"/><path d="M7 12v5a3 3 0 0 0 3 3h1"/><path d="M17 12v1a2 2 0 0 1-2 2h-1"/><path d="M7 12H5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h2"/></svg>
+        Answering Service Agent
+      </a>
+
+      <h4>System Management</h4>
+      <a class="link" href="{% url 'platform_server' %}" id="navStatus">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 13v5"/><path d="M12 9v9"/><path d="M17 5v13"/></svg>
+        System Status
+        <span style="margin-left:auto;background:#103a28;border:1px solid #1d6b4e;color:#67e8f9;padding:2px 8px;border-radius:999px;font-size:12px">5</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ============================== MAIN ================================ -->
+  <main class="content">
+    <div class="topbar">
+      <div class="badges">
+        <div class="badge">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M16 7v-1a3 3 0 0 0-3-3h-2a3 3 0 0 0-3 3v1"/></svg>
+          Integration Mapping
+        </div>
+        <div class="badge">Module: Work Order</div>
+        <div class="badge">Date: <span id="today"></span></div>
+      </div>
+      <button class="logout" id="logoutBtn">
+        <svg class="icon" viewBox="0 0 24 24" style="margin-right:6px"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+        Logout
+      </button>
+    </div>
+
+    <div class="page">
+      <div class="header">
+        <h1>API Payload Mapping</h1>
+        <div class="subtitle">Ecotrack Workorder → Service Fusion Create Job</div>
+      </div>
+
+      <div class="toolbar">
+        <div class="left">
+          <div class="chip">Interactive mapping</div>
+          <div class="chip">Hover a source field → see target & wire</div>
+        </div>
+        <div class="right">
+          <div class="search" title="Filter fields">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            <input id="q" placeholder="Search path, value, type…"/>
+          </div>
+          <button class="btn" id="collapseBtn" type="button">Collapse all</button>
+          <button class="btn" id="expandBtn" type="button">Expand all</button>
+          <button class="btn primary" id="themeToggle" type="button">Dark</button>
+        </div>
+      </div>
+
+      <section class="mapping-container">
+        <!-- SVG overlay for wires -->
+        <svg class="wires" id="wires" xmlns="http://www.w3.org/2000/svg"></svg>
+
+        <!-- Legend -->
+        <aside class="legend">
+          <h4>Legend</h4>
+          <div class="legend-item"><span class="legend-color" style="background:var(--eco)"></span>Ecotrack Source</div>
+          <div class="legend-item"><span class="legend-color" style="background:var(--sf)"></span>Service Fusion Target</div>
+          <div class="legend-item"><span class="legend-color" style="background:var(--map)"></span>Mapping Connection</div>
+          <div class="legend-item"><span class="legend-color" style="background:var(--warn)"></span>Transformation Required</div>
+        </aside>
+
+        <!-- Column: Ecotrack -->
+        <div class="api-column">
+          <div class="api-title ecotrack-title">Ecotrack Workorder API</div>
+          <div class="scroll-container" id="ecoScroll">
+
+            <div class="field-group ecotrack-field" data-target="customer_name">
+              <div class="field-path">work_order.customer.customer_name</div>
+              <div class="field-value">"Jim's BBQ Shop"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="description">
+              <div class="field-path">work_order.description</div>
+              <div class="field-value">""</div>
+              <div class="field-type">string</div>
+              <div class="transformation-note">May use problem_type if description is empty</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="priority">
+              <div class="field-path">work_order.priority_type</div>
+              <div class="field-value">"L2 - Same Day"</div>
+              <div class="field-type">string</div>
+              <div class="transformation-note">Transform: "L2 - Same Day" → "Normal"</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="contact">
+              <div class="field-path">work_order.requested_by</div>
+              <div class="field-value">"Buddy"</div>
+              <div class="field-type">string</div>
+              <div class="transformation-note">Parse into first_name/last_name</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="address">
+              <div class="field-path">work_order.location.address1</div>
+              <div class="field-value">"281 S. Beverly Dr"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="city">
+              <div class="field-path">work_order.location.city</div>
+              <div class="field-value">"Beverly Hills"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="state">
+              <div class="field-path">work_order.location.state</div>
+              <div class="field-value">"California"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="zip">
+              <div class="field-path">work_order.location.zip</div>
+              <div class="field-value">"90212"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="location_name">
+              <div class="field-path">work_order.location.name</div>
+              <div class="field-value">"Beverly Hills"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="status">
+              <div class="field-path">work_order.status</div>
+              <div class="field-value">"Accepted"</div>
+              <div class="field-type">string</div>
+              <div class="transformation-note">Transform: "Accepted" → "Unscheduled"</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="category">
+              <div class="field-path">work_order.asset_type_name</div>
+              <div class="field-value">"Refrigeration"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="tech_notes">
+              <div class="field-path">work_order.problem_type</div>
+              <div class="field-value">"Faucet Leaking / Broken - Back of House"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="equipment">
+              <div class="field-path">work_order.asset</div>
+              <div class="field-value">Asset Object</div>
+              <div class="field-type">object</div>
+              <div class="nested-field">
+                <div class="field-path">asset.name → equipment.type</div>
+                <div class="field-value">"Three Door Cooler"</div>
+              </div>
+              <div class="nested-field">
+                <div class="field-path">asset.model_number → equipment.model</div>
+                <div class="field-value">"TBB-4-S"</div>
+              </div>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="notes">
+              <div class="field-path">work_order.notes</div>
+              <div class="field-value">Notes Array</div>
+              <div class="field-type">array</div>
+              <span class="array-indicator">2 items</span>
+            </div>
+
+            <div class="field-group ecotrack-field" data-target="store_number">
+              <div class="field-path">work_order.location.store_number</div>
+              <div class="field-value">"ABC-123"</div>
+              <div class="field-type">string</div>
+              <div class="transformation-note">Maps to custom_fields["Store Number"]</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Column: Service Fusion -->
+        <div class="api-column">
+          <div class="api-title servicefusion-title">Service Fusion Create Job API</div>
+          <div class="scroll-container" id="sfScroll">
+
+            <div class="field-group servicefusion-field" id="customer_name">
+              <div class="field-path">customer_name</div>
+              <div class="field-value">"Snuffers Restaurant Group"</div>
+              <div class="field-type">string - required</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="description">
+              <div class="field-path">description</div>
+              <div class="field-value">"Freezer not maintaining temperature"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="priority">
+              <div class="field-path">priority</div>
+              <div class="field-value">"Normal"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="contact">
+              <div class="field-path">contact_first_name / contact_last_name</div>
+              <div class="field-value">"Nicole" / "Forga"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="address">
+              <div class="field-path">street_1</div>
+              <div class="field-value">"777 S Central Expy"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="city">
+              <div class="field-path">city</div>
+              <div class="field-value">"Richardson"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="state">
+              <div class="field-path">state_prov</div>
+              <div class="field-value">"Texas"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="zip">
+              <div class="field-path">postal_code</div>
+              <div class="field-value">"75080-7400"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="location_name">
+              <div class="field-path">location_name</div>
+              <div class="field-value">"Snuffers - Rockwall"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="status">
+              <div class="field-path">status</div>
+              <div class="field-value">"Unscheduled"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="category">
+              <div class="field-path">category</div>
+              <div class="field-value">"Refrigeration"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="tech_notes">
+              <div class="field-path">tech_notes</div>
+              <div class="field-value">"Customer called about temperature issues"</div>
+              <div class="field-type">string</div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="equipment">
+              <div class="field-path">equipment[]</div>
+              <div class="field-value">Equipment Array</div>
+              <div class="field-type">array</div>
+              <span class="array-indicator">1 item</span>
+              <div class="nested-field">
+                <div class="field-path">equipment[0].type</div>
+                <div class="field-value">"2 door freezer"</div>
+              </div>
+              <div class="nested-field">
+                <div class="field-path">equipment[0].make</div>
+                <div class="field-value">"Atosa"</div>
+              </div>
+              <div class="nested-field">
+                <div class="field-path">equipment[0].model</div>
+                <div class="field-value">"DD95"</div>
+              </div>
+            </div>
+
+            <div class="field-group servicefusion-field" id="notes">
+              <div class="field-path">notes[]</div>
+              <div class="field-value">Notes Array</div>
+              <div class="field-type">array</div>
+              <span class="array-indicator">2 items</span>
+            </div>
+
+            <div class="field-group servicefusion-field" id="store_number">
+              <div class="field-path">custom_fields[]</div>
+              <div class="field-value">Custom Fields Array</div>
+              <div class="field-type">array</div>
+              <div class="nested-field">
+                <div class="field-path">custom_fields[0].name</div>
+                <div class="field-value">"Store Number"</div>
+              </div>
+              <div class="nested-field">
+                <div class="field-path">custom_fields[0].value</div>
+                <div class="field-value">"0305"</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</section>
+
+<script>
+  // Date dans la topbar
+  document.getElementById('today').textContent = new Date().toLocaleDateString();
+
+  // Boutons sidebar (démos)
+  document.getElementById('logoutBtn').onclick = ()=> history.back();
+
+  // ---- Dark toggle
+  document.getElementById('themeToggle').addEventListener('click', ()=>{
+    const dark = document.documentElement.getAttribute('data-theme-dark');
+    if(dark){ document.documentElement.removeAttribute('data-theme-dark'); }
+    else{ document.documentElement.setAttribute('data-theme-dark','1'); }
+  });
+
+  // ---- Collapse / Expand (notes & nested)
+  const collapseBtn = document.getElementById('collapseBtn');
+  const expandBtn = document.getElementById('expandBtn');
+  const notesSelector = '.transformation-note,.nested-field';
+  collapseBtn.addEventListener('click', ()=>{ document.querySelectorAll(notesSelector).forEach(n=> n.style.display='none'); });
+  expandBtn.addEventListener('click', ()=>{ document.querySelectorAll(notesSelector).forEach(n=> n.style.display=''); });
+
+  // ---- Search
+  const q = document.getElementById('q');
+  q.addEventListener('input', ()=>{
+    const term = q.value.trim().toLowerCase();
+    document.querySelectorAll('.field-group').forEach(card=>{
+      // reset small highlights on field path
+      card.querySelectorAll('.hl').forEach(h=>{
+        const parent = h.parentNode; parent.replaceChild(document.createTextNode(h.textContent), h); parent.normalize();
+      });
+      if(!term){ card.style.opacity='1'; card.style.filter='none'; return; }
+      const txt = card.textContent.toLowerCase();
+      const match = txt.includes(term);
+      card.style.opacity = match ? '1' : '.35';
+      card.style.filter = match ? 'none' : 'grayscale(20%)';
+      if(match){
+        const p = card.querySelector('.field-path');
+        if(p){
+          const t = p.textContent; const i = t.toLowerCase().indexOf(term);
+          if(i>=0){ p.innerHTML = t.substring(0,i) + '<span class="hl">' + t.substring(i, i+term.length) + '</span>' + t.substring(i+term.length); }
+        }
+      }
+    });
+  });
+
+  // ---- Mapping wires (SVG courbe)
+  const wires = document.getElementById('wires');
+  let currentPath = null;
+  function clearWire(){ if(currentPath){ currentPath.remove(); currentPath=null; } }
+  function drawCurve(fromEl, toEl){
+    clearWire();
+    const container = document.querySelector('.mapping-container');
+    const cRect = container.getBoundingClientRect();
+    const f = fromEl.getBoundingClientRect();
+    const t = toEl.getBoundingClientRect();
+
+    const x1 = (f.right - cRect.left);
+    const y1 = (f.top + f.height/2 - cRect.top);
+    const x2 = (t.left  - cRect.left);
+    const y2 = (t.top + t.height/2 - cRect.top);
+
+    const dx = Math.max(60, Math.abs(x2 - x1) * .35);
+    const c1x = x1 + dx, c1y = y1;
+    const c2x = x2 - dx, c2y = y2;
+
+    currentPath = document.createElementNS('http://www.w3.org/2000/svg','path');
+    currentPath.setAttribute('d', `M ${x1},${y1} C ${c1x},${c1y} ${c2x},${c2y} ${x2},${y2}`);
+    currentPath.setAttribute('class', 'wire active');
+    wires.appendChild(currentPath);
+  }
+  function highlightPair(src, tgt, on){
+    if(on){
+      src.style.background = 'color-mix(in lab, var(--eco) 10%, transparent)';
+      src.style.borderLeftColor = 'var(--eco)'; src.style.borderLeftWidth='6px';
+      tgt.style.background = 'color-mix(in lab, var(--sf) 10%, transparent)';
+      tgt.style.borderLeftColor = 'var(--sf)'; tgt.style.borderLeftWidth='6px';
+    }else{
+      src.style.background = ''; src.style.borderLeftColor='var(--eco)'; src.style.borderLeftWidth='4px';
+      tgt.style.background = ''; tgt.style.borderLeftColor='var(--sf)'; tgt.style.borderLeftWidth='4px';
+    }
+  }
+  document.querySelectorAll('[data-target]').forEach(src=>{
+    src.addEventListener('mouseenter', ()=>{
+      const id = src.getAttribute('data-target'); const tgt = document.getElementById(id); if(!tgt) return;
+      highlightPair(src, tgt, true); drawCurve(src, tgt);
+    });
+    src.addEventListener('mouseleave', ()=>{
+      const id = src.getAttribute('data-target'); const tgt = document.getElementById(id); if(!tgt) return;
+      highlightPair(src, tgt, false); clearWire();
+    });
+  });
+  // clear wire when scrolling or resizing
+  ['scroll','resize'].forEach(evt=>{
+    window.addEventListener(evt, clearWire, {passive:true});
+    document.getElementById('ecoScroll').addEventListener(evt, clearWire, {passive:true});
+    document.getElementById('sfScroll').addEventListener(evt, clearWire, {passive:true});
+  });
+</script>
+</body>
+</html>

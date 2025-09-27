@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>BlueCollar AI — Connected Demo</title>
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="BlueCollar AI connected demo: pick your account type then jump into the FSM platform.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="%232563eb"/><stop offset="1" stop-color="%2306b6d4"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(%23g)"/><path d="M16 36h20a4 4 0 0 0 0-8H16m22 8v10" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/></svg>'/>
+<style>
+:root{
+  --bg:#f7fafc; --surface:#ffffff; --text:#0f172a; --muted:#475569; --line:#e2e8f0;
+  --brand:#2563eb; --brand-2:#06b6d4; --accent:#7c3aed; --success:#10b981; --danger:#ef4444;
+  --ring:0 0 0 3px rgba(37,99,235,.25); --shadow:0 18px 55px rgba(2,6,23,.10);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0b1020; --surface:#0f172a; --text:#e2e8f0; --muted:#94a3b8; --line:#1f2937;
+    --brand:#60a5fa; --brand-2:#22d3ee; --accent:#a78bfa; --success:#34d399; --danger:#f87171;
+    --ring:0 0 0 3px rgba(96,165,250,.45); --shadow:0 24px 60px rgba(2,6,23,.45);
+  }
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:radial-gradient(1200px 600px at 10% -10%,#e9f1ff 0,#f7fafc 45%,transparent 60%),var(--bg);overflow-x:hidden}
+
+/* Background orbs */
+.scene{position:fixed;inset:-40vh -10vw -10vh -10vw;pointer-events:none;z-index:-1;filter:saturate(120%) blur(60px)}
+.blob{position:absolute;border-radius:999px;opacity:.35;mix-blend-mode:screen;animation:float 26s ease-in-out infinite}
+.blob.a{width:60vmax;height:60vmax;left:-10vmax;top:-5vmax;background:radial-gradient(60% 60% at 50% 50%,var(--brand-2),transparent 70%);animation-delay:-6s}
+.blob.b{width:70vmax;height:70vmax;right:-20vmax;top:-10vmax;background:radial-gradient(60% 60% at 50% 50%,var(--brand),transparent 70%)}
+.blob.c{width:55vmax;height:55vmax;left:20vmax;bottom:-20vmax;background:radial-gradient(60% 60% at 50% 50%,var(--accent),transparent 70%);animation-delay:-3s}
+@keyframes float{0%{transform:translateY(0) translateX(0) scale(1)}50%{transform:translateY(-2vh) translateX(1vw) scale(1.03)}100%{transform:translateY(0) translateX(0) scale(1)}}
+
+.container{max-width:1100px;margin:0 auto;padding:0 2rem}
+
+/* Header */
+header{position:sticky;top:0;backdrop-filter:saturate(140%) blur(10px);z-index:30}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.brand{display:flex;align-items:center;gap:.75rem;font-weight:800;letter-spacing:.2px}
+.brand-badge{font-size:11px;background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;padding:.25rem .5rem;border-radius:999px}
+.logo{width:36px;height:36px;border-radius:12px;background:conic-gradient(from 120deg,var(--brand) 0 25%,var(--brand-2) 25% 60%,var(--accent) 60% 100%);box-shadow:var(--shadow)}
+.btn{appearance:none;border:0;cursor:pointer;font-weight:700;border-radius:14px;padding:12px 18px;transition:transform .15s ease,box-shadow .15s ease,opacity .2s}
+.btn:hover{transform:translateY(-1px)} .btn:active{transform:translateY(0) scale(.98)}
+.btn-solid{color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:0 12px 28px rgba(37,99,235,.25)}
+.btn-ghost{color:var(--text);background:transparent;border:1px solid var(--line)}
+.btn-outline{color:var(--brand);background:transparent;border:1px solid rgba(37,99,235,.35)}
+
+/* Sections */
+main section{display:none;padding:56px 0;animation:fade .25s ease}
+main section.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.h1{font-size:clamp(32px,3.6vw,48px);line-height:1.1;margin:10px 0 6px;text-align:center}
+.sub{color:var(--muted);text-align:center;max-width:780px;margin:0 auto 22px}
+
+/* Cards */
+.grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:26px}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s,outline-color .2s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(2,6,23,.12)}
+.card.selected{outline:3px solid color-mix(in lab,var(--brand) 60%,transparent);outline-offset:-3px}
+.card h3{margin:.5rem 0 .25rem;font-size:1.15rem}
+.card p,.card ul{color:var(--muted);margin:.25rem 0 .25rem}
+.card ul{padding-left:1.25rem}
+.ico{width:56px;height:56px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(180deg,color-mix(in lab,var(--brand-2) 35%,transparent),color-mix(in lab,var(--brand) 25%,transparent));border:1px solid var(--line);box-shadow:0 4px 12px rgba(2,6,23,.05)}
+.ico svg{width:28px;height:28px;stroke:currentColor;stroke-width:1.8;color:#134abf}
+
+/* Forms (demo, non bloquants) */
+.form{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow)}
+label{display:block;color:var(--muted);margin:12px 0 6px;font-size:.85rem;letter-spacing:.2px}
+input{width:100%;border-radius:12px;border:1px solid var(--line);padding:12px 14px;background:#fff;color:var(--text);outline:none;transition:box-shadow .2s,border-color .2s}
+@media (prefers-color-scheme: dark){input{background:rgba(15,23,42,.6);color:var(--text)}}
+input:focus{box-shadow:var(--ring);border-color:color-mix(in lab,var(--brand) 55%,var(--line))}
+
+/* Stepper */
+.stepper{display:flex;justify-content:center;gap:10px;margin:28px 0}
+.dot{width:9px;height:9px;border-radius:999px;background:color-mix(in lab,var(--muted) 35%,transparent)}
+.dot.active{background:linear-gradient(135deg,var(--brand),var(--brand-2));transform:scale(1.1)}
+.link.disabled{pointer-events:none;opacity:.5;cursor:not-allowed}
+</style>
+</head>
+<body>
+<div class="scene" aria-hidden="true"><div class="blob a"></div><div class="blob b"></div><div class="blob c"></div></div>
+
+<header>
+  <div class="container nav">
+    <div class="brand"><div class="logo" aria-hidden="true"></div><div>BlueCollar <span class="brand-badge">AI</span></div></div>
+    <div style="display:flex; gap:.5rem">
+      <button id="signInTop" class="btn btn-ghost" type="button">Sign in</button>
+      <button id="getStartedTop" class="btn btn-solid" type="button">Start</button>
+    </div>
+  </div>
+  <hr style="border:none;border-top:1px solid var(--line);margin:0;opacity:.6">
+</header>
+
+<main>
+  <!-- STEP 1: choose -->
+  <section id="choose" class="active">
+    <div class="container">
+      <h1 class="h1">Choose your account type</h1>
+      <p class="sub">Pick the option that best fits your business. This is a demo—no real signup required.</p>
+
+      <div id="cards" class="grid" role="list">
+        <article class="card" data-value="restaurant" tabindex="0" aria-pressed="false" role="listitem">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 3v7a3 3 0 1 0 6 0V3M4 14h6M14 3v18m6-18v18" /></svg>
+          </div>
+          <h3>Restaurant Operator</h3>
+          <p>Kitchen equipment monitoring and incident triage.</p>
+          <ul><li>Monitoring & alerts</li><li>Predictive maintenance</li><li>Vendor management</li></ul>
+        </article>
+
+        <article class="card selected" data-value="service_provider" tabindex="0" aria-pressed="true" role="listitem">
+          <div class="ico">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M6 7v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" /></svg>
+          </div>
+          <h3>Service Provider</h3>
+          <p>Pre-diagnosed jobs, scheduling and route optimization.</p>
+          <ul><li>Lead intake</li><li>Dispatch & routes</li><li>Performance tracking</li></ul>
+        </article>
+      </div>
+
+      <div style="display:flex;justify-content:center;margin-top:26px;gap:10px">
+        <button id="continueSignup" class="btn btn-solid" type="button">Continue</button>
+        <button id="skipToApp" class="btn btn-outline" type="button" title="Skip the signup (demo)">Skip and open FSM</button>
+      </div>
+
+      <div class="stepper" aria-hidden="true"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+  </section>
+
+  <!-- STEP 2: signup (demo-only) -->
+  <section id="signup">
+    <div class="container" style="max-width:860px">
+      <h1 class="h1">Create your account</h1>
+      <p class="sub">Demo flow: enter anything or leave blank — buttons will open the FSM workspace.</p>
+
+      <form id="signupForm" class="form" style="max-width:540px;margin:0 auto">
+        <label>Email</label><input id="su_email" type="email" placeholder="you@company.com"/>
+        <label>Company name</label><input id="su_company" placeholder="ACME Services"/>
+        <label>Phone</label><input id="su_phone" placeholder="+1 555 0100"/>
+        <label>Password</label><input id="su_pwd" type="password" placeholder="********"/>
+        <div style="display:flex; gap:10px; margin-top:16px">
+          <button class="btn btn-solid" type="submit" style="flex:1">Create account (Demo)</button>
+          <button id="googleBtn" class="btn btn-outline" type="button" style="flex:1">Continue with Google</button>
+        </div>
+        <div style="display:flex; gap:10px; margin-top:10px">
+          <button id="microsoftBtn" class="btn btn-ghost" type="button" style="flex:1">Continue with Microsoft</button>
+        </div>
+        <div style="text-align:center;color:var(--muted);font-size:.9rem;margin-top:8px">No validation — you’ll be redirected to the FSM app.</div>
+      </form>
+
+      <div class="stepper"><span class="dot"></span><span class="dot active"></span><span class="dot"></span></div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* simple section switch */
+const sections = ["choose","signup"];
+const show = id => { sections.forEach(s=>document.getElementById(s).classList.remove("active")); document.getElementById(id).classList.add("active"); };
+
+/* header buttons */
+document.getElementById('getStartedTop').onclick=()=>show('choose');
+document.getElementById('signInTop').onclick=()=>show('signup');
+
+/* cards selection */
+document.querySelectorAll('#cards .card').forEach(c=>{
+  c.addEventListener('click',()=>{ document.querySelectorAll('#cards .card').forEach(x=>x.classList.remove('selected')); c.classList.add('selected'); localStorage.setItem('accountType',c.dataset.value); });
+  c.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' '){ c.click(); e.preventDefault(); }});
+});
+
+/* continue / skip */
+document.getElementById('continueSignup').onclick=()=>show('signup');
+document.getElementById('skipToApp').onclick=()=>window.location.href='/fsm/';
+
+/* demo signup: no validation, go straight to FSM */
+document.getElementById('signupForm').onsubmit=(e)=>{ e.preventDefault(); window.location.href='/fsm/'; };
+document.getElementById('googleBtn').onclick=()=>window.location.href='/fsm/';
+document.getElementById('microsoftBtn').onclick=()=>window.location.href='/fsm/';
+</script>
+</body>
+</html>

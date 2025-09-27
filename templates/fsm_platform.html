@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Field Service Management Platform – BlueCollar AI</title>
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="%2360a5fa"/><stop offset="1" stop-color="%2322d3ee"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(%23g)"/><path d="M18 34h20a4 4 0 0 0 0-8H18m22 8v10" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/></svg>'/>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/fsm_platform.css' %}">
+</head>
+<body>
+
+<!-- FULL PAGE LOADER -->
+<div id="pageLoader" class="loader-wrap"><div class="spinner" role="status" aria-label="Loading"></div></div>
+
+<section class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand"><div class="logo"></div><div>FS</div></div>
+    <nav class="nav">
+      <h4>Core Modules</h4>
+      <a class="link" href="#" id="navFsm">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 7h18M5 7v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        Field Service Management
+      </a>
+      <a class="link" href="#" id="navIntegration">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11 4"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L13 20"/></svg>
+        Work Order Integration
+      </a>
+      <a class="link disabled" href="#" id="navWarranty">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v16l-3-2-3 2-3-2-3 2V5a2 2 0 0 1 2-2Z"/><path d="M8 10h8M8 14h8M8 6h8"/></svg>
+        Warranty Processing
+      </a>
+      <a class="link active" href="#" id="navAnswering">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 1 18 0"/><path d="M7 12v5a3 3 0 0 0 3 3h1"/><path d="M17 12v1a2 2 0 0 1-2 2h-1"/><path d="M7 12H5a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h2"/></svg>
+        Answering Service Agent
+      </a>
+
+      <h4>System Management</h4>
+      <a class="link" href="#" id="navStatus">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 13v5"/><path d="M12 9v9"/><path d="M17 5v13"/></svg>
+        System Status
+        <span style="margin-left:auto;background:#103a28;border:1px solid #1d6b4e;color:#67e8f9;padding:2px 8px;border-radius:999px;font-size:12px">5</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="content">
+    <!-- progress line during submit -->
+    <div id="progress" class="progress"></div>
+
+    <div class="topbar">
+      <div class="badges">
+        <div class="badge">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M16 7v-1a3 3 0 0 0-3-3h-2a3 3 0 0 0-3 3v1"/></svg>
+          Call Center Agent
+        </div>
+        <div class="badge">Operator ID: OP-A7B3C9</div>
+        <div class="badge">Session: SS-892341</div>
+        <div class="badge">Date: <span id="today"></span></div>
+      </div>
+      <button class="logout" id="logoutBtn">
+        <svg class="icon" viewBox="0 0 24 24" style="margin-right:6px"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+        Logout
+      </button>
+    </div>
+
+    <div class="page">
+      <div class="reveal">
+        <h1 style="margin:6px 0 2px;font-size:34px;font-weight:800;color:#1f2937">Call Center Work Order System</h1>
+        <p class="sub" style="margin-top:4px">Streamlined work order submission for client service requests</p>
+      </div>
+
+      <div class="hero reveal">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 18v-6a2 2 0 0 1 2-2h4l3-3h9v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>
+        Create jobs for existing customers or add new ones
+      </div>
+
+      <div class="tabs reveal">
+        <button class="tab active" id="tabExisting">Create Job (Existing Customer)</button>
+        <button class="tab" id="tabNew">Create New Customer</button>
+      </div>
+
+      <!-- EXISTING CUSTOMER — WIZARD -->
+      <section class="panel reveal" id="panelExisting">
+        <h1 class="h1">Create Job for Existing Customer</h1>
+        <p class="sub">Quick job creation for established customers</p>
+
+        <form id="jobForm" novalidate>
+          <div class="panes" id="jobPanes">
+            <!-- Step 1 -->
+            <div class="pane active">
+              <div class="grid">
+                <div class="full">
+                  <label>Search Customer *</label>
+                  <input id="customer_search" required placeholder="Type customer name to search..." autocomplete="off">
+                  <div id="customer_suggestions" class="suggestions" style="display:none;"></div>
+                </div>
+                <div class="full">
+                  <label>Customer Name *</label>
+                  <input id="customer_name" required placeholder="e.g., Snuffers Restaurant Group" readonly>
+                </div>
+                <div class="full">
+                  <label>Customer ID</label>
+                  <input id="customer_id" placeholder="Auto-filled when customer selected" readonly>
+                </div>
+              </div>
+              <div class="actions" style="justify-content:flex-end">
+                <button type="button" class="btn primary" data-next>Next</button>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="pane">
+              <div class="grid">
+                <div>
+                  <label>Service Location *</label>
+                  <input id="location_name" required placeholder="e.g., Snuffers – Rockwall">
+                </div>
+                <div>
+                  <label>Job Priority *</label>
+                  <select id="priority" required>
+                    <option value="" disabled selected>Select</option>
+                    <option>Urgent</option><option>Normal</option><option>Low</option>
+                  </select>
+                </div>
+                <div class="full">
+                  <label>Job Category *</label>
+                  <select id="category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option>Refrigeration</option><option>Plumbing</option><option>Electrical</option><option>HVAC</option><option>General Maintenance</option>
+                  </select>
+                </div>
+              </div>
+              <div class="actions" style="justify-content:space-between">
+                <button type="button" class="btn ghost" data-prev>Back</button>
+                <button type="button" class="btn primary" data-next>Next</button>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="pane">
+              <div class="grid">
+                <div class="full"><label>Street</label><input id="street_1" placeholder="777 S Central Expy"></div>
+                <div><label>City</label><input id="city" placeholder="Richardson"></div>
+                <div><label>State</label><input id="state" placeholder="TX"></div>
+                <div><label>Postal Code</label><input id="zip" placeholder="75080-7400"></div>
+              </div>
+              <div class="actions" style="justify-content:space-between">
+                <button type="button" class="btn ghost" data-prev>Back</button>
+                <button type="button" class="btn primary" data-next>Next</button>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="pane">
+              <div class="grid">
+                <div class="full">
+                  <label>Job Description *</label>
+                  <textarea id="description" required placeholder="e.g., Freezer not maintaining temperature - Customer reported issue with equipment not cooling properly. Temperature reading shows 45°F instead of required 35°F. Equipment model: XYZ-123, Last service: 3 months ago."></textarea>
+                </div>
+                <div><label>Contact Name</label><input id="contact_name" placeholder="Nicole Forga"></div>
+                <div><label>Contact Phone</label><input id="contact_phone" placeholder="+1 555 0100"></div>
+                <div><label>Contact Email</label><input id="contact_email" type="email" placeholder="ops@yourco.com"></div>
+              </div>
+              <div class="actions" style="justify-content:space-between">
+                <button type="button" class="btn ghost" data-prev>Back</button>
+                <button type="button" class="btn primary" data-next>Next</button>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="pane">
+              <div class="grid">
+                <div><label>Preferred Start (optional)</label><input id="win_start" type="datetime-local"></div>
+                <div><label>Preferred End (optional)</label><input id="win_end" type="datetime-local"></div>
+                <div class="full"><label>Shared folder email (receives the document)</label><input id="shared_email" type="email" value="AI_Workorder@works-service.us"></div>
+              </div>
+              <div class="actions" style="justify-content:space-between">
+                <button type="button" class="btn ghost" data-prev>Back</button>
+                <button id="btnCreate" class="btn primary" type="submit">Create Job</button>
+              </div>
+              <p class="sub" style="margin-top:6px">
+                We will create a Service Fusion Work Order under <strong>“AnswringAgent Afterhours”</strong>,
+                paste the RAG link in Description and notes in <strong>“Unassigned Technician”</strong>, and email the document.
+              </p>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- NEW CUSTOMER — WIZARD -->
+      <section class="panel reveal" id="panelNew" style="display:none">
+        <h1 class="h1">Create New Customer</h1>
+        <p class="sub">Onboard a new account, then jump back to create their first job.</p>
+
+        <form id="newCustomerForm" novalidate>
+          <div class="panes" id="custPanes">
+            <!-- C1 Business -->
+            <div class="pane active">
+              <div class="grid">
+                <div class="full"><label>Legal Business Name *</label><input id="nc_name" required placeholder="e.g., Snuffers Restaurant Group"></div>
+                <div><label>Doing Business As (DBA)</label><input id="nc_dba" placeholder="e.g., Snuffers RG"></div>
+                <div><label>Industry *</label>
+                  <select id="nc_industry" required>
+                    <option value="" disabled selected>Select</option><option>Restaurant</option><option>Retail</option>
+                    <option>Healthcare</option><option>Education</option><option>Hospitality</option><option>Other</option>
+                  </select>
+                </div>
+                <div><label>Tax ID (optional)</label><input id="nc_tax" placeholder="XX-XXXXXXX"></div>
+              </div>
+              <div class="actions" style="justify-content:flex-end">
+                <button type="button" class="btn primary" data-next>Next</button>
+              </div>
+            </div>
+
+            <!-- C2 Contact -->
+            <div class="pane">
+              <div class="grid">
+                <div><label>Full Name *</label><input id="nc_contact_name" required placeholder="Jane Doe"></div>
+                <div><label>Role / Title</label><input id="nc_contact_role" placeholder="Ops Manager"></div>
+                <div><label>Email *</label><input id="nc_contact_email" required type="email" placeholder="ops@customer.com"></div>
+                <div><label>Phone</label><input id="nc_contact_phone" placeholder="+1 555 0100"></div>
+              </div>
+              <div class="actions" style="justify-content:space-between">
+                <button type="button" class="btn ghost" data-prev>Back</button>
+                <button type="button" class="btn primary" data-next>Next</button>
+              </div>
+            </div>
+
+            <!-- C3 Location -->
+            <div class="pane">
+              <div class="grid">
+                <div class="full"><label>Location Name *</label><input id="loc_name" required placeholder="e.g., Snuffers – Rockwall"></div>
+                <div class="full"><label>Street *</label><input id="loc_street" required placeholder="777 S Central Expy"></div>
+                <div><label>City *</label><input id="loc_city" required placeholder="Richardson"></div>
+                <div><label>State *</label><input id="loc_state" required placeholder="TX"></div>
+                <div><label>Zip *</label><input id="loc_zip" required placeholder="75080-7400"></div>
+              </div>
+              <div class="actions" style="justify-content:space-between">
+                <button type="button" class="btn ghost" data-prev>Back</button>
+                <button id="btnCreateCustomer" class="btn primary" type="submit">Create Customer</button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <p class="sub">We’ll switch to the Existing Customer tab with the new Customer ID prefilled.</p>
+      </section>
+    </div>
+  </main>
+</section>
+
+<!-- RESULT MODAL -->
+<div id="resultModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="modalTitle" class="modal-title">Job created</h3>
+      <span id="emailBadge" class="badge-status">Email: …</span>
+    </div>
+    <div class="modal-body">
+      <div class="linklist" id="linkList"></div>
+    </div>
+    <div class="modal-actions">
+      <button id="openDocBtn" class="btn primary" type="button">
+        <svg class="icon" viewBox="0 0 24 24" style="margin-right:8px"><path d="M12 5v14M5 12h14"/></svg>
+        Open Document
+      </button>
+      <button id="closeModal" class="btn ghost" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast">Saved</div>
+
+<script src="{% static 'js/fsm_platform.js' %}"></script>
+</body>
+</html>
+
+
