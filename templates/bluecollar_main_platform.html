@@ -741,7 +741,688 @@
         </div>
     </nav>
 
- 
+    <!-- Service Provider Redirect Modal -->
+    <div id="redirect-modal" class="redirect-modal">
+        <div class="redirect-content">
+            <div class="redirect-icon">🔧</div>
+            <h2 class="redirect-title">Welcome, Service Provider!</h2>
+            <p class="redirect-description">
+                You're being redirected to the Field Service Management Platform where you can manage work orders, track equipment, and streamline your service operations.
+            </p>
+            <div class="redirect-countdown" id="redirect-countdown">Redirecting in 3 seconds...</div>
+            <button class="btn btn-primary" onclick="completeServiceProviderRedirect()">
+                Continue to Platform
+            </button>
+        </div>
+    </div>
+
+    <!-- User Type Selection Page -->
+    <div id="user-type" class="page active">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h1 style="font-size: 2.5rem; font-weight: 700; color: var(--dark); margin-bottom: 1rem;">Choose Your Account Type</h1>
+                <p style="font-size: 1.2rem; color: var(--gray-600); max-width: 600px; margin: 0 auto;">Select the option that best describes your business to get a customized experience.</p>
+            </div>
+            
+            <div class="user-type-grid">
+                <div class="user-type-card" data-type="restaurant" onclick="selectUserType('restaurant')">
+                    <span class="user-type-icon">🍽️</span>
+                    <h3 class="user-type-title">Restaurant Operator</h3>
+                    <p class="user-type-description">Manage kitchen equipment, reduce downtime, and optimize your restaurant operations with AI-powered monitoring.</p>
+                    <ul style="text-align: left; margin-top: 1rem; color: var(--gray-600);">
+                        <li>Equipment monitoring & alerts</li>
+                        <li>Predictive maintenance</li>
+                        <li>Cost optimization</li>
+                        <li>Vendor management</li>
+                    </ul>
+                </div>
+                
+                <div class="user-type-card" data-type="service" onclick="selectUserType('service')">
+                    <span class="user-type-icon">🔧</span>
+                    <h3 class="user-type-title">Service Provider</h3>
+                    <p class="user-type-description">Get qualified leads, optimize routes, and deliver exceptional service with AI-powered tools and insights.</p>
+                    <ul style="text-align: left; margin-top: 1rem; color: var(--gray-600);">
+                        <li>Pre-diagnosed service calls</li>
+                        <li>Route optimization</li>
+                        <li>Performance tracking</li>
+                        <li>Customer insights</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button id="continue-btn" class="btn btn-primary" onclick="showPage('signup')" disabled>Continue to Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Page -->
+    <div id="signup" class="page">
+        <div class="container">
+            <div class="card" style="max-width: 500px; margin: 0 auto;">
+                <div class="text-center mb-4">
+                    <h2 style="font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem;">Create Your Account</h2>
+                    <p style="color: var(--gray-600);">Start your 30-day free trial today</p>
+                </div>
+
+                <div id="signup-alert" class="hidden"></div>
+
+                <form id="signup-form" onsubmit="handleSignup(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company" class="form-label">Company Name</label>
+                        <input type="text" id="company" name="company" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-input" required minlength="8">
+                        <small style="color: var(--gray-500);">Minimum 8 characters</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <span style="font-size: 0.9rem; color: var(--gray-600);">I agree to the <a href="#" style="color: var(--primary);">Terms of Service</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a></span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                        Create Account
+                    </button>
+                </form>
+
+                <div style="text-align: center; margin: 1.5rem 0;">
+                    <span style="color: var(--gray-500);">or continue with</span>
+                </div>
+
+                <div style="display: grid; gap: 1rem;">
+                    <button class="btn btn-google" onclick="handleSocialLogin('google')">
+                        <span style="margin-right: 0.5rem;">🔓</span>
+                        Continue with Google
+                    </button>
+                    <button class="btn btn-microsoft" onclick="handleSocialLogin('microsoft')">
+                        <span style="margin-right: 0.5rem;">⊞</span>
+                        Continue with Microsoft
+                    </button>
+                </div>
+
+                <div class="text-center mt-4">
+                    <p style="color: var(--gray-600);">Already have an account? <a href="#" onclick="showPage('login')" style="color: var(--primary); font-weight: 600;">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login" class="page">
+        <div class="container">
+            <div class="card" style="max-width: 400px; margin: 0 auto;">
+                <div class="text-center mb-4">
+                    <h2 style="font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem;">Welcome Back</h2>
+                    <p style="color: var(--gray-600);">Sign in to your account</p>
+                </div>
+
+                <div id="login-alert" class="hidden"></div>
+
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail" class="form-label">Email Address</label>
+                        <input type="email" id="loginEmail" name="email" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" id="loginPassword" name="password" class="form-input" required>
+                    </div>
+
+                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span style="font-size: 0.9rem; color: var(--gray-600);">Remember me</span>
+                        </label>
+                        <a href="#" onclick="showPage('forgot-password')" style="color: var(--primary); font-size: 0.9rem;">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                        Sign In
+                    </button>
+                </form>
+
+                <div style="text-align: center; margin: 1.5rem 0;">
+                    <span style="color: var(--gray-500);">or continue with</span>
+                </div>
+
+                <div style="display: grid; gap: 1rem;">
+                    <button class="btn btn-google" onclick="handleSocialLogin('google')">
+                        <span style="margin-right: 0.5rem;">🔓</span>
+                        Continue with Google
+                    </button>
+                    <button class="btn btn-microsoft" onclick="handleSocialLogin('microsoft')">
+                        <span style="margin-right: 0.5rem;">⊞</span>
+                        Continue with Microsoft
+                    </button>
+                </div>
+
+                <div class="text-center mt-4">
+                    <p style="color: var(--gray-600);">Don't have an account? <a href="#" onclick="showPage('user-type')" style="color: var(--primary); font-weight: 600;">Sign up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Page -->
+    <div id="forgot-password" class="page">
+        <div class="container">
+            <div class="card" style="max-width: 400px; margin: 0 auto;">
+                <div class="text-center mb-4">
+                    <h2 style="font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem;">Reset Password</h2>
+                    <p style="color: var(--gray-600);">Enter your email to receive reset instructions</p>
+                </div>
+
+                <div id="forgot-alert" class="hidden"></div>
+
+                <form id="forgot-form" onsubmit="handleForgotPassword(event)">
+                    <div class="form-group">
+                        <label for="forgotEmail" class="form-label">Email Address</label>
+                        <input type="email" id="forgotEmail" name="email" class="form-input" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                        Send Reset Link
+                    </button>
+                </form>
+
+                <div class="text-center">
+                    <a href="#" onclick="showPage('login')" style="color: var(--primary); font-weight: 600;">← Back to Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page (Restaurant Operators Only) -->
+    <div id="dashboard" class="page">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Welcome to BlueCollar AI</h1>
+                <p class="dashboard-subtitle" id="dashboard-subtitle">Let's get your Restaurant Assets Pod set up for creating online service workorders for your equipment</p>
+            </div>
+
+            <div class="progress-steps">
+                <div class="progress-step completed">
+                    <div class="step-number">✓</div>
+                    <span>Account Created</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="progress-step active">
+                    <div class="step-number">2</div>
+                    <span>Profile Setup</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <span>Payment Info</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <span>Assets Setup</span>
+                </div>
+            </div>
+
+            <div class="dashboard-grid" id="dashboard-grid">
+                <div class="dashboard-card" onclick="showPage('profile-setup')">
+                    <div class="dashboard-card-icon">👤</div>
+                    <h3 class="dashboard-card-title">Complete Profile</h3>
+                    <p class="dashboard-card-description">Add your business details and preferences</p>
+                </div>
+
+                <div class="dashboard-card" onclick="showPage('payment')">
+                    <div class="dashboard-card-icon">💳</div>
+                    <h3 class="dashboard-card-title">Payment Information</h3>
+                    <p class="dashboard-card-description">Set up billing for when your trial ends</p>
+                </div>
+
+                <div class="dashboard-card" id="assets-card" onclick="showPage('restaurant-assets')">
+                    <div class="dashboard-card-icon">🏪</div>
+                    <h3 class="dashboard-card-title">Create Restaurant Assets Pod</h3>
+                    <p class="dashboard-card-description">Set up your restaurant locations and equipment inventory</p>
+                </div>
+
+                <div class="dashboard-card" onclick="showPage('profile-manage')">
+                    <div class="dashboard-card-icon">⚙️</div>
+                    <h3 class="dashboard-card-title">Account Settings</h3>
+                    <p class="dashboard-card-description">Manage your account and preferences</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Quick Start Guide</h3>
+                <div style="display: grid; gap: 1rem;">
+                    <div style="padding: 1rem; background: var(--gray-100); border-radius: 0.5rem; border-left: 4px solid var(--primary);">
+                        <strong>Step 1:</strong> Complete your profile setup to customize your experience
+                    </div>
+                    <div style="padding: 1rem; background: var(--gray-100); border-radius: 0.5rem; border-left: 4px solid var(--gray-300);">
+                        <strong>Step 2:</strong> Add payment information (no charges during trial)
+                    </div>
+                    <div style="padding: 1rem; background: var(--gray-100); border-radius: 0.5rem; border-left: 4px solid var(--gray-300);">
+                        <strong>Step 3:</strong> Create your restaurant assets and equipment inventory
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Setup Page -->
+    <div id="profile-setup" class="page">
+        <div class="container">
+            <div class="profile-form">
+                <div class="text-center mb-4">
+                    <h2 style="font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem;">Complete Your Profile</h2>
+                    <p style="color: var(--gray-600);">Tell us more about your business</p>
+                </div>
+
+                <div class="card">
+                    <form id="profile-setup-form" onsubmit="handleProfileSetup(event)">
+                        <div class="form-group">
+                            <label class="form-label">Profile Photo</label>
+                            <div class="file-upload" onclick="document.getElementById('avatar').click()">
+                                <div class="file-upload-icon">📷</div>
+                                <p>Click to upload profile photo</p>
+                                <input type="file" id="avatar" accept="image/*" style="display: none;" onchange="previewImage(this)">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="businessType" class="form-label">Business Type</label>
+                                <select id="businessType" name="businessType" class="form-select" required>
+                                    <option value="">Select type</option>
+                                    <option value="restaurant">Restaurant</option>
+                                    <option value="food-truck">Food Truck</option>
+                                    <option value="catering">Catering</option>
+                                    <option value="service-company">Service Company</option>
+                                    <option value="freelancer">Freelancer</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="employees" class="form-label">Number of Employees</label>
+                                <select id="employees" name="employees" class="form-select" required>
+                                    <option value="">Select range</option>
+                                    <option value="1-5">1-5</option>
+                                    <option value="6-20">6-20</option>
+                                    <option value="21-50">21-50</option>
+                                    <option value="51-100">51-100</option>
+                                    <option value="100+">100+</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address" class="form-label">Business Address</label>
+                            <input type="text" id="address" name="address" class="form-input" placeholder="Street address" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" id="city" name="city" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state" class="form-label">State/Province</label>
+                                <input type="text" id="state" name="state" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zip" class="form-label">ZIP/Postal Code</label>
+                                <input type="text" id="zip" name="zip" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="equipmentTypes" class="form-label">Equipment Types You Use</label>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="equipment" value="refrigeration">
+                                    <span>Refrigeration</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="equipment" value="cooking">
+                                    <span>Cooking Equipment</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="equipment" value="dishwashing">
+                                    <span>Dishwashing</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="equipment" value="hvac">
+                                    <span>HVAC</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="equipment" value="pos">
+                                    <span>POS Systems</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                    <input type="checkbox" name="equipment" value="other">
+                                    <span>Other</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="timezone" class="form-label">Timezone</label>
+                            <select id="timezone" name="timezone" class="form-select" required>
+                                <option value="">Select timezone</option>
+                                <option value="EST">Eastern Time (EST)</option>
+                                <option value="CST">Central Time (CST)</option>
+                                <option value="MST">Mountain Time (MST)</option>
+                                <option value="PST">Pacific Time (PST)</option>
+                            </select>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 2rem;">
+                            <button type="button" class="btn btn-outline" onclick="showPage('dashboard')">← Back to Dashboard</button>
+                            <button type="submit" class="btn btn-primary">Save Profile</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Information Page -->
+    <div id="payment" class="page">
+        <div class="container">
+            <div class="profile-form">
+                <div class="text-center mb-4">
+                    <h2 style="font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem;">Payment Information</h2>
+                    <p style="color: var(--gray-600);">Your trial is free for 30 days. No charges until trial ends.</p>
+                </div>
+
+                <div class="card">
+                    <div class="alert alert-warning">
+                        <strong>Free Trial Active:</strong> You won't be charged until your 30-day trial expires. You can cancel anytime.
+                    </div>
+
+                    <form id="payment-form" onsubmit="handlePayment(event)">
+                        <div class="form-group">
+                            <label for="cardNumber" class="form-label">Card Number</label>
+                            <input type="text" id="cardNumber" name="cardNumber" class="form-input" placeholder="1234 5678 9012 3456" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry" class="form-label">Expiry Date</label>
+                                <input type="text" id="expiry" name="expiry" class="form-input" placeholder="MM/YY" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="text" id="cvv" name="cvv" class="form-input" placeholder="123" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardName" class="form-label">Name on Card</label>
+                            <input type="text" id="cardName" name="cardName" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="billingAddress" class="form-label">Billing Address</label>
+                            <input type="text" id="billingAddress" name="billingAddress" class="form-input" placeholder="Street address" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="billingCity" class="form-label">City</label>
+                                <input type="text" id="billingCity" name="billingCity" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="billingState" class="form-label">State</label>
+                                <input type="text" id="billingState" name="billingState" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="billingZip" class="form-label">ZIP Code</label>
+                                <input type="text" id="billingZip" name="billingZip" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 2rem;">
+                            <button type="button" class="btn btn-outline" onclick="showPage('dashboard')">← Back to Dashboard</button>
+                            <button type="submit" class="btn btn-primary">Save Payment Method</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Restaurant Assets Pod Page -->
+    <div id="restaurant-assets" class="page">
+        <div class="container">
+            <div class="profile-form">
+                <div class="text-center mb-4">
+                    <h2 style="font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem;">Create Restaurant Assets Pod</h2>
+                    <p style="color: var(--gray-600);">Set up your restaurant locations and equipment for monitoring and service management</p>
+                </div>
+
+                <div class="card">
+                    <div id="assets-alert" class="hidden"></div>
+                    
+                    <form id="assets-form" onsubmit="handleAssetsCreation(event)">
+                        <div class="location-container" id="locations-container">
+                            <!-- Primary Location -->
+                            <div class="location-card" data-location="1">
+                                <div class="location-header">
+                                    <div class="location-title">
+                                        📍 Primary Location (Billing Address)
+                                    </div>
+                                </div>
+                                
+                                <div class="location-content">
+                                    <div class="form-group">
+                                        <label for="locationName1" class="form-label">Location Name</label>
+                                        <input type="text" id="locationName1" name="locationName1" class="form-input" placeholder="e.g., Downtown Main Restaurant" required>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group" style="flex: 2;">
+                                            <label for="businessNumber1" class="form-label">Business Number / Tax ID</label>
+                                            <input type="text" id="businessNumber1" name="businessNumber1" class="form-input" required>
+                                        </div>
+                                        <div class="form-group" style="flex: 1; display: flex; align-items: end;">
+                                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; margin-bottom: 0.75rem;">
+                                                <input type="checkbox" id="taxExempt1" name="taxExempt1">
+                                                <span style="font-size: 0.9rem; color: var(--gray-600);">Tax Exempt</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="streetAddress1" class="form-label">Street Address</label>
+                                        <input type="text" id="streetAddress1" name="streetAddress1" class="form-input" required>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="aptSuite1" class="form-label">Apt/Suite/Unit #</label>
+                                            <input type="text" id="aptSuite1" name="aptSuite1" class="form-input">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="locationCity1" class="form-label">City</label>
+                                            <input type="text" id="locationCity1" name="locationCity1" class="form-input" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="locationState1" class="form-label">State</label>
+                                            <input type="text" id="locationState1" name="locationState1" class="form-input" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="locationZip1" class="form-label">ZIP</label>
+                                            <input type="text" id="locationZip1" name="locationZip1" class="form-input" required>
+                                        </div>
+                                    </div>
+
+                                    <div style="display: flex; gap: 2rem; margin: 1rem 0;">
+                                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                            <input type="checkbox" id="primaryLocation1" name="primaryLocation1" checked>
+                                            <span style="color: var(--gray-600);">Primary Location</span>
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                            <input type="checkbox" id="billingAddress1" name="billingAddress1" checked>
+                                            <span style="color: var(--gray-600);">Billing Address</span>
+                                        </label>
+                                    </div>
+
+                                    <!-- Equipment for Location 1 -->
+                                    <div class="equipment-container" id="equipment-container-1">
+                                        <h4 style="margin: 1.5rem 0 1rem 0; color: var(--gray-800); border-bottom: 2px solid var(--gray-200); padding-bottom: 0.5rem;">Equipment at this Location</h4>
+                                        
+                                        <div class="equipment-item" data-equipment="1" data-location="1">
+                                            <div class="equipment-header">
+                                                <div class="equipment-title">Equipment 1</div>
+                                                <button type="button" class="equipment-remove" onclick="removeEquipment(1, 1)" style="display: none;" id="remove-equipment-1-1">
+                                                    🗑️ Remove
+                                                </button>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="equipmentType1_1" class="form-label">Equipment Type</label>
+                                                <select id="equipmentType1_1" name="equipmentType1_1" class="form-select" required>
+                                                    <option value="">Select equipment type</option>
+                                                    <option value="kitchen-appliances">Kitchen Appliances</option>
+                                                    <option value="refrigeration">Refrigeration</option>
+                                                    <option value="cooking-equipment">Cooking Equipment</option>
+                                                    <option value="dishwashing">Dishwashing Equipment</option>
+                                                    <option value="hvac">HVAC Systems</option>
+                                                    <option value="pos-systems">POS Systems</option>
+                                                    <option value="food-prep">Food Prep Equipment</option>
+                                                    <option value="beverage">Beverage Equipment</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label for="manufacturer1_1" class="form-label">Manufacturer</label>
+                                                    <input type="text" id="manufacturer1_1" name="manufacturer1_1" class="form-input" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="modelNumber1_1" class="form-label">Model #</label>
+                                                    <input type="text" id="modelNumber1_1" name="modelNumber1_1" class="form-input" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="serialNumber1_1" class="form-label">Serial #</label>
+                                                    <input type="text" id="serialNumber1_1" name="serialNumber1_1" class="form-input" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-label">Equipment Photos</label>
+                                                <div class="file-upload" onclick="document.getElementById('equipmentPhoto1_1').click()">
+                                                    <div class="file-upload-icon">📷</div>
+                                                    <p>Choose files or drag and drop photos here</p>
+                                                    <input type="file" id="equipmentPhoto1_1" name="equipmentPhoto1_1" accept="image/*" multiple style="display: none;" onchange="previewEquipmentImage(this, 1, 1)">
+                                                </div>
+                                                <div id="equipment-preview-1-1" class="equipment-preview"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn btn-outline" onclick="addEquipment(1)" style="margin: 1rem 0; width: 100%;">
+                                        ➕ Add Equipment to this Location
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin: 2rem 0;">
+                            <button type="button" class="btn btn-secondary" onclick="addLocation()" style="width: 100%;">
+                                ➕ Add More Locations
+                            </button>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 2rem;">
+                            <button type="button" class="btn btn-outline" onclick="showPage('dashboard')">← Back to Dashboard</button>
+                            <button type="submit" class="btn btn-primary">Create Restaurant Assets Pod</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile-manage" class="page">
+        <div class="container">
+            <div class="profile-form">
+                <div class="text-center mb-4">
+                    <h2 style="font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem;">Account Settings</h2>
+                    <p style="color: var(--gray-600);">Manage your account information and preferences</p>
+                </div>
+
+                <div class="card">
+                    <form id="account-form" onsubmit="handleAccountUpdate(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="updateFirstName" class="form-label">First Name</label>
+                                <input type="text" id="updateFirstName" name="firstName" class="form-input" value="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="updateLastName" class="form-label">Last Name</label>
+                                <input type="text" id="updateLastName" name="lastName" class="form-input" value="Doe" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="updateEmail" class="form-label">Email Address</label>
+                            <input type="email" id="updateEmail" name="email" class="form-input" value="john@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="updatePhone" class="form-label">Phone Number</label>
+                            <input type="tel" id="updatePhone" name="phone" class="form-input" value="+1 (555) 123-4567" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="updateCompany" class="form-label">Company Name</label>
+                            <input type="text" id="updateCompany" name="company" class="form-input" value="Joe's Restaurant" required>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 2rem;">
+                            <button type="button" class="btn btn-outline" onclick="showPage('dashboard')">← Back to Dashboard</button>
+                            <div style="display: flex; gap: 1rem;">
+                                <button type="submit" class="btn btn-primary">Update Account</button>
+                                <button type="button" class="btn btn-secondary" onclick="logout()">Sign Out</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Application State Management
@@ -1001,6 +1682,12 @@
                 // Initialize field service platform functionality
                 setTimeout(() => {
                     initializeFieldServicePlatform();
+                    // Bind customer autocomplete once the embedded DOM exists
+                    try {
+                        if (typeof initCustomerAutocompleteBindings === 'function') {
+                            initCustomerAutocompleteBindings();
+                        }
+                    } catch {}
                     console.log('Field Service Platform fully loaded!');
                 }, 100);
                 
@@ -1645,21 +2332,23 @@
                                                 </button>
                                             </div>
 
-
-
-                                            
                                             <!-- Existing Customer Tab Content -->
                                             <div id="fs-existing-customer-tab" class="fs-tab-content" style="display: block; padding: 2rem;">
                                                 <div style="text-align: center; margin-bottom: 2rem;">
                                                     <h3 style="font-size: 1.5rem; font-weight: 700; color: #000000; margin-bottom: 0.5rem;">Create Job for Existing Customer</h3>
                                                     <p style="color: #6b7280;">Quick job creation for established customers</p>
                                                 </div>
+
                                                 
                                                 <div style="display: grid; gap: 1.5rem;">
                                                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
-                                                        <div>
+                                                        <div style="position: relative;">
                                                             <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Customer Name *</label>
-                                                            <input type="text" id="fs-customer-name" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="e.g., Snuffers Restaurant Group">
+                                                            <input type="text" id="fs-customer-name" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="Start typing customer name...">
+                                                            <!-- Autocomplete dropdown -->
+                                                            <div id="fs-customer-autocomplete" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #d1d5db; border-top: none; border-radius: 0 0 8px 8px; max-height: 200px; overflow-y: auto; z-index: 1000; display: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                                                <ul id="fs-autocomplete-list" style="list-style: none; margin: 0; padding: 0;"></ul>
+                                                            </div>
                                                         </div>
                                                         <div>
                                                             <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Service Location *</label>
@@ -1814,8 +2503,6 @@
                     </div>
                 </body>
                 </html>
-
-
             `;
         }
 
@@ -1842,6 +2529,9 @@
             }, 30000);
 
             console.log('Field Service Management Platform initialized');
+            // Load Call Center by default so the Create Job UI is visible
+            try { window.fsLoadContent && window.fsLoadContent('call-center'); } catch {}
+            try { window.fsSwitchCallCenterTab && window.fsSwitchCallCenterTab('existing'); } catch {}
         }
 
         // Field Service Platform Functions
@@ -2154,60 +2844,399 @@
             }
         };
 
-        window.fsCreateJob = function() {
-            const customerName = document.getElementById('fs-customer-name').value;
-            const serviceLocation = document.getElementById('fs-service-location').value;
-            const jobCategory = document.getElementById('fs-job-category').value;
-            const jobDescription = document.getElementById('fs-job-description').value;
+        // ====== API wrappers for customer search ======
+        const FS_API = {
+            search: async (q, opts = {}) => {
+                const url = `${window.location.origin}/sf/customers/search?q=${encodeURIComponent(q)}`;
+                const attempt = async () => {
+                    const resp = await fetch(url, { signal: opts.signal });
+                    let data = [];
+                    try { data = await resp.json(); } catch { data = []; }
+                    if (!resp.ok) {
+                        const msg = (data && (data.error || data.message)) || `HTTP ${resp.status}`;
+                        throw new Error(msg);
+                    }
+                    return data;
+                };
+                try {
+                    return await attempt();
+                } catch (e) {
+                    // Ignore aborts; rethrow them
+                    if (e && (e.name === 'AbortError' || e.message === 'The user aborted a request.')) throw e;
+                    // Network flake: retry once quickly
+                    await new Promise(r => setTimeout(r, 150));
+                    return await attempt();
+                }
+            },
+            getCustomer: (id) => fetch(`/sf/customers/${id}`).then(r => r.json()),
+            createCustomer: (payload) => fetch(`/sf/customers`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)}).then(async r => {
+                const j = await r.json().catch(() => ({}));
+                if (!r.ok) throw new Error(j.error || j.message || 'Create customer failed');
+                return j;
+            }),
+            createJob: (payload) => fetch(`/sf/jobs`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)}).then(async r => {
+                const j = await r.json().catch(() => ({}));
+                if (!r.ok) throw new Error((j.response && JSON.stringify(j.response)) || j.error || j.message || 'Create job failed');
+                return j;
+            })
+        };
 
-            if (!customerName || !serviceLocation || !jobCategory || !jobDescription) {
-                fsShowNotification('Please fill in all required fields', 'error');
+        // ====== Customer autocomplete functionality ======
+        const notify = (msg, type = 'info') => {
+            if (typeof window.fsShowNotification === 'function') {
+                try { window.fsShowNotification(msg, type); } catch {}
+            } else {
+                console.log(`[${type}] ${msg}`);
+            }
+        };
+
+        // Small loader row inside the autocomplete dropdown
+        function showAutocompleteLoading(show) {
+            const autocompleteList = document.getElementById('fs-autocomplete-list');
+            const autocompleteBox = document.getElementById('fs-customer-autocomplete');
+            if (!autocompleteList || !autocompleteBox) return;
+            if (show) {
+                autocompleteList.innerHTML = '';
+                const li = document.createElement('li');
+                li.style.cssText = 'display:flex; align-items:center; gap:8px; padding:12px; color:#6b7280; font-size:12px;';
+                li.innerHTML = `
+                    <svg width="18" height="18" viewBox="0 0 50 50" aria-hidden="true">
+                        <circle cx="25" cy="25" r="20" stroke="#1f59d8" stroke-width="5" fill="none" stroke-linecap="round">
+                            <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="0.8s" values="0 25 25;360 25 25"></animateTransform>
+                        </circle>
+                    </svg>
+                    <span>Searching customers…</span>`;
+                autocompleteList.appendChild(li);
+                autocompleteBox.style.display = 'block';
+            } else {
+                // no-op; next renderer will overwrite
+            }
+        }
+        let currentSearchTimeout = null;
+        let selectedCustomerId = null;
+        let autocompleteInteracting = false;
+        let currentSearchController = null;
+
+        function renderAutocompleteResults(items) {
+            const autocompleteList = document.getElementById('fs-autocomplete-list');
+            const autocompleteBox = document.getElementById('fs-customer-autocomplete');
+            
+            autocompleteList.innerHTML = '';
+            
+            if (!items || !items.length) {
+                // Show an empty-state row instead of hiding, for clarity
+                const li = document.createElement('li');
+                li.style.cssText = 'padding: 12px; color: #6b7280; font-size: 12px;';
+                li.textContent = 'No customer found';
+                autocompleteList.appendChild(li);
+                autocompleteBox.style.display = 'block';
                 return;
             }
 
-            fsShowNotification('Creating job from call center...', 'info');
-            setTimeout(() => {
-                const jobId = 'JOB-' + Date.now().toString().substr(-6);
-                fsShowNotification(`Job ${jobId} created successfully for ${customerName}!`, 'success');
-                window.fsStats.totalTickets++;
-                window.fsStats.activeJobs++;
+            // Limit to 10 results for better UX
+            const limitedItems = items.slice(0, 10);
+            
+            for (const item of limitedItems) {
+                const name = item.customer_name || item.name || '(no name)';
+                const loc = (item.locations && item.locations[0]) || {};
+                const city = loc.city || item.city || '';
+                const state = (loc.state_prov || item.state || '');
+                const addr = [loc.street_1 || loc.address, loc.postal_code || loc.zip].filter(Boolean).join(', ');
                 
+                const li = document.createElement('li');
+                li.style.cssText = 'padding: 12px; cursor: pointer; border-bottom: 1px solid #f3f4f6; transition: background-color 0.2s; display:flex; align-items:center; justify-content:space-between; gap:8px;';
+                li.setAttribute('role', 'option');
+                li.innerHTML = `
+                    <div style="flex:1; min-width:0;">
+                        <div style="font-weight: 600; color: #1f2937; margin-bottom: 4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${name}</div>
+                        <div style="color: #6b7280; font-size: 12px; margin-bottom: 2px;">ID: ${item.id || 'N/A'} — ${city} ${state}</div>
+                        ${addr ? `<div style=\"color: #9ca3af; font-size: 11px;\">${addr}</div>` : ''}
+                    </div>
+                    <div style="flex:0 0 auto;">
+                        <button class="fs-btn fs-btn-primary" data-use="${item.id || ''}" style="padding:6px 10px; font-size:12px; border-radius:8px;">Use this customer</button>
+                    </div>
+                `;
+                
+                // Hover effect
+                li.addEventListener('mouseenter', () => {
+                    li.style.backgroundColor = '#f3f4f6';
+                });
+                li.addEventListener('mouseleave', () => {
+                    li.style.backgroundColor = 'transparent';
+                });
+                
+                // Select early on various inputs to handle trackpad/touch reliably
+                const selectHandler = async (e) => {
+                    if (e.type === 'mousedown' && e.button !== 0) return; // ignore non-left
+                    e.preventDefault();
+                    e.stopPropagation();
+                    autocompleteInteracting = true;
+                    await selectCustomer(item);
+                };
+                li.addEventListener('pointerdown', selectHandler, { passive: false });
+                li.addEventListener('mousedown', selectHandler, { passive: false });
+                li.addEventListener('touchstart', selectHandler, { passive: false });
+                li.addEventListener('click', selectHandler);
+
+                // Explicit button click (avoids tap-to-click quirks)
+                const btn = li.querySelector('button[data-use]');
+                if (btn) {
+                    btn.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        autocompleteInteracting = true;
+                        await selectCustomer(item);
+                    });
+                }
+                
+                autocompleteList.appendChild(li);
+            }
+            
+            autocompleteBox.style.display = 'block';
+        }
+
+        async function selectCustomer(customerData) {
+            const customerNameInput = document.getElementById('fs-customer-name');
+            const serviceLocationInput = document.getElementById('fs-service-location');
+            const autocompleteBox = document.getElementById('fs-customer-autocomplete');
+            
+            try {
+                // If we only have basic data, fetch full customer details
+                let fullCustomerData = customerData;
+                if (customerData.id && (!customerData.locations || !customerData.contacts)) {
+                    notify('Loading customer details...', 'info');
+                    fullCustomerData = await FS_API.getCustomer(customerData.id);
+                }
+                
+                // Set the customer name
+                customerNameInput.value = fullCustomerData.customer_name || fullCustomerData.name || '';
+                selectedCustomerId = fullCustomerData.id;
+                
+                // Prefill service location
+                const loc = (fullCustomerData.locations && fullCustomerData.locations[0]) || {};
+                serviceLocationInput.value = loc.nickname || loc.name || customerNameInput.value || '';
+                
+                // Hide autocomplete
+                autocompleteBox.style.display = 'none';
+                
+                notify(`Customer "${customerNameInput.value}" selected!`, 'success');
+                
+            } catch (e) {
+                notify('Error loading customer: ' + (e.message || e), 'error');
+            }
+        }
+
+        async function performCustomerAutocomplete() {
+            const query = document.getElementById('fs-customer-name').value.trim();
+            console.log('[Autocomplete] query =', query);
+            
+            if (query.length < 2) {
+                document.getElementById('fs-customer-autocomplete').style.display = 'none';
+                selectedCustomerId = null;
+                return;
+            }
+            
+            try {
+                showAutocompleteLoading(true);
+                // Abort previous in-flight search, if any
+                if (currentSearchController) {
+                    try { currentSearchController.abort(); } catch {}
+                }
+                currentSearchController = new AbortController();
+                const items = await FS_API.search(query, { signal: currentSearchController.signal });
+                console.log('[Autocomplete] results =', Array.isArray(items) ? items.length : items);
+                renderAutocompleteResults(items);
+            } catch (err) {
+                if (err && (err.name === 'AbortError' || err.message === 'The user aborted a request.')) {
+                    return; // ignore aborted searches
+                }
+                console.error('Autocomplete search failed:', err);
+                const autocompleteList = document.getElementById('fs-autocomplete-list');
+                const autocompleteBox = document.getElementById('fs-customer-autocomplete');
+                autocompleteList.innerHTML = '';
+                const li = document.createElement('li');
+                li.style.cssText = 'padding: 12px; color: #b91c1c; font-size: 12px;';
+                li.textContent = `Search failed: ${err.message || err}`;
+                autocompleteList.appendChild(li);
+                autocompleteBox.style.display = 'block';
+                notify('Customer search failed', 'error');
+            }
+        }
+
+        // Debounce function for autocomplete
+        const debounceAutocomplete = (fn, ms = 300) => {
+            return (...args) => {
+                clearTimeout(currentSearchTimeout);
+                currentSearchTimeout = setTimeout(() => fn(...args), ms);
+            };
+        };
+
+        function initCustomerAutocompleteBindings() {
+            const customerNameInput = document.getElementById('fs-customer-name');
+            const autocompleteBox = document.getElementById('fs-customer-autocomplete');
+            
+            if (customerNameInput) {
+                // Input event with debounce
+                customerNameInput.addEventListener('input', debounceAutocomplete(performCustomerAutocomplete, 300));
+                
+                // Focus event
+                customerNameInput.addEventListener('focus', () => {
+                    if (customerNameInput.value.trim().length >= 2) {
+                        performCustomerAutocomplete();
+                    }
+                });
+                
+                // Mark interactions inside dropdown so blur doesn't close prematurely
+                if (autocompleteBox) {
+                    autocompleteBox.addEventListener('pointerdown', () => { autocompleteInteracting = true; });
+                }
+
+                // Blur event (hide autocomplete after a short delay to allow pointerdown to run)
+                customerNameInput.addEventListener('blur', () => {
+            setTimeout(() => {
+                        if (autocompleteInteracting) { autocompleteInteracting = false; return; }
+                        autocompleteBox.style.display = 'none';
+                    }, 120);
+                });
+                
+                // Keyboard navigation
+                customerNameInput.addEventListener('keydown', (e) => {
+                    const autocompleteList = document.getElementById('fs-autocomplete-list');
+                    const items = autocompleteList.querySelectorAll('li');
+                    
+                    if (e.key === 'Escape') {
+                        autocompleteBox.style.display = 'none';
+                    } else if (e.key === 'ArrowDown' && items.length > 0) {
+                        e.preventDefault();
+                        // make first item focusable and focus
+                        const first = items[0];
+                        first.setAttribute('tabindex', '0');
+                        first.focus();
+                    }
+                });
+                console.log('[Autocomplete] bindings attached');
+            }
+            
+            // Hide autocomplete when clicking outside
+            document.addEventListener('click', (e) => {
+                if (autocompleteInteracting) { autocompleteInteracting = false; return; }
+                if (!e.target.closest('#fs-customer-name') && !e.target.closest('#fs-customer-autocomplete')) {
+                    autocompleteBox.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize autocomplete functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            initCustomerAutocompleteBindings();
+        });
+        // Also try binding immediately in case script loads after DOM
+        if (document.getElementById('fs-customer-name')) {
+            try { initCustomerAutocompleteBindings(); } catch {}
+        }
+
+        function collectFsJobPayload(){
+            return {
+                customer_id: (typeof selectedCustomerId !== 'undefined' && selectedCustomerId) ? selectedCustomerId : null,
+                customer_name: (document.getElementById('fs-customer-name')?.value || '').trim(),
+                service_location: {
+                    name: (document.getElementById('fs-service-location')?.value || '').trim(),
+                    address: null,
+                    city: null,
+                    state: null,
+                    zip: null
+                },
+                category: document.getElementById('fs-job-category')?.value || '',
+                priority: document.getElementById('fs-job-priority')?.value || 'Normal',
+                problem_details: (document.getElementById('fs-job-description')?.value || '').trim(),
+                contact: {
+                    name: (document.getElementById('fs-contact-name')?.value || '').trim() || null,
+                    phone: (document.getElementById('fs-contact-phone')?.value || '').trim() || null,
+                    email: (document.getElementById('fs-contact-email')?.value || '').trim() || null
+                },
+                status: null
+            };
+        }
+
+        window.fsCreateJob = async function(){
+            const p = collectFsJobPayload();
+            if (!p.customer_name || !p.service_location?.name || !p.category || !p.problem_details) {
+                if (typeof fsShowNotification === 'function') fsShowNotification('Please fill in all required fields', 'error');
+                return;
+            }
+            const btn = Array.from(document.querySelectorAll('button'))
+                .find(b => (b.getAttribute('onclick')||'').includes('fsCreateJob'));
+            if (btn){ btn.disabled = true; btn.textContent = 'Creating…'; }
+            try{
+                const res = await FS_API.createJob(p);
+                const jobId = res.job_id || (res.service_fusion && res.service_fusion.id) || 'N/A';
+                const jobNum = res.job_number || (res.service_fusion && res.service_fusion.number) || 'N/A';
+                if (typeof fsShowNotification === 'function') fsShowNotification(`Job ${jobNum} (${jobId}) created for ${p.customer_name}`, 'success');
+                try {
+                    window.fsStats.totalTickets++; window.fsStats.activeJobs++;
                 const totalTicketsEl = document.getElementById('fs-total-tickets');
                 const activeJobsEl = document.getElementById('fs-active-jobs');
-                
                 if (totalTicketsEl) totalTicketsEl.textContent = window.fsStats.totalTickets;
                 if (activeJobsEl) activeJobsEl.textContent = window.fsStats.activeJobs;
-                
-                // Clear form
+                } catch{}
+                // Clear inputs
                 document.getElementById('fs-customer-name').value = '';
                 document.getElementById('fs-service-location').value = '';
                 document.getElementById('fs-job-category').value = '';
+                const pr = document.getElementById('fs-job-priority'); if (pr) pr.value = 'Normal';
                 document.getElementById('fs-job-description').value = '';
-            }, 2000);
+            }catch(err){
+                if (typeof fsShowNotification === 'function') fsShowNotification(err.message || 'Create job failed', 'error');
+            }finally{
+                if (btn){ btn.disabled = false; btn.textContent = '➕ Create Job'; }
+            }
         };
 
-        window.fsCreateNewCustomer = function() {
-            const companyName = document.getElementById('fs-company-name').value;
-            const contactPerson = document.getElementById('fs-contact-person').value;
-            const phoneNumber = document.getElementById('fs-contact-phone').value;
-            const email = document.getElementById('fs-contact-email').value;
+        window.fsCreateNewCustomer = async function() {
+            const companyName = (document.getElementById('fs-company-name')?.value || '').trim();
+            const contactPerson = (document.getElementById('fs-contact-person')?.value || '').trim();
+            const phoneNumber = (document.getElementById('fs-contact-phone')?.value || '').trim();
+            const email = (document.getElementById('fs-contact-email')?.value || '').trim();
 
-            if (!companyName || !contactPerson || !phoneNumber || !email) {
-                fsShowNotification('Please fill in all required fields', 'error');
+            if (!companyName || !contactPerson || !email) {
+                if (typeof fsShowNotification === 'function') fsShowNotification('Please fill Company, Contact and Email', 'error');
                 return;
             }
 
-            fsShowNotification('Creating new customer...', 'info');
-            setTimeout(() => {
-                const customerId = 'CUST-' + Date.now().toString().substr(-6);
-                fsShowNotification(`Customer ${customerId} created successfully for ${companyName}!`, 'success');
-                
-                // Clear form
+            const payload = {
+                customer_name: companyName,
+                contact: { name: contactPerson, email: email, phone: phoneNumber || null }
+                // service_location optional here; can be added later if UI collects it
+            };
+
+            const btn = Array.from(document.querySelectorAll('button'))
+                .find(b => (b.getAttribute('onclick')||'').includes('fsCreateNewCustomer'));
+            if (btn){ btn.disabled = true; btn.textContent = 'Creating…'; }
+            try{
+                const res = await FS_API.createCustomer(payload);
+                if (typeof fsShowNotification === 'function') fsShowNotification(`Customer created: ${res.customer_name || companyName}`, 'success');
+
+                // Prefill Existing Job tab with new customer
+                const loc = (res.locations && res.locations[0]) || {};
+                selectedCustomerId = res.id || res.customer_id || null;
+                const nameInput = document.getElementById('fs-customer-name');
+                const locInput = document.getElementById('fs-service-location');
+                if (nameInput) nameInput.value = res.customer_name || companyName;
+                if (locInput) locInput.value = loc.nickname || loc.name || (nameInput?.value || '');
+
+                // Switch to Existing tab to proceed with job creation
+                try { window.fsSwitchCallCenterTab && window.fsSwitchCallCenterTab('existing'); } catch{}
+
+                // Clear New Customer form
                 document.getElementById('fs-company-name').value = '';
                 document.getElementById('fs-contact-person').value = '';
                 document.getElementById('fs-contact-phone').value = '';
                 document.getElementById('fs-contact-email').value = '';
-            }, 2000);
+            }catch(err){
+                if (typeof fsShowNotification === 'function') fsShowNotification(err.message || 'Create customer failed', 'error');
+            }finally{
+                if (btn){ btn.disabled = false; btn.textContent = '➕ Create New Customer'; }
+            }
         };
 
         // Backend Integration & Scaling Endpoints
@@ -3515,371 +4544,6 @@
         console.log('%cBlueCollar AI Platform', 'color: #59ACE1; font-size: 24px; font-weight: bold;');
         console.log('%cService Provider Redirect Integration Active', 'color: #10B981; font-size: 14px;');
         console.log('Ready for deployment and scaling with backend integration.');
-        /* ====== helpers ====== */
-const $=(q)=>document.querySelector(q), $$=(q)=>Array.from(document.querySelectorAll(q));
-const show=(el,yes=true)=>{el.style.display=yes?'':'none'};
-const overlay=$('#overlay');
-const startLoading=()=>overlay.classList.add('show');
-const endLoading=()=>overlay.classList.remove('show');
-$('#today').textContent=new Date().toLocaleDateString();
-$('#logoutBtn').onclick = ()=>{ history.back(); };
-/* sidebar shortcuts */
-$('#navIntegration').onclick = (e)=>{ e.preventDefault(); window.location.href = '{% url "mapping" %}'; };
-$('#navFsm').onclick = (e)=>{ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); };
-$('#navWarranty').onclick = (e)=>{ e.preventDefault(); alert('Coming soon'); };
-$('#navStatus').onclick = (e)=>{ e.preventDefault(); alert('Status: OK'); };
-
-/* ====== Tabs ====== */
-const showExisting=()=>{ $('#tabExisting').classList.add('active'); $('#tabNew').classList.remove('active'); $('#tabDirectory').classList.remove('active'); show($('#panelExisting'),true); show($('#panelNew'),false); show($('#panelDirectory'),false); };
-const showNew=()=>{ $('#tabNew').classList.add('active'); $('#tabExisting').classList.remove('active'); $('#tabDirectory').classList.remove('active'); show($('#panelExisting'),false); show($('#panelNew'),true); show($('#panelDirectory'),false); };
-const showDirectory=()=>{ $('#tabDirectory').classList.add('active'); $('#tabExisting').classList.remove('active'); $('#tabNew').classList.remove('active'); show($('#panelExisting'),false); show($('#panelNew'),false); show($('#panelDirectory'),true); };
-$('#tabExisting').onclick=showExisting; $('#tabNew').onclick=showNew; $('#tabDirectory').onclick=showDirectory;
-
-/* ====== Stepper engine (robust) ====== */
-function stepperInit(stepsContainerSel, paneSelector){
-  const stepsContainer=$(stepsContainerSel);
-  const steps=$$(`${stepsContainerSel} .step`);
-  const panes=$$(paneSelector);
-  const maxStep = Math.max(steps.length, panes.length);
-  function setActive(n){
-    const target = Math.min(Math.max(1,n), maxStep);
-    steps.forEach((s,i)=>{ s.classList.toggle('active', i===target-1); s.classList.toggle('done', i<target-1); });
-    panes.forEach(p=>{ p.style.display = (parseInt(p.getAttribute('data-step'),10)===target)?'grid':'none'; });
-  }
-  setActive(1);
-  // global next/back handlers
-  document.addEventListener('click', (e)=>{
-    const nextBtn=e.target.closest('[data-next]'); const backBtn=e.target.closest('[data-back]');
-    if(nextBtn){
-      const currentPane = panes.find(p => p.style.display==='grid') || panes[0];
-      const cStep = parseInt(currentPane.getAttribute('data-step'),10) || 1;
-      setActive(cStep+1);
-    }
-    if(backBtn){
-      const currentPane = panes.find(p => p.style.display==='grid') || panes[0];
-      const cStep = parseInt(currentPane.getAttribute('data-step'),10) || 1;
-      setActive(cStep-1);
-    }
-  });
-  return { setActive };
-}
-const jobStepper = stepperInit('#jobStepper', '.job-step');
-const custStepper = stepperInit('#custStepper', '.cust-step');
-
-/* ====== API wrappers ====== */
-const API = {
-  search: (q)=> fetch(`/sf/customers/search?q=${encodeURIComponent(q)}`).then(r=>r.json()),
-  getCustomer: (id)=> fetch(`/sf/customers/${id}`).then(r=>r.json()),
-  createCustomer: (payload)=> fetch(`/sf/customers`, {method:'POST',headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)}).then(async r=>{const j=await r.json().catch(()=>({})); if(!r.ok) throw new Error(j.error||j.message||'Create customer failed'); return j;}),
-  createJob: (payload)=> fetch(`/sf/jobs`, {method:'POST',headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)}).then(async r=>{const j=await r.json().catch(()=>({})); if(!r.ok) throw new Error((j.response&&JSON.stringify(j.response))||j.error||j.message||'Create job failed'); return j;})
-};
-
-/* ====== Search (existing panel) ====== */
-function renderResults(items){
-  const box=$('#resultsBox'), ul=$('#results'); ul.innerHTML='';
-  const pill=$('#countPill'); pill.style.display='inline-block'; pill.textContent=`${items?.length||0} result${(items?.length||0)>1?'s':''}`;
-  if(!items || !items.length){ show(box,false); return; }
-  for(const it of items){
-    const name=it.customer_name||it.name||'(no name)';
-    const loc=(it.locations&&it.locations[0])||{};
-    const city=loc.city||it.city||''; const state=(loc.state_prov||it.state||'');
-    const addr=[loc.street_1||loc.address, loc.postal_code||loc.zip].filter(Boolean).join(', ');
-    const li=document.createElement('li'); li.className='item';
-    li.innerHTML=`
-      <div>
-        <div style="font-weight:700">${name}</div>
-        <div class="muted">ID: ${it.id||'N/A'} — ${city} ${state}</div>
-        ${addr?`<div class="muted">${addr}</div>`:''}
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="btn ghost" data-use="${it.id}">Use this customer</button>
-      </div>`;
-    ul.appendChild(li);
-  }
-  show(box,true);
-  ul.querySelectorAll('button[data-use]').forEach(btn=>{
-    btn.onclick=async ()=>{
-      const id=btn.getAttribute('data-use');
-      startLoading();
-      try{
-        const data=await API.getCustomer(id);
-        // Prefill S1
-        $('#customer_id').value=data.id||'';
-        $('#customer_name').value=data.customer_name||data.name||'';
-        const loc=(data.locations&&data.locations[0])||{};
-        $('#location_name').value=loc.nickname||$('#customer_name').value||'';
-        $('#street_1').value=loc.street_1||'';
-        $('#city').value=loc.city||'';
-        $('#state').value=loc.state_prov||'';
-        $('#zip').value=loc.postal_code||'';
-        const c=(data.contacts&&data.contacts[0])||{};
-        $('#contact_name').value=[c.fname,c.lname].filter(Boolean).join(' ')||'';
-        if(c.emails&&c.emails[0]?.email) $('#contact_email').value=c.emails[0].email;
-        if(c.phones&&c.phones[0]?.phone) $('#contact_phone').value=c.phones[0].phone;
-        // Jump to next step
-        jobStepper.setActive(2);
-        window.scrollTo({top: document.getElementById('panelExisting').offsetTop, behavior:'smooth'});
-      }catch(e){ alert('Prefill error: '+(e.message||e)); }
-      finally{ endLoading(); }
-    };
-  });
-}
-async function doSearch(){
-  const q=$('#q').value.trim(); if(!q) return;
-  $('#searchErr').style.display='none'; startLoading();
-  try{
-    const items=await API.search(q);
-    renderResults(items);
-    if(!items.length){ $('#searchErr').textContent='No customer found.'; $('#searchErr').style.display='block'; }
-  }catch(err){
-    $('#searchErr').textContent=err.message||'Search failed'; $('#searchErr').style.display='block';
-  }finally{ endLoading(); }
-}
-const debounce=(fn,ms=350)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}}
-$('#btnSearch').onclick=doSearch;
-$('#q').addEventListener('input',debounce(()=>{ if($('#q').value.trim().length>=3) doSearch(); },400));
-$('#q').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); doSearch(); } });
-
-/* ====== Customer wizard review fill ====== */
-function refreshCustomerReview(){
-  const bn=$('#nc_name').value.trim();
-  const cn=$('#nc_contact_name').value.trim();
-  const ce=$('#nc_contact_email').value.trim();
-  const cp=$('#nc_contact_phone').value.trim();
-  const ln=$('#loc_name').value.trim(), st=$('#loc_street').value.trim(), ci=$('#loc_city').value.trim(), sta=$('#loc_state').value.trim(), zp=$('#loc_zip').value.trim();
-  $('#rev_name').textContent = bn || '—';
-  $('#rev_contact').textContent = [cn, ce||'', cp||''].filter(Boolean).join(' • ') || '—';
-  $('#rev_loc').textContent = [ln, st, `${ci} ${sta} ${zp}`.trim()].filter(Boolean).join(' — ') || '—';
-}
-['#nc_name','#nc_contact_name','#nc_contact_email','#nc_contact_phone','#loc_name','#loc_street','#loc_city','#loc_state','#loc_zip']
-  .forEach(sel=>{document.addEventListener('input',(e)=>{ if(e.target.matches(sel)) refreshCustomerReview(); });});
-
-/* ====== Create new customer ====== */
-$('#btnCreateCustomer').onclick=async ()=>{
-  $('#custErr').style.display='none';
-  const payload={
-    customer_name: $('#nc_name').value.trim(),
-    contact: { name: $('#nc_contact_name').value.trim(), email: $('#nc_contact_email').value.trim(), phone: $('#nc_contact_phone').value.trim() },
-    service_location: { name: $('#loc_name').value.trim(), address: $('#loc_street').value.trim(), city: $('#loc_city').value.trim(), state: $('#loc_state').value.trim(), zip: $('#loc_zip').value.trim() }
-  };
-  if(!payload.customer_name || !payload.contact.name || !payload.contact.email || !payload.service_location.name || !payload.service_location.address){
-    $('#custErr').textContent='Please fill required fields.'; $('#custErr').style.display='block'; return;
-  }
-  startLoading();
-  try{
-    const res=await API.createCustomer(payload);
-    // Prefill job tab
-    $('#customer_name').value = res.customer_name || payload.customer_name;
-    $('#customer_id').value   = res.id || res.customer_id || '';
-    const loc=(res.locations && res.locations[0]) || payload.service_location || {};
-    $('#location_name').value = loc.nickname || loc.name || '';
-    $('#street_1').value      = loc.street_1 || loc.address || '';
-    $('#city').value          = loc.city || '';
-    $('#state').value         = loc.state_prov || loc.state || '';
-    $('#zip').value           = loc.postal_code || loc.zip || '';
-
-    // Customer modal
-    $('#cm_customer_name').textContent = $('#customer_name').value || '—';
-    $('#cm_customer_id').textContent = $('#customer_id').value || '—';
-    $('#cm_location').textContent = [$('#location_name').value,$('#street_1').value,`${$('#city').value} ${$('#state').value} ${$('#zip').value}`.trim()].filter(Boolean).join(' — ');
-    $('#custModal').classList.add('show');
-  }catch(err){
-    $('#custErr').textContent = err.message || 'Create customer failed'; $('#custErr').style.display='block';
-  }finally{ endLoading(); }
-};
-
-/* ====== Create job ====== */
-function collectJobPayload(){
-  return {
-    customer_id: $('#customer_id').value.trim() || null,
-    customer_name: $('#customer_name').value.trim(),
-    service_location: {
-      name: $('#location_name').value.trim(),
-      address: $('#street_1').value.trim() || null,
-      city: $('#city').value.trim() || null,
-      state: $('#state').value.trim() || null,
-      zip: $('#zip').value.trim() || null
-    },
-    category: $('#category').value,
-    priority: $('#priority').value || 'Normal',
-    problem_details: $('#description').value.trim(),
-    contact: {
-      name: $('#contact_name').value.trim() || null,
-      phone: $('#contact_phone').value.trim() || null,
-      email: $('#contact_email').value.trim() || null
-    },
-    status: $('#status').value || null
-  };
-}
-function setBadge(status){
-  const b=$('#emailBadge'); b.textContent = `Email: ${status||'unknown'}`;
-  b.classList.remove('ok','warn'); if(status==='sent') b.classList.add('ok'); else b.classList.add('warn');
-}
-function fillJobModal({customer_name, customer_id, job_id, job_number, job_api_url, links={}, email_status}){
-  $('#kv_customer_name').textContent=customer_name||'N/A';
-  $('#kv_customer_id').textContent=customer_id||'N/A';
-  $('#kv_job_id').textContent=job_id||'N/A';
-  $('#kv_job_number').textContent=job_number||'N/A';
-  $('#kv_job_url').textContent=job_api_url||'N/A';
-  setBadge(email_status);
-  const list=$('#linkList'); list.innerHTML='';
-  const arr=[];
-  if(links.docx) arr.push({href:links.docx,label:'Download DOCX'});
-  if(links.json) arr.push({href:links.json,label:'View JSON'});
-  for(const it of arr){ const a=document.createElement('a'); a.href=it.href; a.target='_blank'; a.rel='noopener'; a.textContent=it.label; list.appendChild(a); }
-  $$('.copy').forEach(btn=>{
-    btn.onclick=()=>{ const sel=btn.getAttribute('data-copy'); const t=document.querySelector(sel)?.textContent||''; navigator.clipboard.writeText(t).then(()=>{btn.textContent='Copied'; setTimeout(()=>btn.textContent='Copy',1200);}); };
-  });
-}
-$('#btnCreate').onclick=async ()=>{
-  $('#formErr').style.display='none';
-  const p=collectJobPayload();
-  if(!p.customer_name || !p.service_location?.name || !p.problem_details){
-    $('#formErr').textContent='Please fill Customer Name, Service Location and Description.'; $('#formErr').style.display='block'; return;
-  }
-  const btn=$('#btnCreate'); btn.disabled=true; btn.textContent='Creating…'; startLoading();
-  try{
-    const res=await API.createJob(p);
-    fillJobModal({
-      customer_name: p.customer_name,
-      customer_id: p.customer_id || 'N/A',
-      job_id: res.job_id || (res.service_fusion && res.service_fusion.id) || null,
-      job_number: res.job_number || (res.service_fusion && res.service_fusion.number) || null,
-      job_api_url: res.job_api_url || (res.service_fusion && res.service_fusion.id ? `https://api.servicefusion.com/v1/jobs/${res.service_fusion.id}` : null),
-      links: res.links || {},
-      email_status: res.email_status || 'unknown',
-    });
-    $('#resultModal').classList.add('show');
-  }catch(err){
-    $('#formErr').textContent = err.message || 'Create job failed'; $('#formErr').style.display='block';
-  }finally{
-    btn.disabled=false; btn.textContent='Create Job'; endLoading();
-  }
-};
-
-/* ====== Close modals => refresh page ====== */
-function reloadSoon(){ setTimeout(()=>window.location.reload(), 120); }
-$('#closeModal').onclick=()=>{ $('#resultModal').classList.remove('show'); reloadSoon(); };
-$('#custCloseModal').onclick=()=>{ $('#custModal').classList.remove('show'); reloadSoon(); };
-$('#custGoToJob').onclick=()=>{ $('#custModal').classList.remove('show'); showExisting(); jobStepper.setActive(2); window.scrollTo({top: document.getElementById('panelExisting').offsetTop, behavior:'smooth'}); };
-
-/* ====== Directory logic ====== */
-function renderDirList(items){
-  const box=$('#dirList'); box.innerHTML='';
-  $('#dirCount').textContent = `${items?.length||0} result${(items?.length||0)>1?'s':''}`;
-  if(!items?.length){ box.innerHTML='<div class="dir-item"><div>No customer found.</div></div>'; return; }
-  for(const it of items){
-    const name=it.customer_name||it.name||'(no name)';
-    const loc=(it.locations&&it.locations[0])||{};
-    const city=loc.city||''; const state=loc.state_prov||'';
-    const addr=[loc.street_1, loc.postal_code].filter(Boolean).join(', ');
-    const row=document.createElement('div'); row.className='dir-item'; row.setAttribute('role','option'); row.tabIndex=0;
-    row.innerHTML = `
-      <div style="flex:1">
-        <div class="dir-title">${name}</div>
-        <div class="dir-sub">ID: ${it.id||'N/A'} • ${city} ${state}${addr?(' • '+addr):''}</div>
-      </div>
-      <div><button class="btn ghost" data-open="${it.id}">Open</button></div>`;
-    box.appendChild(row);
-  }
-  box.querySelectorAll('[data-open]').forEach(btn=>{
-    btn.onclick=()=> loadCustomerDetail(btn.getAttribute('data-open'));
-  });
-}
-async function dirSearch(q){
-  startLoading();
-  try{ renderDirList(await API.search(q)); }catch{ renderDirList([]); }finally{ endLoading(); }
-}
-async function loadCustomerDetail(id){
-  startLoading();
-  try{
-    const d = await API.getCustomer(id);
-    // Fill the right detail pane
-    const contacts=(d.contacts||[]).map(c=>{
-      const nm=[c.fname,c.lname].filter(Boolean).join(' ')||'(no name)';
-      const em=(c.emails&&c.emails[0]?.email)||'';
-      const ph=(c.phones&&c.phones[0]?.phone)||'';
-      return `<li>${nm}${em?' • '+em:''}${ph?' • '+ph:''}</li>`;
-    }).join('') || '<li class="dir-sub">No contacts</li>';
-
-    const locs=(d.locations||[]).map(l=>{
-      const line=[l.nickname||'', l.street_1||'', [l.city||'', l.state_prov||'', l.postal_code||''].join(' ').trim()].filter(Boolean).join(' — ');
-      return `<li>${line}</li>`;
-    }).join('') || '<li class="dir-sub">No locations</li>';
-
-    $('#dirDetail').innerHTML = `
-      <h3>${d.customer_name||d.name||'(no name)'} <span class="pill" style="margin-left:6px">ID: ${d.id||'N/A'}</span></h3>
-      <div class="block">
-        <strong>Primary Contact & Emails</strong>
-        <ul class="klist">${contacts}</ul>
-      </div>
-      <div class="block">
-        <strong>Locations</strong>
-        <ul class="klist">${locs}</ul>
-      </div>
-      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
-        <button class="btn ghost" id="useCustomerBtn">Create Job for this Customer</button>
-      </div>
-    `;
-
-    // Wire "Use" -> prefills job and switch tab
-    $('#useCustomerBtn').onclick = ()=>{
-      const loc=(d.locations&&d.locations[0])||{};
-      $('#customer_id').value=d.id||'';
-      $('#customer_name').value=d.customer_name||d.name||'';
-      $('#location_name').value=loc.nickname||$('#customer_name').value||'';
-      $('#street_1').value=loc.street_1||'';
-      $('#city').value=loc.city||'';
-      $('#state').value=loc.state_prov||'';
-      $('#zip').value=loc.postal_code||'';
-      const c=(d.contacts&&d.contacts[0])||{};
-      $('#contact_name').value=[c.fname,c.lname].filter(Boolean).join(' ')||'';
-      if(c.emails&&c.emails[0]?.email) $('#contact_email').value=c.emails[0].email;
-      if(c.phones&&c.phones[0]?.phone) $('#contact_phone').value=c.phones[0].phone;
-
-      showExisting();
-      jobStepper.setActive(2);
-      window.scrollTo({top: document.getElementById('panelExisting').offsetTop, behavior:'smooth'});
-    };
-  }catch(e){
-    $('#dirDetail').innerHTML = `<div class="err">Failed to load details: ${e.message||e}</div>`;
-  }finally{ endLoading(); }
-}
-
-/* Boot the directory with a broad query ('a') */
-async function bootDirectory(){ await dirSearch('a'); }
-$('#dirSearchBtn').onclick=()=> dirSearch(($('#dirQ').value||'a').trim() || 'a');
-$('#dirQ').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); $('#dirSearchBtn').click(); }});
-
-/* ====== Init ====== */
-function refreshCustomerReviewInit(){ refreshCustomerReview(); }
-refreshCustomerReviewInit();
-bootDirectory();
-
-/* ===== Theme controls (no removals, only additions) ===== */
-(function(){
-  const ROOT = document.documentElement;
-  const BTN = document.getElementById('themeToggle');
-  const STORAGE_KEY = 'ui.theme';
-
-  function applyTheme(theme){
-    ROOT.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
-    updateButtonLabel();
-  }
-  function getStoredTheme(){ try{ return localStorage.getItem(STORAGE_KEY); }catch{ return null; } }
-  function setTheme(theme){ try{ localStorage.setItem(STORAGE_KEY, theme); }catch{} applyTheme(theme); }
-  function getEffectiveTheme(){ return getStoredTheme() || ROOT.getAttribute('data-theme') || 'light'; }
-  function updateButtonLabel(){
-    const effective = getEffectiveTheme();
-    BTN.textContent = (effective === 'dark') ? 'White' : 'Dark';
-    BTN.setAttribute('aria-label', `Switch to ${(effective === 'dark') ? 'White' : 'Dark'} theme`);
-    BTN.title = 'Toggle Dark / White theme';
-  }
-  const initial = getStoredTheme() || 'light';
-  applyTheme(initial);
-  BTN.addEventListener('click', ()=> setTheme(getEffectiveTheme()==='dark'?'light':'dark'));
-  updateButtonLabel();
-})();
     </script>
 </body>
 </html>

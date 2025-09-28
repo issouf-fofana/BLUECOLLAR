@@ -53,15 +53,7 @@ STATUS_DEFAULT = "Unscheduled"
 _OAUTH_CACHE: Dict[str, Any] = {"access_token": None, "exp": 0}
 
 # ===================== Pages =====================
-def home(request: HttpRequest):
-    return render(request, 'index.html')
-
-
-def connect(request: HttpRequest):
-    return render(request, 'bluecollar_website_connected.html')
-
-def mapping(request: HttpRequest):
-    return render(request, 'Ecotrak+SF-api_payload_mapping.html')
+# Removed legacy views (home/connect/mapping) during cleanup; only core pages remain
 
 # ===================== Utils =====================
 def _timeout() -> int:
@@ -645,6 +637,9 @@ def fsm_wizard(request: HttpRequest):
 
 def platform_server(request: HttpRequest):
     return render(request, "fsm_platform_server.html")
+
+def bluecollar_main_platform(request: HttpRequest):
+    return render(request, "bluecollar_main_platform.html")
 
 # ===================== Debug =====================
 def sf_oauth_test(request: HttpRequest):

@@ -1,15 +1,11 @@
 from django.urls import path
 from .views import (
-    home, mapping, fsm_wizard,
     sf_search_customers, sf_get_customer, sf_create_job,
-    sf_oauth_test, sf_create_customer,platform_server,connect,   # <-- AJOUTER ICI
+    sf_oauth_test, sf_create_customer, platform_server, bluecollar_main_platform,
 )
 
 urlpatterns = [
-    path("", connect, name="connect"),
-    path("home/", home, name="home"),
-    path("mapping/", mapping, name="mapping"),
-    path("fsm/", fsm_wizard, name="fsm_wizard"),
+    path("", bluecollar_main_platform, name="bluecollar_main_platform_root"),
 
     # API JSON pour le front
     path("sf/customers/search", sf_search_customers, name="sf_search_customers"),
@@ -19,4 +15,5 @@ urlpatterns = [
 
     path("sf/oauth/test", sf_oauth_test, name="sf_oauth_test"),
     path("platform_server/", platform_server, name="platform_server"),
+    path("bluecollar_main/", bluecollar_main_platform, name="bluecollar_main_platform"),
 ]
