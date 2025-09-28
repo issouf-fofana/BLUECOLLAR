@@ -59,6 +59,9 @@ _OAUTH_CACHE: Dict[str, Any] = {"access_token": None, "exp": 0}
 def _timeout() -> int:
     return int(getattr(settings, "HTTP_TIMEOUT", 30))
 
+
+def home(request: HttpRequest):
+    return render(request, "bluecollar_website_connected.html", {})
 def _norm(s: str | None) -> str:
     return re.sub(r"\s+", " ", (s or "").strip())
 
