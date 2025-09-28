@@ -1,0 +1,3885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueCollar AI - Start Your Free Trial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #59ACE1;
+            --primary-dark: #4A91C7;
+            --secondary: #FFB100;
+            --accent: #FFB100;
+            --dark: #000000;
+            --gray-900: #111111;
+            --gray-800: #222222;
+            --gray-700: #333333;
+            --gray-600: #555555;
+            --gray-500: #6B7280;
+            --gray-400: #9CA3AF;
+            --gray-300: #D1D5DB;
+            --gray-200: #E5E7EB;
+            --gray-100: #F3F4F6;
+            --white: #ffffff;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+            --gradient-primary: linear-gradient(135deg, #59ACE1 0%, #4A91C7 100%);
+            --gradient-secondary: linear-gradient(135deg, #FFB100 0%, #E69A00 100%);
+            --gradient-accent: linear-gradient(135deg, #59ACE1 0%, #FFB100 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Georgia Pro', Georgia, 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--gray-100);
+            overflow-x: hidden;
+        }
+
+        /* Common Components */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+            min-height: 2.75rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-google {
+            background: var(--white);
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-google:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-microsoft {
+            background: #0078d4;
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-microsoft:hover {
+            background: #106ebe;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: var(--white);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(89, 172, 225, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-300);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 1rem;
+            box-shadow: var(--shadow-xl);
+            padding: 2rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid;
+        }
+
+        .alert-success {
+            background: #D1FAE5;
+            border-color: #A7F3D0;
+            color: #065F46;
+        }
+
+        .alert-error {
+            background: #FEE2E2;
+            border-color: #FECACA;
+            color: #991B1B;
+        }
+
+        .alert-warning {
+            background: #FEF3C7;
+            border-color: #FDE68A;
+            color: #92400E;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* User Type Selection */
+        .user-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .user-type-card {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .user-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+        }
+
+        .user-type-card.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(89, 172, 225, 0.05) 0%, rgba(74, 145, 199, 0.05) 100%);
+        }
+
+        .user-type-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .user-type-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .user-type-description {
+            color: var(--gray-600);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Dashboard */
+        .dashboard-header {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dashboard-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .dashboard-card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .dashboard-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-card-description {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        /* Profile Forms */
+        .profile-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .file-upload {
+            border: 2px dashed var(--gray-300);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background: rgba(89, 172, 225, 0.05);
+        }
+
+        .file-upload-icon {
+            font-size: 2rem;
+            color: var(--gray-400);
+            margin-bottom: 1rem;
+        }
+
+        /* Location Management */
+        .location-container {
+            margin: 2rem 0;
+        }
+
+        .location-card {
+            background: var(--white);
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+            margin: 1.5rem 0;
+            overflow: hidden;
+            border: 2px solid var(--gray-200);
+        }
+
+        .location-header {
+            background: var(--gray-800);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .location-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .location-content {
+            padding: 1.5rem;
+        }
+
+        .location-remove {
+            background: var(--error);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .location-remove:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        /* Equipment Management */
+        .equipment-container {
+            margin: 1rem 0;
+        }
+
+        .equipment-item {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            position: relative;
+        }
+
+        .equipment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--gray-300);
+        }
+
+        .equipment-title {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .equipment-remove {
+            background: var(--error);
+            color: var(--white);
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .equipment-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .equipment-preview img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            border: 2px solid var(--gray-300);
+        }
+
+        .equipment-preview-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        .equipment-preview-remove {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--error);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Progress Indicator */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            color: var(--gray-400);
+        }
+
+        .progress-step.active {
+            color: var(--primary);
+        }
+
+        .progress-step.completed {
+            color: var(--success);
+        }
+
+        .step-number {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: var(--gray-300);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .progress-step.active .step-number {
+            background: var(--primary);
+        }
+
+        .progress-step.completed .step-number {
+            background: var(--success);
+        }
+
+        .step-connector {
+            width: 3rem;
+            height: 2px;
+            background: var(--gray-300);
+            margin: 0 1rem;
+        }
+
+        .progress-step.active .step-connector,
+        .progress-step.completed .step-connector {
+            background: var(--primary);
+        }
+
+        /* Service Provider Redirect Modal */
+        .redirect-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .redirect-modal.active {
+            display: flex;
+        }
+
+        .redirect-content {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            margin: 2rem;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .redirect-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .redirect-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .redirect-description {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .redirect-countdown {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .user-type-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .progress-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step-connector {
+                width: 2px;
+                height: 2rem;
+                margin: 0.5rem 0;
+            }
+
+            .redirect-content {
+                margin: 1rem;
+                padding: 2rem;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Loading States */
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1rem;
+            height: 1rem;
+            margin: -0.5rem 0 0 -0.5rem;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Restaurant specific styles */
+        .restaurant-dashboard .dashboard-subtitle {
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .p-2 { padding: 0.5rem; }
+        .p-4 { padding: 1rem; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">BlueCollar AI</div>
+                <div class="nav-menu">
+                    <button class="btn btn-outline" onclick="showPage('login')">Sign In</button>
+                    <button class="btn btn-primary" onclick="showPage('user-type')">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+ 
+
+    <script>
+        // Application State Management
+        class AppState {
+            constructor() {
+                this.user = {
+                    userType: null,
+                    isAuthenticated: false,
+                    profile: {},
+                    locations: [],
+                    equipment: []
+                };
+                this.currentPage = 'user-type';
+                this.locationCounter = 1;
+                this.equipmentCounters = { 1: 1 };
+            }
+        }
+
+        // Backend Integration Module (Mock Implementation)
+        class BackendAPI {
+            constructor(baseURL) {
+                this.baseURL = baseURL || 'https://api.bluecollarai.com/v1';
+                this.token = localStorage.getItem('auth_token');
+                this.mockMode = true; // Enable mock mode for demo
+            }
+
+            async request(endpoint, options = {}) {
+                // Mock API responses for demo purposes
+                if (this.mockMode) {
+                    return this.mockRequest(endpoint, options);
+                }
+
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...(this.token && { 'Authorization': `Bearer ${this.token}` }),
+                        ...options.headers
+                    },
+                    ...options
+                };
+
+                try {
+                    const response = await fetch(`${this.baseURL}${endpoint}`, config);
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.message || 'API request failed');
+                    }
+
+                    return data;
+                } catch (error) {
+                    console.error(`API Error: ${error.message}`);
+                    throw error;
+                }
+            }
+
+            async mockRequest(endpoint, options = {}) {
+                // Simulate network delay
+                await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
+
+                // Mock responses based on endpoint
+                if (endpoint === '/auth/verify') {
+                    const storedProfile = localStorage.getItem('user_profile');
+                    if (storedProfile && this.token) {
+                        return { user: JSON.parse(storedProfile) };
+                    } else {
+                        throw new Error('Invalid token');
+                    }
+                }
+
+                if (endpoint === '/auth/signup' || endpoint === '/auth/login') {
+                    return {
+                        user: {
+                            id: DataProcessor.generateUUID(),
+                            userType: 'restaurant'
+                        },
+                        token: `bc_token_${Date.now()}`
+                    };
+                }
+
+                if (endpoint === '/auth/logout') {
+                    return { success: true };
+                }
+
+                // Default mock response
+                return { success: true, data: {} };
+            }
+
+            // Authentication endpoints
+            async signup(userData) {
+                const response = await this.request('/auth/signup', {
+                    method: 'POST',
+                    body: JSON.stringify(userData)
+                });
+                if (response.token) {
+                    this.token = response.token;
+                    localStorage.setItem('auth_token', response.token);
+                }
+                return response;
+            }
+
+            async login(credentials) {
+                const response = await this.request('/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify(credentials)
+                });
+                if (response.token) {
+                    this.token = response.token;
+                    localStorage.setItem('auth_token', response.token);
+                }
+                return response;
+            }
+
+            async logout() {
+                await this.request('/auth/logout', { method: 'POST' });
+                this.token = null;
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('user_profile');
+            }
+
+            // Restaurant endpoints
+            async createRestaurant(restaurantData) {
+                return await this.request('/restaurants', {
+                    method: 'POST',
+                    body: JSON.stringify(restaurantData)
+                });
+            }
+
+            async getRestaurants() {
+                return await this.request('/restaurants');
+            }
+
+            // Location endpoints
+            async createLocation(locationData) {
+                return await this.request('/locations', {
+                    method: 'POST',
+                    body: JSON.stringify(locationData)
+                });
+            }
+
+            async getLocations() {
+                return await this.request('/locations');
+            }
+
+            // Equipment endpoints
+            async createEquipment(equipmentData) {
+                return await this.request('/equipment', {
+                    method: 'POST',
+                    body: JSON.stringify(equipmentData)
+                });
+            }
+
+            async getEquipment() {
+                return await this.request('/equipment');
+            }
+
+            async uploadEquipmentPhoto(equipmentId, photoFile) {
+                const formData = new FormData();
+                formData.append('photo', photoFile);
+                
+                return await this.request(`/equipment/${equipmentId}/photos`, {
+                    method: 'POST',
+                    headers: {}, // Remove Content-Type to let browser set it for FormData
+                    body: formData
+                });
+            }
+        }
+
+        // Initialize Application
+        const appState = new AppState();
+        const api = new BackendAPI();
+
+        // Service Provider Redirect Functions
+        function showServiceProviderRedirect() {
+            const modal = document.getElementById('redirect-modal');
+            modal.classList.add('active');
+            
+            let countdown = 3;
+            const countdownElement = document.getElementById('redirect-countdown');
+            
+            const updateCountdown = () => {
+                if (countdown > 0) {
+                    countdownElement.textContent = `Redirecting in ${countdown} seconds...`;
+                    countdown--;
+                    setTimeout(updateCountdown, 1000);
+                } else {
+                    countdownElement.textContent = 'Redirecting now...';
+                    setTimeout(() => {
+                        completeServiceProviderRedirect();
+                    }, 500);
+                }
+            };
+            
+            updateCountdown();
+        }
+
+        function completeServiceProviderRedirect() {
+            console.log('Completing service provider redirect...');
+            
+            // Hide the redirect modal
+            const modal = document.getElementById('redirect-modal');
+            modal.classList.remove('active');
+            
+            // Store user data for the field service platform
+            const userData = {
+                userType: 'service',
+                profile: appState.user.profile,
+                token: api.token,
+                timestamp: Date.now()
+            };
+            
+            localStorage.setItem('service_provider_data', JSON.stringify(userData));
+            
+            // Show embedded field service platform
+            showFieldServicePlatform();
+            
+            Analytics.track('Service Provider Redirect Completed');
+        }
+
+        // Embedded Field Service Platform
+        function showFieldServicePlatform() {
+            console.log('Starting Field Service Platform initialization...');
+            
+            try {
+                // Hide main platform content
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Hide navigation
+                const nav = document.querySelector('.nav');
+                if (nav) {
+                    nav.style.display = 'none';
+                }
+                
+                console.log('Main platform hidden, creating field service platform...');
+                
+                // Remove any existing field service platform
+                const existingFS = document.getElementById('field-service-platform');
+                if (existingFS) {
+                    existingFS.remove();
+                }
+                
+                // Create and show field service platform
+                const fieldServiceHTML = createFieldServicePlatform();
+                
+                // Insert the field service platform HTML
+                const container = document.createElement('div');
+                container.id = 'field-service-platform';
+                container.innerHTML = fieldServiceHTML;
+                
+                // Add to body
+                document.body.appendChild(container);
+                
+                console.log('Field service platform HTML added to DOM');
+                
+                // Initialize field service platform functionality
+                setTimeout(() => {
+                    initializeFieldServicePlatform();
+                    console.log('Field Service Platform fully loaded!');
+                }, 100);
+                
+            } catch (error) {
+                console.error('Error loading Field Service Platform:', error);
+                alert('Error loading Field Service Platform. Please try again.');
+                
+                // Fallback: show main dashboard
+                showPage('dashboard');
+            }
+        }
+
+        function createFieldServicePlatform() {
+            return `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Field Service Management Platform - Integrated Dashboard</title>
+                    <style>
+                        /* Field Service Platform Styles */
+                        .fs-body {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                            font-family: 'Georgia Pro', Georgia, serif;
+                            background: #ffffff;
+                            color: #000000;
+                            line-height: 1.6;
+                            overflow-x: hidden;
+                        }
+
+                        .fs-dashboard-container {
+                            display: flex;
+                            min-height: 100vh;
+                        }
+
+                        /* Header */
+                        .fs-header {
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            height: 70px;
+                            background: linear-gradient(135deg, #59ACE1 0%, #FFB100 100%);
+                            color: #ffffff;
+                            z-index: 1000;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 0 2rem;
+                            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                        }
+
+                        .fs-header-brand {
+                            display: flex;
+                            align-items: center;
+                            gap: 1rem;
+                        }
+
+                        .fs-header-logo {
+                            width: 45px;
+                            height: 45px;
+                            background: #ffffff;
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #59ACE1;
+                            font-weight: bold;
+                            font-size: 18px;
+                        }
+
+                        .fs-header-title {
+                            font-size: 1.5rem;
+                            font-weight: 700;
+                            margin: 0;
+                        }
+
+                        .fs-header-user {
+                            display: flex;
+                            align-items: center;
+                            gap: 1rem;
+                        }
+
+                        .fs-user-badge {
+                            background: rgba(255, 255, 255, 0.2);
+                            padding: 0.5rem 1rem;
+                            border-radius: 25px;
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                        }
+
+                        /* Sidebar */
+                        .fs-sidebar {
+                            position: fixed;
+                            top: 70px;
+                            left: 0;
+                            width: 280px;
+                            height: calc(100vh - 70px);
+                            background: #ffffff;
+                            border-right: 2px solid #59ACE1;
+                            overflow-y: auto;
+                            z-index: 100;
+                            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+                        }
+
+                        .fs-sidebar-menu {
+                            padding: 2rem 0;
+                        }
+
+                        .fs-menu-section {
+                            margin-bottom: 2rem;
+                        }
+
+                        .fs-menu-section-title {
+                            padding: 0 1.5rem 0.5rem;
+                            font-size: 0.8rem;
+                            font-weight: 600;
+                            color: #000000;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                            border-bottom: 1px solid #e5e7eb;
+                            margin-bottom: 1rem;
+                        }
+
+                        .fs-menu-item {
+                            display: flex;
+                            align-items: center;
+                            padding: 1rem 1.5rem;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            border: none;
+                            background: none;
+                            width: 100%;
+                            text-align: left;
+                            color: #000000;
+                            font-size: 0.95rem;
+                            font-weight: 500;
+                            position: relative;
+                        }
+
+                        .fs-menu-item:hover {
+                            background: linear-gradient(90deg, #59ACE1, #FFB100);
+                            color: #ffffff;
+                            transform: translateX(5px);
+                        }
+
+                        .fs-menu-item.active {
+                            background: linear-gradient(90deg, #59ACE1, #FFB100);
+                            color: #ffffff;
+                            border-right: 4px solid #FFB100;
+                        }
+
+                        .fs-menu-icon {
+                            width: 20px;
+                            height: 20px;
+                            margin-right: 1rem;
+                            flex-shrink: 0;
+                        }
+
+                        .fs-menu-text {
+                            flex: 1;
+                        }
+
+                        .fs-menu-badge {
+                            background: #FFB100;
+                            color: #ffffff;
+                            padding: 0.2rem 0.6rem;
+                            border-radius: 12px;
+                            font-size: 0.7rem;
+                            font-weight: 600;
+                        }
+
+                        /* Main Content */
+                        .fs-main-content {
+                            margin-left: 280px;
+                            margin-top: 70px;
+                            flex: 1;
+                            min-height: calc(100vh - 70px);
+                            background: #f8fafc;
+                        }
+
+                        .fs-content-area {
+                            width: 100%;
+                            height: calc(100vh - 70px);
+                            overflow: auto;
+                        }
+
+                        .fs-content-panel {
+                            width: 100%;
+                            height: 100%;
+                            background: #ffffff;
+                        }
+
+                        /* Module-specific styles */
+                        .fs-module-content {
+                            padding: 2rem;
+                            height: 100%;
+                            overflow: auto;
+                        }
+
+                        /* Welcome Dashboard */
+                        .fs-welcome-dashboard {
+                            padding: 2rem;
+                            text-align: center;
+                        }
+
+                        .fs-welcome-header {
+                            margin-bottom: 3rem;
+                        }
+
+                        .fs-welcome-title {
+                            font-size: 3rem;
+                            font-weight: 700;
+                            background: linear-gradient(135deg, #59ACE1, #FFB100);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            margin-bottom: 1rem;
+                        }
+
+                        .fs-welcome-subtitle {
+                            font-size: 1.2rem;
+                            color: #6b7280;
+                            max-width: 600px;
+                            margin: 0 auto;
+                        }
+
+                        .fs-stats-overview {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                            gap: 2rem;
+                            margin-bottom: 3rem;
+                        }
+
+                        .fs-stat-card {
+                            background: #ffffff;
+                            border-radius: 16px;
+                            padding: 2rem;
+                            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+                            border: 1px solid #e5e7eb;
+                            transition: all 0.3s ease;
+                        }
+
+                        .fs-stat-card:hover {
+                            transform: translateY(-5px);
+                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+                        }
+
+                        .fs-stat-number {
+                            font-size: 2.5rem;
+                            font-weight: 700;
+                            color: #59ACE1;
+                            margin-bottom: 0.5rem;
+                        }
+
+                        .fs-stat-label {
+                            font-size: 1rem;
+                            color: #6b7280;
+                            font-weight: 500;
+                        }
+
+                        /* Provider cards */
+                        .fs-provider-card {
+                            background: white;
+                            padding: 2rem;
+                            border-radius: 16px;
+                            text-align: center;
+                            border: 2px solid #e5e7eb;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        }
+
+                        .fs-provider-card:hover {
+                            border-color: #59ACE1;
+                            transform: translateY(-2px);
+                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                        }
+
+                        .fs-provider-card.active {
+                            border-color: #59ACE1;
+                            background: rgba(89, 172, 225, 0.05);
+                            box-shadow: 0 10px 30px rgba(89, 172, 225, 0.2);
+                        }
+
+                        /* Buttons */
+                        .fs-btn {
+                            padding: 0.75rem 1.5rem;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            border: none;
+                            transition: all 0.3s ease;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            text-decoration: none;
+                        }
+
+                        .fs-btn:hover {
+                            transform: translateY(-1px);
+                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                        }
+
+                        .fs-btn-primary {
+                            background: linear-gradient(135deg, #59ACE1, #FFB100);
+                            color: white;
+                        }
+
+                        .fs-btn-success {
+                            background: #10b981;
+                            color: white;
+                        }
+
+                        .fs-btn-outline {
+                            background: transparent;
+                            color: #59ACE1;
+                            border: 2px solid #59ACE1;
+                        }
+
+                        .fs-btn-outline:hover {
+                            background: #59ACE1;
+                            color: white;
+                        }
+
+                        .fs-hidden {
+                            display: none !important;
+                        }
+
+                        /* Responsive */
+                        @media (max-width: 768px) {
+                            .fs-sidebar {
+                                transform: translateX(-100%);
+                                transition: transform 0.3s ease;
+                            }
+
+                            .fs-sidebar.open {
+                                transform: translateX(0);
+                            }
+
+                            .fs-main-content {
+                                margin-left: 0;
+                            }
+
+                            .fs-header {
+                                padding: 0 1rem;
+                            }
+                        }
+                    </style>
+                </head>
+                <body class="fs-body">
+                    <!-- Header -->
+                    <header class="fs-header">
+                        <div class="fs-header-brand">
+                            <div class="fs-header-logo">FS</div>
+                            <h1 class="fs-header-title">Field Service Management Platform</h1>
+                        </div>
+                        <div class="fs-header-user">
+                            <div class="fs-user-badge">
+                                🛡️ SOC 2 Compliant • Enterprise Ready
+                            </div>
+                            <button onclick="fsLogout()" style="background: none; border: none; color: white; cursor: pointer; padding: 0.5rem;">
+                                🚪 Logout
+                            </button>
+                        </div>
+                    </header>
+
+                    <div class="fs-dashboard-container">
+                        <!-- Sidebar -->
+                        <nav class="fs-sidebar" id="fs-sidebar">
+                            <div class="fs-sidebar-menu">
+                                <!-- Core Modules -->
+                                <div class="fs-menu-section">
+                                    <div class="fs-menu-section-title">Core Modules</div>
+                                    <button class="fs-menu-item active" onclick="fsLoadContent('field-service')" data-content="field-service">
+                                        🔧 <span class="fs-menu-text">Field Service Management</span>
+                                    </button>
+                                    <button class="fs-menu-item" onclick="fsLoadContent('work-order')" data-content="work-order">
+                                        📄 <span class="fs-menu-text">Work Order Integration</span>
+                                    </button>
+                                    <button class="fs-menu-item" onclick="fsLoadContent('warranty')" data-content="warranty">
+                                        🛡️ <span class="fs-menu-text">Warranty Processing</span>
+                                    </button>
+                                    <button class="fs-menu-item" onclick="fsLoadContent('call-center')" data-content="call-center">
+                                        🎧 <span class="fs-menu-text">Answering Service Agent</span>
+                                    </button>
+                                </div>
+
+                                <!-- System Management -->
+                                <div class="fs-menu-section">
+                                    <div class="fs-menu-section-title">System Management</div>
+                                    <button class="fs-menu-item" onclick="fsLoadContent('system-status')" data-content="system-status">
+                                        📊 <span class="fs-menu-text">System Status</span>
+                                        <span class="fs-menu-badge" id="fs-status-badge">5</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </nav>
+
+                        <!-- Main Content Area -->
+                        <main class="fs-main-content">
+                            <div class="fs-content-area">
+                                <!-- Welcome Dashboard (Default View) -->
+                                <div id="fs-welcome-content" class="fs-content-panel">
+                                    <div class="fs-welcome-dashboard">
+                                        <div class="fs-welcome-header">
+                                            <h2 class="fs-welcome-title">Welcome to Field Service Platform</h2>
+                                            <p class="fs-welcome-subtitle">
+                                                Comprehensive field service management with integrated work order processing, 
+                                                warranty management, and real-time system monitoring.
+                                            </p>
+                                        </div>
+
+                                        <div class="fs-stats-overview">
+                                            <div class="fs-stat-card">
+                                                <div class="fs-stat-number" id="fs-total-tickets">247</div>
+                                                <div class="fs-stat-label">Total Tickets Today</div>
+                                            </div>
+                                            <div class="fs-stat-card">
+                                                <div class="fs-stat-number" id="fs-active-jobs">18</div>
+                                                <div class="fs-stat-label">Active Jobs</div>
+                                            </div>
+                                            <div class="fs-stat-card">
+                                                <div class="fs-stat-number" id="fs-completion-rate">94.2%</div>
+                                                <div class="fs-stat-label">Completion Rate</div>
+                                            </div>
+                                            <div class="fs-stat-card">
+                                                <div class="fs-stat-number" id="fs-system-uptime">99.8%</div>
+                                                <div class="fs-stat-label">System Uptime</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Field Service Management Content -->
+                                <div id="fs-field-service-content" class="fs-content-panel fs-hidden">
+                                    <div class="fs-module-content">
+                                        <div style="text-align: center; margin-bottom: 2rem;">
+                                            <h2 style="font-size: 2rem; font-weight: 700; color: #59ACE1; margin-bottom: 0.5rem;">Field Service Contractor Integration</h2>
+                                            <p style="color: #6b7280; font-size: 1.1rem;">Connect with leading field service management platforms</p>
+                                        </div>
+
+                                        <!-- Provider Grid -->
+                                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                                            <div class="fs-provider-card active" onclick="fsSelectProvider('servicefusion')" data-provider="servicefusion">
+                                                <div style="width: 60px; height: 60px; margin: 0 auto 1rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">SF</div>
+                                                <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: #000000;">Service Fusion</h4>
+                                                <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Complete field service management solution</p>
+                                                <div id="fs-sf-status" style="padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; background: rgba(16, 185, 129, 0.1); color: #10b981;">Connected</div>
+                                            </div>
+                                            
+                                            <div class="fs-provider-card" onclick="fsSelectProvider('servicetitan')" data-provider="servicetitan">
+                                                <div style="width: 60px; height: 60px; margin: 0 auto 1rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">ST</div>
+                                                <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: #000000;">Service Titan</h4>
+                                                <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Trade business management platform</p>
+                                                <div id="fs-st-status" style="padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; background: rgba(100, 116, 139, 0.1); color: #6b7280;">Not Connected</div>
+                                            </div>
+
+                                            <div class="fs-provider-card" onclick="fsSelectProvider('roopairs')" data-provider="roopairs">
+                                                <div style="width: 60px; height: 60px; margin: 0 auto 1rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">RP</div>
+                                                <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: #000000;">Roopairs</h4>
+                                                <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Roofing contractor management system</p>
+                                                <div id="fs-rp-status" style="padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; background: rgba(100, 116, 139, 0.1); color: #6b7280;">Not Connected</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Configuration Panel -->
+                                        <div style="background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); overflow: hidden;">
+                                            <div style="padding: 2rem; border-bottom: 1px solid #e5e7eb; background: #f8fafc;">
+                                                <h3 id="fs-config-title" style="font-size: 1.5rem; color: #000000; margin-bottom: 1rem;">Service Fusion Integration Configuration</h3>
+                                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                    <span id="fs-config-status" style="padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.9rem; font-weight: 600; background: rgba(16, 185, 129, 0.1); color: #10b981;">● Connected</span>
+                                                    <button class="fs-btn fs-btn-success" onclick="fsTestConnection()">
+                                                        📶 Test Connection
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div style="padding: 2rem;">
+                                                <div style="display: grid; gap: 1.5rem; max-width: 600px;">
+                                                    <div>
+                                                        <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">API Key</label>
+                                                        <input type="password" id="fs-api-key" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" value="***************" placeholder="Enter your API key">
+                                                    </div>
+                                                    <div>
+                                                        <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Base URL</label>
+                                                        <input type="url" id="fs-base-url" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" value="https://api.servicefusion.com/v1">
+                                                    </div>
+                                                    <div>
+                                                        <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Sync Frequency</label>
+                                                        <select id="fs-sync-freq" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;">
+                                                            <option value="5">Every 5 minutes</option>
+                                                            <option value="15" selected>Every 15 minutes</option>
+                                                            <option value="30">Every 30 minutes</option>
+                                                            <option value="60">Every hour</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                                                    <button class="fs-btn fs-btn-primary" onclick="fsSaveConfig()">Save Configuration</button>
+                                                    <button class="fs-btn fs-btn-success" onclick="fsSyncNow()">Sync Now</button>
+                                                    <button class="fs-btn fs-btn-outline" onclick="fsViewLogs()">View Logs</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Work Order Integration Content -->
+                                <div id="fs-work-order-content" class="fs-content-panel fs-hidden">
+                                    <div class="fs-module-content">
+                                        <div style="text-align: center; margin-bottom: 2rem;">
+                                            <h2 style="font-size: 2rem; font-weight: 700; color: #59ACE1; margin-bottom: 0.5rem;">Work Order Integration Management</h2>
+                                            <p style="color: #6b7280; font-size: 1.1rem;">Connect with third-party service management systems</p>
+                                        </div>
+
+                                        <!-- Provider Grid -->
+                                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                                            <div class="fs-provider-card active" onclick="fsSelectWorkOrder('ecotrak')" data-provider="ecotrak">
+                                                <div style="width: 60px; height: 60px; margin: 0 auto 1rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">ECO</div>
+                                                <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: #000000;">Ecotrak</h4>
+                                                <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Field Service Management</p>
+                                                <div style="padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; background: rgba(16, 185, 129, 0.1); color: #10b981;">Connected</div>
+                                            </div>
+                                            
+                                            <div class="fs-provider-card" onclick="fsSelectWorkOrder('servicechannel')" data-provider="servicechannel">
+                                                <div style="width: 60px; height: 60px; margin: 0 auto 1rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">SVC</div>
+                                                <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: #000000;">Service Channel</h4>
+                                                <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Facility Management</p>
+                                                <div style="padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; background: rgba(100, 116, 139, 0.1); color: #6b7280;">Not Connected</div>
+                                            </div>
+
+                                            <div class="fs-provider-card" onclick="fsSelectWorkOrder('corrigo')" data-provider="corrigo">
+                                                <div style="width: 60px; height: 60px; margin: 0 auto 1rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">COR</div>
+                                                <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: #000000;">Corrigo</h4>
+                                                <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Work Order Management</p>
+                                                <div style="padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; background: rgba(100, 116, 139, 0.1); color: #6b7280;">Not Connected</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Configuration Panel -->
+                                        <div style="background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); overflow: hidden;">
+                                            <div id="fs-wo-config-header" style="padding: 2rem; border-bottom: 1px solid #e5e7eb; background: #f8fafc;">
+                                                <h3 id="fs-wo-config-title" style="font-size: 1.5rem; color: #000000; margin-bottom: 1rem;">Ecotrak Integration Configuration</h3>
+                                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                    <span id="fs-wo-config-status" style="padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.9rem; font-weight: 600; background: rgba(16, 185, 129, 0.1); color: #10b981;">● Connected</span>
+                                                    <button class="fs-btn fs-btn-success" onclick="fsTestWorkOrderConnection()">📶 Test Connection</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div id="fs-wo-config-body" style="padding: 2rem;">
+                                                <div style="display: grid; gap: 1.5rem; max-width: 600px;">
+                                                    <div>
+                                                        <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">API Key</label>
+                                                        <input type="password" id="fs-wo-api-key" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" value="***************" placeholder="Enter your API key">
+                                                    </div>
+                                                    <div>
+                                                        <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Base URL</label>
+                                                        <input type="url" id="fs-wo-base-url" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" value="https://api.ecotrak.com/v1">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                                                    <button class="fs-btn fs-btn-primary" onclick="fsSaveWorkOrderConfig()">Save Configuration</button>
+                                                    <button class="fs-btn fs-btn-success" onclick="fsSyncWorkOrderNow()">Sync Now</button>
+                                                    <button class="fs-btn fs-btn-outline" onclick="fsViewWorkOrderLogs()">View Logs</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Warranty Processing Content -->
+                                <div id="fs-warranty-content" class="fs-content-panel fs-hidden">
+                                    <div class="fs-module-content">
+                                        <div style="text-align: center; margin-bottom: 2rem;">
+                                            <h2 style="font-size: 2rem; font-weight: 700; color: #59ACE1; margin-bottom: 0.5rem;">Warranty Partner Portal</h2>
+                                            <p style="color: #6b7280; font-size: 1.1rem;">Select your warranty company to access work order management and tracking</p>
+                                        </div>
+
+                                        <!-- Add Provider Button -->
+                                        <div style="text-align: center; margin-bottom: 2rem;">
+                                            <button class="fs-btn fs-btn-primary" onclick="fsOpenProviderModal()" style="font-size: 1.1rem; padding: 0.75rem 2rem;">
+                                                ➕ Add Provider
+                                            </button>
+                                        </div>
+
+                                        <!-- Warranty Partner Tiles -->
+                                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                                            <div class="fs-provider-card" onclick="fsSelectWarranty('newco')" data-company="newco">
+                                                <div style="display: inline-flex; align-items: center; justify-content: center; width: 4rem; height: 4rem; background: linear-gradient(45deg, #59ACE1, #FFB100); border-radius: 1rem; margin-bottom: 1.5rem;">🛡️</div>
+                                                <h3 style="font-size: 1.25rem; font-weight: 700; color: #000000; margin-bottom: 0.5rem;">NewCo Warranty</h3>
+                                                <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Click to access portal</p>
+                                                <div style="background: #f8fafc; border-radius: 12px; padding: 1rem;">
+                                                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; font-size: 0.9rem;">
+                                                        <div><p style="color: #6b7280; margin-bottom: 0.25rem;">Work Orders</p><p style="font-weight: 700; color: #000000;">12</p></div>
+                                                        <div><p style="color: #6b7280; margin-bottom: 0.25rem;">Active</p><p style="font-weight: 700; color: #000000;">8</p></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="fs-provider-card" onclick="fsSelectWarranty('nsc')" data-company="nsc">
+                                                <div style="display: inline-flex; align-items: center; justify-content: center; width: 4rem; height: 4rem; background: linear-gradient(45deg, #16a34a, #15803d); border-radius: 1rem; margin-bottom: 1.5rem;">⚙️</div>
+                                                <h3 style="font-size: 1.25rem; font-weight: 700; color: #000000; margin-bottom: 0.5rem;">NSC</h3>
+                                                <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Click to access portal</p>
+                                                <div style="background: #f8fafc; border-radius: 12px; padding: 1rem;">
+                                                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; font-size: 0.9rem;">
+                                                        <div><p style="color: #6b7280; margin-bottom: 0.25rem;">Work Orders</p><p style="font-weight: 700; color: #000000;">8</p></div>
+                                                        <div><p style="color: #6b7280; margin-bottom: 0.25rem;">Active</p><p style="font-weight: 700; color: #000000;">5</p></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Call Center Content -->
+                                <div id="fs-call-center-content" class="fs-content-panel fs-hidden">
+                                    <div class="fs-module-content">
+                                        <div style="text-align: center; margin-bottom: 2rem;">
+                                            <h2 style="font-size: 2rem; font-weight: 700; color: #59ACE1; margin-bottom: 0.5rem;">Call Center Work Order System</h2>
+                                            <p style="color: #6b7280; font-size: 1.1rem;">Streamlined work order submission for client service requests</p>
+                                        </div>
+
+                                        <!-- Operator Information -->
+                                        <div style="background: linear-gradient(45deg, #ecfdf5, #d1fae5); border: 1px solid #86efac; border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+                                            <div style="background: #059669; color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem;">✓ Call Center Agent</div>
+                                            <div><strong>Operator ID:</strong> OP-A7B3C9 | <strong>Session:</strong> SS-892341 | <strong>Date:</strong> ${new Date().toLocaleDateString()}</div>
+                                        </div>
+
+                                        <!-- Tab System -->
+                                        <div style="background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); overflow: hidden;">
+                                            <!-- Tab Headers -->
+                                            <div style="display: flex; border-bottom: 1px solid #e5e7eb;">
+                                                <button class="fs-tab fs-tab-active" onclick="fsSwitchCallCenterTab('existing')" data-tab="existing" style="flex: 1; padding: 1.5rem 2rem; background: white; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 600; color: #59ACE1; border: none; border-bottom: 3px solid #59ACE1;">
+                                                    ✓ Create Job (Existing Customer)
+                                                </button>
+                                                <button class="fs-tab" onclick="fsSwitchCallCenterTab('new')" data-tab="new" style="flex: 1; padding: 1.5rem 2rem; background: #f9fafb; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 600; color: #6b7280; border: none;">
+                                                    ➕ Create New Customer
+                                                </button>
+                                            </div>
+
+
+
+                                            
+                                            <!-- Existing Customer Tab Content -->
+                                            <div id="fs-existing-customer-tab" class="fs-tab-content" style="display: block; padding: 2rem;">
+                                                <div style="text-align: center; margin-bottom: 2rem;">
+                                                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #000000; margin-bottom: 0.5rem;">Create Job for Existing Customer</h3>
+                                                    <p style="color: #6b7280;">Quick job creation for established customers</p>
+                                                </div>
+                                                
+                                                <div style="display: grid; gap: 1.5rem;">
+                                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                                                        <div>
+                                                            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Customer Name *</label>
+                                                            <input type="text" id="fs-customer-name" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="e.g., Snuffers Restaurant Group">
+                                                        </div>
+                                                        <div>
+                                                            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Service Location *</label>
+                                                            <input type="text" id="fs-service-location" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="e.g., Snuffers - Rockwall">
+                                                        </div>
+                                                    </div>
+                                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                                                        <div>
+                                                            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Job Category *</label>
+                                                            <select id="fs-job-category" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;">
+                                                                <option value="">Select Category</option>
+                                                                <option value="Refrigeration">Refrigeration</option>
+                                                                <option value="HVAC">HVAC</option>
+                                                                <option value="Plumbing">Plumbing</option>
+                                                                <option value="Electrical">Electrical</option>
+                                                                <option value="Kitchen Equipment">Kitchen Equipment</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Job Priority *</label>
+                                                            <select id="fs-job-priority" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;">
+                                                                <option value="Emergency">Emergency</option>
+                                                                <option value="High">High</option>
+                                                                <option value="Normal" selected>Normal</option>
+                                                                <option value="Low">Low</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Job Description *</label>
+                                                        <textarea id="fs-job-description" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; height: 6rem; resize: none;" placeholder="e.g., Freezer not maintaining temperature"></textarea>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div style="text-align: center; margin-top: 2rem;">
+                                                    <button class="fs-btn fs-btn-success" onclick="fsCreateJob()" style="width: auto; padding: 1rem 2rem; font-size: 1.125rem;">➕ Create Job</button>
+                                                </div>
+                                            </div>
+
+                                            <!-- New Customer Tab Content -->
+                                            <div id="fs-new-customer-tab" class="fs-tab-content" style="display: none; padding: 2rem;">
+                                                <div style="text-align: center; margin-bottom: 2rem;">
+                                                    <h3 style="font-size: 1.5rem; font-weight: 700; color: #000000; margin-bottom: 0.5rem;">Create New Customer</h3>
+                                                    <p style="color: #6b7280;">Add a new customer to the system</p>
+                                                </div>
+                                                
+                                                <div style="display: grid; gap: 1.5rem;">
+                                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                                        <div>
+                                                            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Company Name *</label>
+                                                            <input type="text" id="fs-company-name" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="Company or Business Name">
+                                                        </div>
+                                                        <div>
+                                                            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Contact Person *</label>
+                                                            <input type="text" id="fs-contact-person" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="Primary Contact Name">
+                                                        </div>
+                                                        <div>
+                                                            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Phone Number *</label>
+                                                            <input type="tel" id="fs-contact-phone" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="(555) 123-4567">
+                                                        </div>
+                                                        <div>
+                                                            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Email *</label>
+                                                            <input type="email" id="fs-contact-email" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="contact@company.com">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div style="text-align: center; margin-top: 2rem;">
+                                                    <button class="fs-btn fs-btn-primary" onclick="fsCreateNewCustomer()" style="width: auto; padding: 1rem 2rem; font-size: 1.125rem;">➕ Create New Customer</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- System Status Content -->
+                                <div id="fs-system-status-content" class="fs-content-panel fs-hidden">
+                                    <div style="padding: 2rem;">
+                                        <h2 style="margin-bottom: 2rem; color: #000000; font-size: 2rem; font-weight: 700;">System Status & API Connections</h2>
+                                        
+                                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                                            <!-- Field Service APIs -->
+                                            <div style="background: #ffffff; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">
+                                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                                                    <h3 style="font-size: 1.2rem; font-weight: 600; color: #000000;">Field Service APIs</h3>
+                                                    <div style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #ffffff; background: linear-gradient(45deg, #10b981, #059669);">📶</div>
+                                                </div>
+                                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 8px;">
+                                                        <span style="font-weight: 500; color: #000000;">Service Fusion</span>
+                                                        <span style="color: #10b981; font-size: 0.9rem; font-weight: 600;">Connected</span>
+                                                    </div>
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 8px;">
+                                                        <span style="font-weight: 500; color: #000000;">Service Titan</span>
+                                                        <span style="color: #FFB100; font-size: 0.9rem; font-weight: 600;">Pending</span>
+                                                    </div>
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 8px;">
+                                                        <span style="font-weight: 500; color: #000000;">Last Sync</span>
+                                                        <span style="font-size: 0.9rem; font-weight: 600;">2 min ago</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Work Order APIs -->
+                                            <div style="background: #ffffff; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">
+                                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                                                    <h3 style="font-size: 1.2rem; font-weight: 600; color: #000000;">Work Order APIs</h3>
+                                                    <div style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #ffffff; background: linear-gradient(45deg, #10b981, #059669);">🗄️</div>
+                                                </div>
+                                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 8px;">
+                                                        <span style="font-weight: 500; color: #000000;">Ecotrak</span>
+                                                        <span style="color: #10b981; font-size: 0.9rem; font-weight: 600;">Connected</span>
+                                                    </div>
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 8px;">
+                                                        <span style="font-weight: 500; color: #000000;">Service Channel</span>
+                                                        <span style="color: #ef4444; font-size: 0.9rem; font-weight: 600;">Disconnected</span>
+                                                    </div>
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 8px;">
+                                                        <span style="font-weight: 500; color: #000000;">Last Sync</span>
+                                                        <span style="font-size: 0.9rem; font-weight: 600;">5 min ago</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- System Health -->
+                                            <div style="background: #ffffff; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); border: 1px solid #e5e7eb;">
+                                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                                                    <h3 style="font-size: 1.2rem; font-weight: 600; color: #000000;">System Health</h3>
+                                                    <div style="width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #ffffff; background: linear-gradient(45deg, #10b981, #059669);">❤️</div>
+                                                </div>
+                                                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 8px;">
+                                                        <span style="font-weight: 500; color: #000000;">Overall Status</span>
+                                                        <span style="color: #10b981; font-size: 0.9rem; font-weight: 600;">Healthy</span>
+                                                    </div>
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 8px;">
+                                                        <span style="font-weight: 500; color: #000000;">Uptime</span>
+                                                        <span style="font-size: 0.9rem; font-weight: 600;">99.8%</span>
+                                                    </div>
+                                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 8px;">
+                                                        <span style="font-weight: 500; color: #000000;">CPU Usage</span>
+                                                        <span style="font-size: 0.9rem; font-weight: 600;">23%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </body>
+                </html>
+
+
+            `;
+        }
+
+        function initializeFieldServicePlatform() {
+            // Field Service Platform JavaScript functionality
+            window.currentFSModule = 'welcome';
+            window.fsStats = {
+                totalTickets: 247,
+                activeJobs: 18,
+                completionRate: 94.2,
+                systemUptime: 99.8
+            };
+
+            // Update stats periodically
+            setInterval(() => {
+                window.fsStats.totalTickets += Math.floor(Math.random() * 3);
+                window.fsStats.activeJobs = Math.max(10, window.fsStats.activeJobs + Math.floor(Math.random() * 3) - 1);
+                
+                const totalTicketsEl = document.getElementById('fs-total-tickets');
+                const activeJobsEl = document.getElementById('fs-active-jobs');
+                
+                if (totalTicketsEl) totalTicketsEl.textContent = window.fsStats.totalTickets;
+                if (activeJobsEl) activeJobsEl.textContent = window.fsStats.activeJobs;
+            }, 30000);
+
+            console.log('Field Service Management Platform initialized');
+        }
+
+        // Field Service Platform Functions
+        window.fsLoadContent = function(contentType) {
+            console.log('Loading FS content:', contentType);
+            
+            // Hide all content panels
+            document.querySelectorAll('[id^="fs-"][id$="-content"]').forEach(panel => {
+                panel.classList.add('fs-hidden');
+            });
+            
+            // Remove active class from all menu items
+            document.querySelectorAll('.fs-menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected content
+            const targetPanel = document.getElementById(`fs-${contentType}-content`);
+            if (targetPanel) {
+                targetPanel.classList.remove('fs-hidden');
+            } else {
+                document.getElementById('fs-welcome-content').classList.remove('fs-hidden');
+            }
+            
+            // Set active menu item
+            const activeItem = document.querySelector(`[data-content="${contentType}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+            
+            window.currentFSModule = contentType;
+        };
+
+        window.fsSelectProvider = function(provider) {
+            console.log('Selecting FS provider:', provider);
+            
+            document.querySelectorAll('.fs-provider-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            const selectedCard = document.querySelector(`[data-provider="${provider}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('active');
+            }
+            
+            fsShowNotification(`Selected ${provider} for configuration`, 'info');
+        };
+
+        window.fsTestConnection = function() {
+            fsShowNotification('Testing connection...', 'info');
+            setTimeout(() => {
+                const success = Math.random() > 0.2;
+                if (success) {
+                    fsShowNotification('Connection test successful!', 'success');
+                } else {
+                    fsShowNotification('Connection test failed. Please check your credentials.', 'error');
+                }
+            }, 2000);
+        };
+
+        window.fsSaveConfig = function() {
+            fsShowNotification('Saving configuration...', 'info');
+            setTimeout(() => {
+                fsShowNotification('Configuration saved successfully!', 'success');
+            }, 1500);
+        };
+
+        window.fsSyncNow = function() {
+            fsShowNotification('Starting sync...', 'info');
+            setTimeout(() => {
+                const processed = Math.floor(Math.random() * 20) + 10;
+                fsShowNotification(`Sync completed! Processed ${processed} work orders.`, 'success');
+                window.fsStats.totalTickets += processed;
+                const totalTicketsEl = document.getElementById('fs-total-tickets');
+                if (totalTicketsEl) totalTicketsEl.textContent = window.fsStats.totalTickets;
+            }, 3000);
+        };
+
+        window.fsViewLogs = function() {
+            fsShowNotification('Opening logs...', 'info');
+        };
+
+        // Work Order Functions
+        window.fsSelectWorkOrder = function(provider) {
+            console.log('Selecting work order provider:', provider);
+            
+            document.querySelectorAll('#fs-work-order-content .fs-provider-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            const selectedCard = document.querySelector(`#fs-work-order-content [data-provider="${provider}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('active');
+            }
+            
+            fsShowNotification(`Selected ${provider} for work order integration`, 'info');
+        };
+
+        window.fsTestWorkOrderConnection = function() {
+            fsShowNotification('Testing work order connection...', 'info');
+            setTimeout(() => {
+                const success = Math.random() > 0.2;
+                if (success) {
+                    fsShowNotification('Work order connection test successful!', 'success');
+                } else {
+                    fsShowNotification('Work order connection test failed.', 'error');
+                }
+            }, 2000);
+        };
+
+        window.fsSaveWorkOrderConfig = function() {
+            fsShowNotification('Saving work order configuration...', 'info');
+            setTimeout(() => {
+                fsShowNotification('Work order configuration saved successfully!', 'success');
+            }, 1500);
+        };
+
+        window.fsSyncWorkOrderNow = function() {
+            fsShowNotification('Starting work order sync...', 'info');
+            setTimeout(() => {
+                const processed = Math.floor(Math.random() * 15) + 5;
+                fsShowNotification(`Work order sync completed! Processed ${processed} orders.`, 'success');
+            }, 3000);
+        };
+
+        window.fsViewWorkOrderLogs = function() {
+            fsShowNotification('Opening work order logs...', 'info');
+        };
+
+        // Warranty Functions
+        window.fsSelectWarranty = function(company) {
+            console.log('Selecting warranty company:', company);
+            
+            document.querySelectorAll('#fs-warranty-content .fs-provider-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            const selectedCard = document.querySelector(`#fs-warranty-content [data-company="${company}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('active');
+            }
+            
+            const companyNames = {
+                newco: 'NewCo Warranty',
+                nsc: 'NSC',
+                true: 'True',
+                spaceman: 'SpaceMan',
+                dukers: 'Dukers Warranty'
+            };
+            
+            // Show warranty actions panel
+            let actionsPanel = document.getElementById('fs-warranty-actions');
+            if (!actionsPanel) {
+                actionsPanel = document.createElement('div');
+                actionsPanel.id = 'fs-warranty-actions';
+                actionsPanel.style.cssText = `
+                    background: white; 
+                    border-radius: 16px; 
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); 
+                    padding: 2rem; 
+                    text-align: center; 
+                    margin-top: 2rem;
+                `;
+                document.querySelector('#fs-warranty-content .fs-module-content').appendChild(actionsPanel);
+            }
+            
+            actionsPanel.innerHTML = `
+                <h3 style="color: #000000; font-weight: 700; margin-bottom: 1rem; font-size: 1.5rem;">${companyNames[company]} Portal</h3>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button class="fs-btn fs-btn-primary" onclick="fsCreateWorkOrder('${company}')">
+                        ➕ Create Work Order
+                    </button>
+                    <button class="fs-btn fs-btn-outline" onclick="fsUploadPDF('${company}')">
+                        📄 Upload PDF
+                    </button>
+                    <button class="fs-btn fs-btn-outline" onclick="fsViewWorkOrders('${company}')">
+                        📋 View Work Orders
+                    </button>
+                </div>
+            `;
+            
+            fsShowNotification(`Selected ${companyNames[company] || company} portal`, 'info');
+        };
+
+        window.fsOpenProviderModal = function() {
+            // Create modal overlay
+            let modal = document.getElementById('fs-provider-modal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'fs-provider-modal';
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.5);
+                    z-index: 10000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 2rem;
+                    backdrop-filter: blur(5px);
+                `;
+                
+                modal.innerHTML = `
+                    <div style="background: white; border-radius: 16px; width: 100%; max-width: 600px; max-height: 90vh; overflow: hidden; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);">
+                        <div style="background: linear-gradient(135deg, #59ACE1 0%, #FFB100 100%); color: white; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between;">
+                            <h2 style="color: white; font-weight: 700; margin: 0;">Add New Warranty Provider</h2>
+                            <button onclick="fsCloseProviderModal()" style="background: none; border: none; color: white; cursor: pointer; padding: 0.5rem; border-radius: 8px; font-size: 1.5rem;">×</button>
+                        </div>
+                        <div style="padding: 2rem;">
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Company Name *</label>
+                                <input type="text" id="fs-provider-name" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="Enter company name">
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Contact Email *</label>
+                                <input type="email" id="fs-provider-email" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="contact@company.com">
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #000000;">Phone Number *</label>
+                                <input type="tel" id="fs-provider-phone" style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px;" placeholder="(555) 123-4567">
+                            </div>
+                        </div>
+                        <div style="background: #f8fafc; padding: 1.5rem 2rem; display: flex; gap: 1rem; justify-content: flex-end; border-top: 1px solid #e5e7eb;">
+                            <button onclick="fsCloseProviderModal()" class="fs-btn fs-btn-outline">Cancel</button>
+                            <button onclick="fsCreateProvider()" class="fs-btn fs-btn-primary">Create Provider</button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+            }
+            
+            modal.style.display = 'flex';
+        };
+
+        window.fsCloseProviderModal = function() {
+            const modal = document.getElementById('fs-provider-modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        window.fsCreateProvider = function() {
+            const name = document.getElementById('fs-provider-name').value;
+            const email = document.getElementById('fs-provider-email').value;
+            const phone = document.getElementById('fs-provider-phone').value;
+            
+            if (!name || !email || !phone) {
+                fsShowNotification('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            fsShowNotification(`Creating provider "${name}"...`, 'info');
+            setTimeout(() => {
+                fsShowNotification(`Provider "${name}" created successfully!`, 'success');
+                fsCloseProviderModal();
+            }, 2000);
+        };
+
+        window.fsCreateWorkOrder = function(company) {
+            fsShowNotification(`Creating work order for ${company}...`, 'info');
+            setTimeout(() => {
+                const woId = 'WO-' + Date.now().toString().substr(-6);
+                fsShowNotification(`Work order ${woId} created successfully!`, 'success');
+                window.fsStats.activeJobs++;
+                const activeJobsEl = document.getElementById('fs-active-jobs');
+                if (activeJobsEl) activeJobsEl.textContent = window.fsStats.activeJobs;
+            }, 2000);
+        };
+
+        window.fsUploadPDF = function(company) {
+            fsShowNotification(`Opening PDF upload for ${company}...`, 'info');
+        };
+
+        window.fsViewWorkOrders = function(company) {
+            fsShowNotification(`Loading work orders for ${company}...`, 'info');
+        };
+
+        // Call Center Functions
+        window.fsSwitchCallCenterTab = function(tabType) {
+            console.log('Switching to call center tab:', tabType);
+            
+            // Update tab buttons
+            document.querySelectorAll('#fs-call-center-content .fs-tab').forEach(tab => {
+                if (tab.getAttribute('data-tab') === tabType) {
+                    tab.classList.add('fs-tab-active');
+                    tab.style.background = 'white';
+                    tab.style.color = '#59ACE1';
+                    tab.style.borderBottom = '3px solid #59ACE1';
+                } else {
+                    tab.classList.remove('fs-tab-active');
+                    tab.style.background = '#f9fafb';
+                    tab.style.color = '#6b7280';
+                    tab.style.borderBottom = 'none';
+                }
+            });
+            
+            // Update content
+            document.querySelectorAll('#fs-call-center-content .fs-tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            if (tabType === 'existing') {
+                document.getElementById('fs-existing-customer-tab').style.display = 'block';
+            } else {
+                document.getElementById('fs-new-customer-tab').style.display = 'block';
+            }
+        };
+
+        window.fsCreateJob = function() {
+            const customerName = document.getElementById('fs-customer-name').value;
+            const serviceLocation = document.getElementById('fs-service-location').value;
+            const jobCategory = document.getElementById('fs-job-category').value;
+            const jobDescription = document.getElementById('fs-job-description').value;
+
+            if (!customerName || !serviceLocation || !jobCategory || !jobDescription) {
+                fsShowNotification('Please fill in all required fields', 'error');
+                return;
+            }
+
+            fsShowNotification('Creating job from call center...', 'info');
+            setTimeout(() => {
+                const jobId = 'JOB-' + Date.now().toString().substr(-6);
+                fsShowNotification(`Job ${jobId} created successfully for ${customerName}!`, 'success');
+                window.fsStats.totalTickets++;
+                window.fsStats.activeJobs++;
+                
+                const totalTicketsEl = document.getElementById('fs-total-tickets');
+                const activeJobsEl = document.getElementById('fs-active-jobs');
+                
+                if (totalTicketsEl) totalTicketsEl.textContent = window.fsStats.totalTickets;
+                if (activeJobsEl) activeJobsEl.textContent = window.fsStats.activeJobs;
+                
+                // Clear form
+                document.getElementById('fs-customer-name').value = '';
+                document.getElementById('fs-service-location').value = '';
+                document.getElementById('fs-job-category').value = '';
+                document.getElementById('fs-job-description').value = '';
+            }, 2000);
+        };
+
+        window.fsCreateNewCustomer = function() {
+            const companyName = document.getElementById('fs-company-name').value;
+            const contactPerson = document.getElementById('fs-contact-person').value;
+            const phoneNumber = document.getElementById('fs-contact-phone').value;
+            const email = document.getElementById('fs-contact-email').value;
+
+            if (!companyName || !contactPerson || !phoneNumber || !email) {
+                fsShowNotification('Please fill in all required fields', 'error');
+                return;
+            }
+
+            fsShowNotification('Creating new customer...', 'info');
+            setTimeout(() => {
+                const customerId = 'CUST-' + Date.now().toString().substr(-6);
+                fsShowNotification(`Customer ${customerId} created successfully for ${companyName}!`, 'success');
+                
+                // Clear form
+                document.getElementById('fs-company-name').value = '';
+                document.getElementById('fs-contact-person').value = '';
+                document.getElementById('fs-contact-phone').value = '';
+                document.getElementById('fs-contact-email').value = '';
+            }, 2000);
+        };
+
+        // Backend Integration & Scaling Endpoints
+        class FieldServiceBackendAPI {
+            constructor() {
+                this.baseURL = 'https://api.fieldservice.bluecollarai.com/v1';
+                this.token = localStorage.getItem('fs_auth_token');
+            }
+
+            // Field Service Provider Endpoints
+            async connectProvider(provider, credentials) {
+                return await this.request(`/integrations/field-service/${provider}/connect`, {
+                    method: 'POST',
+                    body: JSON.stringify(credentials)
+                });
+            }
+
+            async testProviderConnection(provider) {
+                return await this.request(`/integrations/field-service/${provider}/test`, {
+                    method: 'GET'
+                });
+            }
+
+            async syncProvider(provider) {
+                return await this.request(`/integrations/field-service/${provider}/sync`, {
+                    method: 'POST'
+                });
+            }
+
+            // Work Order Integration Endpoints
+            async connectWorkOrderProvider(provider, credentials) {
+                return await this.request(`/integrations/work-orders/${provider}/connect`, {
+                    method: 'POST',
+                    body: JSON.stringify(credentials)
+                });
+            }
+
+            async syncWorkOrders(provider) {
+                return await this.request(`/integrations/work-orders/${provider}/sync`, {
+                    method: 'POST'
+                });
+            }
+
+            // Warranty Provider Endpoints
+            async createWarrantyProvider(providerData) {
+                return await this.request('/warranty/providers', {
+                    method: 'POST',
+                    body: JSON.stringify(providerData)
+                });
+            }
+
+            async getWarrantyProviders() {
+                return await this.request('/warranty/providers', {
+                    method: 'GET'
+                });
+            }
+
+            async createWorkOrder(providerId, workOrderData) {
+                return await this.request(`/warranty/providers/${providerId}/work-orders`, {
+                    method: 'POST',
+                    body: JSON.stringify(workOrderData)
+                });
+            }
+
+            // Call Center Endpoints
+            async createJob(jobData) {
+                return await this.request('/call-center/jobs', {
+                    method: 'POST',
+                    body: JSON.stringify(jobData)
+                });
+            }
+
+            async createCustomer(customerData) {
+                return await this.request('/call-center/customers', {
+                    method: 'POST',
+                    body: JSON.stringify(customerData)
+                });
+            }
+
+            async getCustomers(searchTerm) {
+                return await this.request(`/call-center/customers?search=${encodeURIComponent(searchTerm)}`, {
+                    method: 'GET'
+                });
+            }
+
+            // System Status Endpoints
+            async getSystemStatus() {
+                return await this.request('/system/status', {
+                    method: 'GET'
+                });
+            }
+
+            async getIntegrationStatus() {
+                return await this.request('/system/integrations/status', {
+                    method: 'GET'
+                });
+            }
+
+            // File Upload Endpoints
+            async uploadFile(file, type = 'general') {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('type', type);
+                
+                return await this.request('/files/upload', {
+                    method: 'POST',
+                    headers: {}, // Remove Content-Type to let browser set it for FormData
+                    body: formData
+                });
+            }
+
+            // WebSocket for Real-time Updates
+            setupWebSocket() {
+                const wsURL = this.baseURL.replace('https://', 'wss://').replace('/v1', '/ws');
+                this.socket = new WebSocket(`${wsURL}?token=${this.token}`);
+                
+                this.socket.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    this.handleRealtimeUpdate(data);
+                };
+                
+                this.socket.onerror = (error) => {
+                    console.error('WebSocket error:', error);
+                };
+            }
+
+            handleRealtimeUpdate(data) {
+                switch (data.type) {
+                    case 'job_created':
+                        fsShowNotification(`New job created: ${data.payload.jobId}`, 'info');
+                        break;
+                    case 'integration_status':
+                        this.updateIntegrationStatus(data.payload);
+                        break;
+                    case 'stats_update':
+                        this.updateDashboardStats(data.payload);
+                        break;
+                }
+            }
+
+            updateIntegrationStatus(status) {
+                // Update UI based on integration status changes
+                console.log('Integration status update:', status);
+            }
+
+            updateDashboardStats(stats) {
+                // Update dashboard statistics in real-time
+                if (stats.totalTickets) {
+                    const el = document.getElementById('fs-total-tickets');
+                    if (el) el.textContent = stats.totalTickets;
+                }
+                if (stats.activeJobs) {
+                    const el = document.getElementById('fs-active-jobs');
+                    if (el) el.textContent = stats.activeJobs;
+                }
+                if (stats.completionRate) {
+                    const el = document.getElementById('fs-completion-rate');
+                    if (el) el.textContent = stats.completionRate + '%';
+                }
+                if (stats.systemUptime) {
+                    const el = document.getElementById('fs-system-uptime');
+                    if (el) el.textContent = stats.systemUptime + '%';
+                }
+            }
+
+            // Generic request method
+            async request(endpoint, options = {}) {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...(this.token && { 'Authorization': `Bearer ${this.token}` }),
+                        ...options.headers
+                    },
+                    ...options
+                };
+
+                try {
+                    const response = await fetch(`${this.baseURL}${endpoint}`, config);
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.message || 'API request failed');
+                    }
+
+                    return data;
+                } catch (error) {
+                    console.error(`Field Service API Error: ${error.message}`);
+                    throw error;
+                }
+            }
+        }
+
+        // Initialize Backend API for Field Service Platform
+        window.fsBackendAPI = new FieldServiceBackendAPI();
+
+        window.fsLogout = function() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Remove field service platform
+                const fsPlatform = document.getElementById('field-service-platform');
+                if (fsPlatform) {
+                    fsPlatform.remove();
+                }
+                
+                // Show main platform navigation
+                document.querySelector('.nav').style.display = 'flex';
+                
+                // Logout from main platform
+                logout();
+            }
+        };
+
+        // Field Service Notification system
+        window.fsShowNotification = function(message, type = 'success') {
+            const notification = document.createElement('div');
+            
+            let backgroundColor;
+            switch (type) {
+                case 'error':
+                    backgroundColor = '#ef4444';
+                    break;
+                case 'info':
+                    backgroundColor = '#59ACE1';
+                    break;
+                case 'warning':
+                    backgroundColor = '#FFB100';
+                    break;
+                default:
+                    backgroundColor = '#10b981';
+            }
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 90px;
+                right: 20px;
+                background: ${backgroundColor};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                z-index: 10000;
+                max-width: 400px;
+                font-weight: 500;
+                font-family: Georgia Pro, Georgia, serif;
+                line-height: 1.4;
+                cursor: pointer;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            notification.onclick = () => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            };
+            
+            document.body.appendChild(notification);
+            
+            const duration = type === 'info' ? 4000 : 3000;
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }
+            }, duration);
+        };
+
+        // Modified Authentication Handlers for Service Provider Detection  
+        async function handleSignup(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            if (data.password !== data.confirmPassword) {
+                showAlert('signup-alert', 'error', 'Passwords do not match');
+                return;
+            }
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            try {
+                data.userType = appState.user.userType;
+                
+                // Mock authentication delay for realism
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Create mock successful response
+                const response = {
+                    user: {
+                        id: DataProcessor.generateUUID(),
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        email: data.email,
+                        company: data.company,
+                        phone: data.phone,
+                        userType: appState.user.userType
+                    },
+                    token: `bc_token_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+                };
+                
+                // Store authentication data locally
+                api.token = response.token;
+                localStorage.setItem('auth_token', response.token);
+                localStorage.setItem('user_profile', JSON.stringify(response.user));
+                
+                appState.user.isAuthenticated = true;
+                appState.user.profile = response.user;
+                appState.user.userType = response.user.userType;
+                
+                updateNavigation();
+                
+                // Check user type and redirect accordingly
+                if (appState.user.userType === 'service') {
+                    showServiceProviderRedirect();
+                } else {
+                    showPage('dashboard');
+                    updateDashboardForUserType();
+                }
+                
+                Analytics.track('User Signup', { 
+                    userType: appState.user.userType,
+                    method: 'email'
+                });
+                
+            } catch (error) {
+                showAlert('signup-alert', 'error', error.message || 'Signup failed');
+                ErrorReporter.report(error, { context: 'signup' });
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            try {
+                // Mock authentication delay for realism
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Create mock successful response
+                const response = {
+                    user: {
+                        id: DataProcessor.generateUUID(),
+                        email: data.email,
+                        firstName: 'John',
+                        lastName: 'Doe',
+                        company: 'Demo Company',
+                        userType: appState.user.userType || 'restaurant'
+                    },
+                    token: `bc_token_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+                };
+                
+                // Store authentication data locally
+                api.token = response.token;
+                localStorage.setItem('auth_token', response.token);
+                localStorage.setItem('user_profile', JSON.stringify(response.user));
+                
+                appState.user.isAuthenticated = true;
+                appState.user.profile = response.user;
+                appState.user.userType = response.user.userType;
+                
+                updateNavigation();
+                
+                // Check user type and redirect accordingly
+                if (appState.user.userType === 'service') {
+                    showServiceProviderRedirect();
+                } else {
+                    showPage('dashboard');
+                    updateDashboardForUserType();
+                }
+                
+                Analytics.track('User Login', { 
+                    userType: appState.user.userType,
+                    method: 'email'
+                });
+                
+            } catch (error) {
+                showAlert('login-alert', 'error', error.message || 'Login failed');
+                ErrorReporter.report(error, { context: 'login' });
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function handleSocialLogin(provider) {
+            console.log(`Initiating ${provider} login...`);
+            
+            // Show loading state
+            const button = event.target;
+            const originalContent = button.innerHTML;
+            button.innerHTML = `<span style="margin-right: 0.5rem;">⏳</span>Connecting to ${provider}...`;
+            button.disabled = true;
+            
+            try {
+                // Mock OAuth flow with realistic delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Simulate successful OAuth response
+                const mockUserData = {
+                    id: DataProcessor.generateUUID(),
+                    email: `user@${provider}.com`,
+                    firstName: provider === 'google' ? 'Google' : 'Microsoft',
+                    lastName: 'User',
+                    provider: provider,
+                    userType: appState.user.userType || 'restaurant'
+                };
+                
+                // Store auth token (mock)
+                const mockToken = `mock_${provider}_token_${Date.now()}`;
+                api.token = mockToken;
+                localStorage.setItem('auth_token', mockToken);
+                
+                // Update app state
+                appState.user.isAuthenticated = true;
+                appState.user.profile = mockUserData;
+                appState.user.userType = mockUserData.userType;
+                
+                // Show success and redirect
+                button.innerHTML = `<span style="margin-right: 0.5rem;">✓</span>Success! Redirecting...`;
+                
+                setTimeout(() => {
+                    updateNavigation();
+                    
+                    // Check if Service Provider and redirect
+                    if (appState.user.userType === 'service') {
+                        showServiceProviderRedirect();
+                    } else {
+                        showPage('dashboard');
+                        updateDashboardForUserType();
+                    }
+                    
+                    // Track the social login
+                    Analytics.track('Social Login', { 
+                        provider: provider,
+                        userType: appState.user.userType
+                    });
+                }, 1000);
+                
+            } catch (error) {
+                console.error(`${provider} login failed:`, error);
+                button.innerHTML = `<span style="margin-right: 0.5rem;">❌</span>Login failed. Try again.`;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalContent;
+                    button.disabled = false;
+                }, 2000);
+                
+                ErrorReporter.report(error, { context: 'social_login', provider: provider });
+            }
+        }
+
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                targetPage.classList.add('fade-in');
+                appState.currentPage = pageId;
+                
+                Analytics.page(pageId);
+            }
+        }
+
+        // User Type Selection
+        function selectUserType(type) {
+            document.querySelectorAll('.user-type-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            const selectedCard = document.querySelector(`[data-type="${type}"]`);
+            selectedCard.classList.add('selected');
+            
+            appState.user.userType = type;
+            document.getElementById('continue-btn').disabled = false;
+            
+            Analytics.track('User Type Selected', { userType: type });
+        }
+
+        // Restaurant Assets Management (Restaurant Operators Only)
+        async function handleAssetsCreation(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            try {
+                const locations = [];
+                const equipment = [];
+                
+                // Process each location
+                for (let locationId = 1; locationId <= appState.locationCounter; locationId++) {
+                    const locationDiv = document.querySelector(`[data-location="${locationId}"]`);
+                    if (!locationDiv) continue;
+                    
+                    const locationData = {
+                        name: formData.get(`locationName${locationId}`),
+                        businessNumber: formData.get(`businessNumber${locationId}`),
+                        taxExempt: formData.get(`taxExempt${locationId}`) === 'on',
+                        address: {
+                            street: formData.get(`streetAddress${locationId}`),
+                            apt: formData.get(`aptSuite${locationId}`),
+                            city: formData.get(`locationCity${locationId}`),
+                            state: formData.get(`locationState${locationId}`),
+                            zip: formData.get(`locationZip${locationId}`)
+                        },
+                        primaryLocation: formData.get(`primaryLocation${locationId}`) === 'on',
+                        billingAddress: formData.get(`billingAddress${locationId}`) === 'on'
+                    };
+                    
+                    // Mock location creation
+                    const createdLocation = { ...locationData, id: DataProcessor.generateUUID() };
+                    locations.push(createdLocation);
+                    
+                    // Process equipment for this location
+                    const equipmentCounter = appState.equipmentCounters[locationId] || 1;
+                    for (let equipId = 1; equipId <= equipmentCounter; equipId++) {
+                        const equipmentDiv = document.querySelector(`[data-equipment="${equipId}"][data-location="${locationId}"]`);
+                        if (!equipmentDiv) continue;
+                        
+                        const equipmentData = {
+                            locationId: createdLocation.id,
+                            type: formData.get(`equipmentType${locationId}_${equipId}`),
+                            manufacturer: formData.get(`manufacturer${locationId}_${equipId}`),
+                            model: formData.get(`modelNumber${locationId}_${equipId}`),
+                            serial: formData.get(`serialNumber${locationId}_${equipId}`)
+                        };
+                        
+                        // Mock equipment creation
+                        const createdEquipment = { ...equipmentData, id: DataProcessor.generateUUID() };
+                        equipment.push(createdEquipment);
+                    }
+                }
+                
+                appState.user.locations = locations;
+                appState.user.equipment = equipment;
+                
+                showAlert('assets-alert', 'success', 'Restaurant assets created successfully!');
+                setTimeout(() => showPage('dashboard'), 2000);
+                
+                Analytics.track('Restaurant Assets Created', { 
+                    locationCount: locations.length,
+                    equipmentCount: equipment.length
+                });
+                
+            } catch (error) {
+                showAlert('assets-alert', 'error', error.message || 'Failed to create assets');
+                ErrorReporter.report(error, { context: 'assets_creation' });
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        }
+
+        function addLocation() {
+            appState.locationCounter++;
+            const locationId = appState.locationCounter;
+            appState.equipmentCounters[locationId] = 1;
+            
+            const locationHtml = `
+                <div class="location-card" data-location="${locationId}">
+                    <div class="location-header">
+                        <div class="location-title">
+                            📍 Additional Location ${locationId}
+                        </div>
+                        <button type="button" class="location-remove" onclick="removeLocation(${locationId})">
+                            🗑️ Remove Location
+                        </button>
+                    </div>
+                    
+                    <div class="location-content">
+                        <div class="form-group">
+                            <label for="locationName${locationId}" class="form-label">Location Name</label>
+                            <input type="text" id="locationName${locationId}" name="locationName${locationId}" class="form-input" placeholder="e.g., Westside Branch" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;">
+                                <label for="businessNumber${locationId}" class="form-label">Business Number / Tax ID</label>
+                                <input type="text" id="businessNumber${locationId}" name="businessNumber${locationId}" class="form-input">
+                            </div>
+                            <div class="form-group" style="flex: 1; display: flex; align-items: end;">
+                                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; margin-bottom: 0.75rem;">
+                                    <input type="checkbox" id="taxExempt${locationId}" name="taxExempt${locationId}">
+                                    <span style="font-size: 0.9rem; color: var(--gray-600);">Tax Exempt</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="streetAddress${locationId}" class="form-label">Street Address</label>
+                            <input type="text" id="streetAddress${locationId}" name="streetAddress${locationId}" class="form-input" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="aptSuite${locationId}" class="form-label">Apt/Suite/Unit #</label>
+                                <input type="text" id="aptSuite${locationId}" name="aptSuite${locationId}" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="locationCity${locationId}" class="form-label">City</label>
+                                <input type="text" id="locationCity${locationId}" name="locationCity${locationId}" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="locationState${locationId}" class="form-label">State</label>
+                                <input type="text" id="locationState${locationId}" name="locationState${locationId}" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="locationZip${locationId}" class="form-label">ZIP</label>
+                                <input type="text" id="locationZip${locationId}" name="locationZip${locationId}" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <div class="equipment-container" id="equipment-container-${locationId}">
+                            <h4 style="margin: 1.5rem 0 1rem 0; color: var(--gray-800); border-bottom: 2px solid var(--gray-200); padding-bottom: 0.5rem;">Equipment at this Location</h4>
+                            
+                            <div class="equipment-item" data-equipment="1" data-location="${locationId}">
+                                <div class="equipment-header">
+                                    <div class="equipment-title">Equipment 1</div>
+                                    <button type="button" class="equipment-remove" onclick="removeEquipment(1, ${locationId})" style="display: none;" id="remove-equipment-1-${locationId}">
+                                        🗑️ Remove
+                                    </button>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="equipmentType${locationId}_1" class="form-label">Equipment Type</label>
+                                    <select id="equipmentType${locationId}_1" name="equipmentType${locationId}_1" class="form-select" required>
+                                        <option value="">Select equipment type</option>
+                                        <option value="kitchen-appliances">Kitchen Appliances</option>
+                                        <option value="refrigeration">Refrigeration</option>
+                                        <option value="cooking-equipment">Cooking Equipment</option>
+                                        <option value="dishwashing">Dishwashing Equipment</option>
+                                        <option value="hvac">HVAC Systems</option>
+                                        <option value="pos-systems">POS Systems</option>
+                                        <option value="food-prep">Food Prep Equipment</option>
+                                        <option value="beverage">Beverage Equipment</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="manufacturer${locationId}_1" class="form-label">Manufacturer</label>
+                                        <input type="text" id="manufacturer${locationId}_1" name="manufacturer${locationId}_1" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="modelNumber${locationId}_1" class="form-label">Model #</label>
+                                        <input type="text" id="modelNumber${locationId}_1" name="modelNumber${locationId}_1" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="serialNumber${locationId}_1" class="form-label">Serial #</label>
+                                        <input type="text" id="serialNumber${locationId}_1" name="serialNumber${locationId}_1" class="form-input" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Equipment Photos</label>
+                                    <div class="file-upload" onclick="document.getElementById('equipmentPhoto${locationId}_1').click()">
+                                        <div class="file-upload-icon">📷</div>
+                                        <p>Choose files or drag and drop photos here</p>
+                                        <input type="file" id="equipmentPhoto${locationId}_1" name="equipmentPhoto${locationId}_1" accept="image/*" multiple style="display: none;" onchange="previewEquipmentImage(this, ${locationId}, 1)">
+                                    </div>
+                                    <div id="equipment-preview-${locationId}-1" class="equipment-preview"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-outline" onclick="addEquipment(${locationId})" style="margin: 1rem 0; width: 100%;">
+                            ➕ Add Equipment to this Location
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            const container = document.getElementById('locations-container');
+            container.insertAdjacentHTML('beforeend', locationHtml);
+        }
+
+        function removeLocation(locationId) {
+            const locationDiv = document.querySelector(`[data-location="${locationId}"]`);
+            if (locationDiv) {
+                locationDiv.remove();
+                delete appState.equipmentCounters[locationId];
+            }
+        }
+
+        function addEquipment(locationId) {
+            if (!appState.equipmentCounters[locationId]) {
+                appState.equipmentCounters[locationId] = 1;
+            }
+            appState.equipmentCounters[locationId]++;
+            
+            const equipmentId = appState.equipmentCounters[locationId];
+            
+            const equipmentHtml = `
+                <div class="equipment-item" data-equipment="${equipmentId}" data-location="${locationId}">
+                    <div class="equipment-header">
+                        <div class="equipment-title">Equipment ${equipmentId}</div>
+                        <button type="button" class="equipment-remove" onclick="removeEquipment(${equipmentId}, ${locationId})">
+                            🗑️ Remove
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="equipmentType${locationId}_${equipmentId}" class="form-label">Equipment Type</label>
+                        <select id="equipmentType${locationId}_${equipmentId}" name="equipmentType${locationId}_${equipmentId}" class="form-select" required>
+                            <option value="">Select equipment type</option>
+                            <option value="kitchen-appliances">Kitchen Appliances</option>
+                            <option value="refrigeration">Refrigeration</option>
+                            <option value="cooking-equipment">Cooking Equipment</option>
+                            <option value="dishwashing">Dishwashing Equipment</option>
+                            <option value="hvac">HVAC Systems</option>
+                            <option value="pos-systems">POS Systems</option>
+                            <option value="food-prep">Food Prep Equipment</option>
+                            <option value="beverage">Beverage Equipment</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="manufacturer${locationId}_${equipmentId}" class="form-label">Manufacturer</label>
+                            <input type="text" id="manufacturer${locationId}_${equipmentId}" name="manufacturer${locationId}_${equipmentId}" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modelNumber${locationId}_${equipmentId}" class="form-label">Model #</label>
+                            <input type="text" id="modelNumber${locationId}_${equipmentId}" name="modelNumber${locationId}_${equipmentId}" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serialNumber${locationId}_${equipmentId}" class="form-label">Serial #</label>
+                            <input type="text" id="serialNumber${locationId}_${equipmentId}" name="serialNumber${locationId}_${equipmentId}" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Equipment Photos</label>
+                        <div class="file-upload" onclick="document.getElementById('equipmentPhoto${locationId}_${equipmentId}').click()">
+                            <div class="file-upload-icon">📷</div>
+                            <p>Choose files or drag and drop photos here</p>
+                            <input type="file" id="equipmentPhoto${locationId}_${equipmentId}" name="equipmentPhoto${locationId}_${equipmentId}" accept="image/*" multiple style="display: none;" onchange="previewEquipmentImage(this, ${locationId}, ${equipmentId})">
+                        </div>
+                        <div id="equipment-preview-${locationId}-${equipmentId}" class="equipment-preview"></div>
+                    </div>
+                </div>
+            `;
+            
+            const container = document.getElementById(`equipment-container-${locationId}`);
+            const addButton = container.parentElement.querySelector('button[onclick*="addEquipment"]');
+            addButton.insertAdjacentHTML('beforebegin', equipmentHtml);
+            
+            // Show remove button for first equipment if there are now multiple
+            if (appState.equipmentCounters[locationId] > 1) {
+                const firstRemoveBtn = document.getElementById(`remove-equipment-1-${locationId}`);
+                if (firstRemoveBtn) {
+                    firstRemoveBtn.style.display = 'block';
+                }
+            }
+        }
+
+        function removeEquipment(equipmentId, locationId) {
+            const equipmentDiv = document.querySelector(`[data-equipment="${equipmentId}"][data-location="${locationId}"]`);
+            if (equipmentDiv) {
+                equipmentDiv.remove();
+            }
+            
+            // Hide remove button for first equipment if it's the only one left
+            const remainingEquipment = document.querySelectorAll(`[data-location="${locationId}"] .equipment-item`).length;
+            if (remainingEquipment === 1) {
+                const firstRemoveBtn = document.getElementById(`remove-equipment-1-${locationId}`);
+                if (firstRemoveBtn) {
+                    firstRemoveBtn.style.display = 'none';
+                }
+            }
+        }
+
+        function previewEquipmentImage(input, locationId, equipmentId) {
+            const previewContainer = document.getElementById(`equipment-preview-${locationId}-${equipmentId}`);
+            previewContainer.innerHTML = '';
+            
+            if (input.files && input.files.length > 0) {
+                Array.from(input.files).forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'equipment-preview-item';
+                        previewItem.innerHTML = `
+                            <img src="${e.target.result}" alt="Equipment ${equipmentId} - Photo ${index + 1}">
+                            <button type="button" class="equipment-preview-remove" onclick="removeEquipmentPhoto(${locationId}, ${equipmentId}, ${index})">×</button>
+                        `;
+                        previewContainer.appendChild(previewItem);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        function removeEquipmentPhoto(locationId, equipmentId, photoIndex) {
+            const previewContainer = document.getElementById(`equipment-preview-${locationId}-${equipmentId}`);
+            const photoItems = previewContainer.querySelectorAll('.equipment-preview-item');
+            if (photoItems[photoIndex]) {
+                photoItems[photoIndex].remove();
+            }
+        }
+
+        // Additional Form Handlers (Restaurant Operators Only)
+        async function handleProfileSetup(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            const equipmentTypes = Array.from(document.querySelectorAll('input[name="equipment"]:checked'))
+                .map(input => input.value);
+            data.equipment = equipmentTypes;
+            
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            try {
+                // Mock API call - replace with actual endpoint
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                appState.user.profile = { ...appState.user.profile, ...data };
+                showAlert('signup-alert', 'success', 'Profile updated successfully');
+                showPage('dashboard');
+                
+                Analytics.track('Profile Setup Completed', { 
+                    businessType: data.businessType,
+                    equipmentCount: equipmentTypes.length
+                });
+                
+            } catch (error) {
+                showAlert('signup-alert', 'error', 'Failed to update profile');
+                ErrorReporter.report(error, { context: 'profile_setup' });
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function handlePayment(event) {
+            event.preventDefault();
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            try {
+                // Mock payment processing
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                showAlert('signup-alert', 'success', 'Payment method saved successfully');
+                showPage('dashboard');
+                
+                Analytics.track('Payment Method Added');
+                
+            } catch (error) {
+                showAlert('signup-alert', 'error', 'Failed to save payment method');
+                ErrorReporter.report(error, { context: 'payment_setup' });
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function handleAccountUpdate(event) {
+            event.preventDefault();
+            try {
+                // Mock account update
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                showAlert('signup-alert', 'success', 'Account updated successfully');
+                
+                Analytics.track('Account Updated');
+                
+            } catch (error) {
+                showAlert('signup-alert', 'error', 'Failed to update account');
+                ErrorReporter.report(error, { context: 'account_update' });
+            }
+        }
+
+        async function handleForgotPassword(event) {
+            event.preventDefault();
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            try {
+                // Mock password reset
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                showAlert('forgot-alert', 'success', 'Password reset instructions sent to your email');
+                
+                Analytics.track('Password Reset Requested');
+                
+            } catch (error) {
+                showAlert('forgot-alert', 'error', 'Failed to send reset instructions');
+                ErrorReporter.report(error, { context: 'password_reset' });
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
+        }
+
+        // Dashboard Updates (Restaurant Operators Only)
+        function updateDashboardForUserType() {
+            const dashboardSubtitle = document.getElementById('dashboard-subtitle');
+            
+            if (appState.user.userType === 'restaurant') {
+                dashboardSubtitle.textContent = "Let's get your Restaurant Assets Pod set up for creating online service workorders for your equipment";
+            }
+        }
+
+        function updateNavigation() {
+            const navMenu = document.querySelector('.nav-menu');
+            if (appState.user.isAuthenticated) {
+                navMenu.innerHTML = `
+                    <span style="color: var(--gray-600);">Welcome back!</span>
+                    <button class="btn btn-outline" onclick="logout()">Sign Out</button>
+                `;
+            }
+        }
+
+        // Utility Functions
+        function showAlert(containerId, type, message) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.className = `alert alert-${type}`;
+            container.textContent = message;
+            container.classList.remove('hidden');
+            
+            setTimeout(() => {
+                container.classList.add('hidden');
+            }, 5000);
+        }
+
+        async function logout() {
+            try {
+                await api.logout();
+                Analytics.track('User Logout');
+            } catch (error) {
+                console.error('Logout error:', error);
+                ErrorReporter.report(error, { context: 'logout' });
+            }
+            
+            appState.user = { userType: null, isAuthenticated: false, profile: {}, locations: [], equipment: [] };
+            showPage('user-type');
+            
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.innerHTML = `
+                <button class="btn btn-outline" onclick="showPage('login')">Sign In</button>
+                <button class="btn btn-primary" onclick="showPage('user-type')">Get Started</button>
+            `;
+        }
+
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = input.parentElement;
+                    preview.style.backgroundImage = `url(${e.target.result})`;
+                    preview.style.backgroundSize = 'cover';
+                    preview.style.backgroundPosition = 'center';
+                    preview.innerHTML = '<p style="background: rgba(0,0,0,0.7); color: white; padding: 0.5rem; border-radius: 0.25rem;">Image uploaded</p>';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Input Formatting and Initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Format card number input
+            const cardNumberInput = document.getElementById('cardNumber');
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+                    let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+                    e.target.value = formattedValue;
+                });
+            }
+            
+            // Format expiry input
+            const expiryInput = document.getElementById('expiry');
+            if (expiryInput) {
+                expiryInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length >= 2) {
+                        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                    }
+                    e.target.value = value;
+                });
+            }
+            
+            // Format phone number
+            const phoneInputs = document.querySelectorAll('input[type="tel"]');
+            phoneInputs.forEach(input => {
+                input.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length >= 6) {
+                        value = `+1 (${value.substring(0, 3)}) ${value.substring(3, 6)}-${value.substring(6, 10)}`;
+                    } else if (value.length >= 3) {
+                        value = `+1 (${value.substring(0, 3)}) ${value.substring(3)}`;
+                    } else if (value.length > 0) {
+                        value = `+1 (${value}`;
+                    }
+                    e.target.value = value;
+                });
+            });
+
+            // Initialize app state - check for existing authentication
+            initializeApp();
+        });
+
+        // Initialize Application
+        async function initializeApp() {
+            try {
+                const storedToken = localStorage.getItem('auth_token');
+                const storedProfile = localStorage.getItem('user_profile');
+                
+                if (storedToken && storedProfile) {
+                    // User is already authenticated
+                    const userProfile = JSON.parse(storedProfile);
+                    
+                    api.token = storedToken;
+                    appState.user.isAuthenticated = true;
+                    appState.user.profile = userProfile;
+                    appState.user.userType = userProfile.userType;
+                    
+                    updateNavigation();
+                    
+                    // Check user type and redirect accordingly
+                    if (appState.user.userType === 'service') {
+                        showServiceProviderRedirect();
+                    } else {
+                        showPage('dashboard');
+                        updateDashboardForUserType();
+                    }
+                } else {
+                    // No existing authentication, show user type selection
+                    showPage('user-type');
+                }
+            } catch (error) {
+                console.error('Initialization error:', error);
+                // Clear any corrupted data and start fresh
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('user_profile');
+                showPage('user-type');
+            }
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && appState.currentPage !== 'user-type') {
+                if (appState.user.isAuthenticated) {
+                    if (appState.user.userType === 'service') {
+                        showServiceProviderRedirect();
+                    } else {
+                        showPage('dashboard');
+                    }
+                } else {
+                    showPage('user-type');
+                }
+            }
+        });
+
+        // Handle URL changes for back/forward navigation
+        window.addEventListener('popstate', function(e) {
+            if (e.state && e.state.page) {
+                showPage(e.state.page);
+            }
+        });
+
+        // Update URL when page changes
+        function updateURL(pageId) {
+            const url = new URL(window.location);
+            url.searchParams.set('page', pageId);
+            history.pushState({ page: pageId }, '', url.toString());
+        }
+
+        // Error Handler for unhandled promises
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+            ErrorReporter.report(event.reason, { context: 'unhandled_promise_rejection' });
+        });
+
+        // Utility Functions for Data Processing
+        class DataProcessor {
+            static validateEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            static validatePhone(phone) {
+                const phoneRegex = /^\+?1?\s*\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$/;
+                return phoneRegex.test(phone);
+            }
+
+            static formatCurrency(amount) {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                }).format(amount);
+            }
+
+            static formatDate(date) {
+                return new Intl.DateTimeFormat('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }).format(new Date(date));
+            }
+
+            static generateUUID() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    const r = Math.random() * 16 | 0;
+                    const v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+        }
+
+        // Form Validation Module
+        class FormValidator {
+            static validateForm(formElement) {
+                const inputs = formElement.querySelectorAll('[required]');
+                let isValid = true;
+                const errors = [];
+
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        errors.push(`${this.getFieldLabel(input)} is required`);
+                        input.classList.add('error');
+                    } else {
+                        input.classList.remove('error');
+                    }
+
+                    // Specific validations
+                    if (input.type === 'email' && input.value && !DataProcessor.validateEmail(input.value)) {
+                        isValid = false;
+                        errors.push('Please enter a valid email address');
+                        input.classList.add('error');
+                    }
+
+                    if (input.type === 'tel' && input.value && !DataProcessor.validatePhone(input.value)) {
+                        isValid = false;
+                        errors.push('Please enter a valid phone number');
+                        input.classList.add('error');
+                    }
+                });
+
+                return { isValid, errors };
+            }
+
+            static getFieldLabel(input) {
+                const label = input.closest('.form-group')?.querySelector('.form-label');
+                return label ? label.textContent : input.name || input.id || 'Field';
+            }
+        }
+
+        // Local Storage Management
+        class StorageManager {
+            static save(key, data) {
+                try {
+                    localStorage.setItem(key, JSON.stringify(data));
+                } catch (error) {
+                    console.error('Storage save error:', error);
+                    ErrorReporter.report(error, { context: 'storage_save' });
+                }
+            }
+
+            static load(key) {
+                try {
+                    const item = localStorage.getItem(key);
+                    return item ? JSON.parse(item) : null;
+                } catch (error) {
+                    console.error('Storage load error:', error);
+                    ErrorReporter.report(error, { context: 'storage_load' });
+                    return null;
+                }
+            }
+
+            static remove(key) {
+                try {
+                    localStorage.removeItem(key);
+                } catch (error) {
+                    console.error('Storage remove error:', error);
+                    ErrorReporter.report(error, { context: 'storage_remove' });
+                }
+            }
+
+            static clear() {
+                try {
+                    localStorage.clear();
+                } catch (error) {
+                    console.error('Storage clear error:', error);
+                    ErrorReporter.report(error, { context: 'storage_clear' });
+                }
+            }
+        }
+
+        // Analytics Module (for tracking user interactions)
+        class Analytics {
+            static track(event, properties = {}) {
+                // Mock analytics - replace with actual service like Google Analytics, Mixpanel, etc.
+                console.log('Analytics:', event, properties);
+                
+                // Example integration:
+                // gtag('event', event, properties);
+                // mixpanel.track(event, properties);
+            }
+
+            static identify(userId, traits = {}) {
+                console.log('Analytics Identify:', userId, traits);
+                // Example: mixpanel.identify(userId);
+            }
+
+            static page(name, properties = {}) {
+                console.log('Analytics Page:', name, properties);
+                // Example: gtag('config', 'GA_TRACKING_ID', { page_title: name });
+            }
+        }
+
+        // Performance Monitoring
+        class Performance {
+            static measure(name, fn) {
+                const start = performance.now();
+                const result = fn();
+                const end = performance.now();
+                console.log(`Performance: ${name} took ${end - start} milliseconds`);
+                return result;
+            }
+
+            static async measureAsync(name, fn) {
+                const start = performance.now();
+                const result = await fn();
+                const end = performance.now();
+                console.log(`Performance: ${name} took ${end - start} milliseconds`);
+                return result;
+            }
+        }
+
+        // Error Reporting
+        class ErrorReporter {
+            static report(error, context = {}) {
+                console.error('Error reported:', error, context);
+                
+                // In production, send to error tracking service
+                // Example: Sentry.captureException(error, { extra: context });
+            }
+
+            static reportMessage(message, level = 'error', context = {}) {
+                console.log(`${level.toUpperCase()}: ${message}`, context);
+                
+                // Example: Sentry.captureMessage(message, level, { extra: context });
+            }
+        }
+
+        // Service Provider Detection on Page Load
+        window.addEventListener('load', function() {
+            // Check if user came from a direct link with user type specified
+            const urlParams = new URLSearchParams(window.location.search);
+            const userType = urlParams.get('userType');
+            
+            if (userType === 'service' && !appState.user.isAuthenticated) {
+                selectUserType('service');
+                showPage('signup');
+            }
+        });
+
+        // Export utilities for potential external use
+        if (typeof window !== 'undefined') {
+            window.BlueCollarApp = {
+                appState,
+                api,
+                DataProcessor,
+                FormValidator,
+                StorageManager,
+                Analytics,
+                Performance,
+                ErrorReporter,
+                showServiceProviderRedirect,
+                completeServiceProviderRedirect
+            };
+        }
+
+        // Console welcome message
+        console.log('%cBlueCollar AI Platform', 'color: #59ACE1; font-size: 24px; font-weight: bold;');
+        console.log('%cService Provider Redirect Integration Active', 'color: #10B981; font-size: 14px;');
+        console.log('Ready for deployment and scaling with backend integration.');
+        /* ====== helpers ====== */
+const $=(q)=>document.querySelector(q), $$=(q)=>Array.from(document.querySelectorAll(q));
+const show=(el,yes=true)=>{el.style.display=yes?'':'none'};
+const overlay=$('#overlay');
+const startLoading=()=>overlay.classList.add('show');
+const endLoading=()=>overlay.classList.remove('show');
+$('#today').textContent=new Date().toLocaleDateString();
+$('#logoutBtn').onclick = ()=>{ history.back(); };
+/* sidebar shortcuts */
+$('#navIntegration').onclick = (e)=>{ e.preventDefault(); window.location.href = '{% url "mapping" %}'; };
+$('#navFsm').onclick = (e)=>{ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); };
+$('#navWarranty').onclick = (e)=>{ e.preventDefault(); alert('Coming soon'); };
+$('#navStatus').onclick = (e)=>{ e.preventDefault(); alert('Status: OK'); };
+
+/* ====== Tabs ====== */
+const showExisting=()=>{ $('#tabExisting').classList.add('active'); $('#tabNew').classList.remove('active'); $('#tabDirectory').classList.remove('active'); show($('#panelExisting'),true); show($('#panelNew'),false); show($('#panelDirectory'),false); };
+const showNew=()=>{ $('#tabNew').classList.add('active'); $('#tabExisting').classList.remove('active'); $('#tabDirectory').classList.remove('active'); show($('#panelExisting'),false); show($('#panelNew'),true); show($('#panelDirectory'),false); };
+const showDirectory=()=>{ $('#tabDirectory').classList.add('active'); $('#tabExisting').classList.remove('active'); $('#tabNew').classList.remove('active'); show($('#panelExisting'),false); show($('#panelNew'),false); show($('#panelDirectory'),true); };
+$('#tabExisting').onclick=showExisting; $('#tabNew').onclick=showNew; $('#tabDirectory').onclick=showDirectory;
+
+/* ====== Stepper engine (robust) ====== */
+function stepperInit(stepsContainerSel, paneSelector){
+  const stepsContainer=$(stepsContainerSel);
+  const steps=$$(`${stepsContainerSel} .step`);
+  const panes=$$(paneSelector);
+  const maxStep = Math.max(steps.length, panes.length);
+  function setActive(n){
+    const target = Math.min(Math.max(1,n), maxStep);
+    steps.forEach((s,i)=>{ s.classList.toggle('active', i===target-1); s.classList.toggle('done', i<target-1); });
+    panes.forEach(p=>{ p.style.display = (parseInt(p.getAttribute('data-step'),10)===target)?'grid':'none'; });
+  }
+  setActive(1);
+  // global next/back handlers
+  document.addEventListener('click', (e)=>{
+    const nextBtn=e.target.closest('[data-next]'); const backBtn=e.target.closest('[data-back]');
+    if(nextBtn){
+      const currentPane = panes.find(p => p.style.display==='grid') || panes[0];
+      const cStep = parseInt(currentPane.getAttribute('data-step'),10) || 1;
+      setActive(cStep+1);
+    }
+    if(backBtn){
+      const currentPane = panes.find(p => p.style.display==='grid') || panes[0];
+      const cStep = parseInt(currentPane.getAttribute('data-step'),10) || 1;
+      setActive(cStep-1);
+    }
+  });
+  return { setActive };
+}
+const jobStepper = stepperInit('#jobStepper', '.job-step');
+const custStepper = stepperInit('#custStepper', '.cust-step');
+
+/* ====== API wrappers ====== */
+const API = {
+  search: (q)=> fetch(`/sf/customers/search?q=${encodeURIComponent(q)}`).then(r=>r.json()),
+  getCustomer: (id)=> fetch(`/sf/customers/${id}`).then(r=>r.json()),
+  createCustomer: (payload)=> fetch(`/sf/customers`, {method:'POST',headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)}).then(async r=>{const j=await r.json().catch(()=>({})); if(!r.ok) throw new Error(j.error||j.message||'Create customer failed'); return j;}),
+  createJob: (payload)=> fetch(`/sf/jobs`, {method:'POST',headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)}).then(async r=>{const j=await r.json().catch(()=>({})); if(!r.ok) throw new Error((j.response&&JSON.stringify(j.response))||j.error||j.message||'Create job failed'); return j;})
+};
+
+/* ====== Search (existing panel) ====== */
+function renderResults(items){
+  const box=$('#resultsBox'), ul=$('#results'); ul.innerHTML='';
+  const pill=$('#countPill'); pill.style.display='inline-block'; pill.textContent=`${items?.length||0} result${(items?.length||0)>1?'s':''}`;
+  if(!items || !items.length){ show(box,false); return; }
+  for(const it of items){
+    const name=it.customer_name||it.name||'(no name)';
+    const loc=(it.locations&&it.locations[0])||{};
+    const city=loc.city||it.city||''; const state=(loc.state_prov||it.state||'');
+    const addr=[loc.street_1||loc.address, loc.postal_code||loc.zip].filter(Boolean).join(', ');
+    const li=document.createElement('li'); li.className='item';
+    li.innerHTML=`
+      <div>
+        <div style="font-weight:700">${name}</div>
+        <div class="muted">ID: ${it.id||'N/A'} — ${city} ${state}</div>
+        ${addr?`<div class="muted">${addr}</div>`:''}
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn ghost" data-use="${it.id}">Use this customer</button>
+      </div>`;
+    ul.appendChild(li);
+  }
+  show(box,true);
+  ul.querySelectorAll('button[data-use]').forEach(btn=>{
+    btn.onclick=async ()=>{
+      const id=btn.getAttribute('data-use');
+      startLoading();
+      try{
+        const data=await API.getCustomer(id);
+        // Prefill S1
+        $('#customer_id').value=data.id||'';
+        $('#customer_name').value=data.customer_name||data.name||'';
+        const loc=(data.locations&&data.locations[0])||{};
+        $('#location_name').value=loc.nickname||$('#customer_name').value||'';
+        $('#street_1').value=loc.street_1||'';
+        $('#city').value=loc.city||'';
+        $('#state').value=loc.state_prov||'';
+        $('#zip').value=loc.postal_code||'';
+        const c=(data.contacts&&data.contacts[0])||{};
+        $('#contact_name').value=[c.fname,c.lname].filter(Boolean).join(' ')||'';
+        if(c.emails&&c.emails[0]?.email) $('#contact_email').value=c.emails[0].email;
+        if(c.phones&&c.phones[0]?.phone) $('#contact_phone').value=c.phones[0].phone;
+        // Jump to next step
+        jobStepper.setActive(2);
+        window.scrollTo({top: document.getElementById('panelExisting').offsetTop, behavior:'smooth'});
+      }catch(e){ alert('Prefill error: '+(e.message||e)); }
+      finally{ endLoading(); }
+    };
+  });
+}
+async function doSearch(){
+  const q=$('#q').value.trim(); if(!q) return;
+  $('#searchErr').style.display='none'; startLoading();
+  try{
+    const items=await API.search(q);
+    renderResults(items);
+    if(!items.length){ $('#searchErr').textContent='No customer found.'; $('#searchErr').style.display='block'; }
+  }catch(err){
+    $('#searchErr').textContent=err.message||'Search failed'; $('#searchErr').style.display='block';
+  }finally{ endLoading(); }
+}
+const debounce=(fn,ms=350)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}}
+$('#btnSearch').onclick=doSearch;
+$('#q').addEventListener('input',debounce(()=>{ if($('#q').value.trim().length>=3) doSearch(); },400));
+$('#q').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); doSearch(); } });
+
+/* ====== Customer wizard review fill ====== */
+function refreshCustomerReview(){
+  const bn=$('#nc_name').value.trim();
+  const cn=$('#nc_contact_name').value.trim();
+  const ce=$('#nc_contact_email').value.trim();
+  const cp=$('#nc_contact_phone').value.trim();
+  const ln=$('#loc_name').value.trim(), st=$('#loc_street').value.trim(), ci=$('#loc_city').value.trim(), sta=$('#loc_state').value.trim(), zp=$('#loc_zip').value.trim();
+  $('#rev_name').textContent = bn || '—';
+  $('#rev_contact').textContent = [cn, ce||'', cp||''].filter(Boolean).join(' • ') || '—';
+  $('#rev_loc').textContent = [ln, st, `${ci} ${sta} ${zp}`.trim()].filter(Boolean).join(' — ') || '—';
+}
+['#nc_name','#nc_contact_name','#nc_contact_email','#nc_contact_phone','#loc_name','#loc_street','#loc_city','#loc_state','#loc_zip']
+  .forEach(sel=>{document.addEventListener('input',(e)=>{ if(e.target.matches(sel)) refreshCustomerReview(); });});
+
+/* ====== Create new customer ====== */
+$('#btnCreateCustomer').onclick=async ()=>{
+  $('#custErr').style.display='none';
+  const payload={
+    customer_name: $('#nc_name').value.trim(),
+    contact: { name: $('#nc_contact_name').value.trim(), email: $('#nc_contact_email').value.trim(), phone: $('#nc_contact_phone').value.trim() },
+    service_location: { name: $('#loc_name').value.trim(), address: $('#loc_street').value.trim(), city: $('#loc_city').value.trim(), state: $('#loc_state').value.trim(), zip: $('#loc_zip').value.trim() }
+  };
+  if(!payload.customer_name || !payload.contact.name || !payload.contact.email || !payload.service_location.name || !payload.service_location.address){
+    $('#custErr').textContent='Please fill required fields.'; $('#custErr').style.display='block'; return;
+  }
+  startLoading();
+  try{
+    const res=await API.createCustomer(payload);
+    // Prefill job tab
+    $('#customer_name').value = res.customer_name || payload.customer_name;
+    $('#customer_id').value   = res.id || res.customer_id || '';
+    const loc=(res.locations && res.locations[0]) || payload.service_location || {};
+    $('#location_name').value = loc.nickname || loc.name || '';
+    $('#street_1').value      = loc.street_1 || loc.address || '';
+    $('#city').value          = loc.city || '';
+    $('#state').value         = loc.state_prov || loc.state || '';
+    $('#zip').value           = loc.postal_code || loc.zip || '';
+
+    // Customer modal
+    $('#cm_customer_name').textContent = $('#customer_name').value || '—';
+    $('#cm_customer_id').textContent = $('#customer_id').value || '—';
+    $('#cm_location').textContent = [$('#location_name').value,$('#street_1').value,`${$('#city').value} ${$('#state').value} ${$('#zip').value}`.trim()].filter(Boolean).join(' — ');
+    $('#custModal').classList.add('show');
+  }catch(err){
+    $('#custErr').textContent = err.message || 'Create customer failed'; $('#custErr').style.display='block';
+  }finally{ endLoading(); }
+};
+
+/* ====== Create job ====== */
+function collectJobPayload(){
+  return {
+    customer_id: $('#customer_id').value.trim() || null,
+    customer_name: $('#customer_name').value.trim(),
+    service_location: {
+      name: $('#location_name').value.trim(),
+      address: $('#street_1').value.trim() || null,
+      city: $('#city').value.trim() || null,
+      state: $('#state').value.trim() || null,
+      zip: $('#zip').value.trim() || null
+    },
+    category: $('#category').value,
+    priority: $('#priority').value || 'Normal',
+    problem_details: $('#description').value.trim(),
+    contact: {
+      name: $('#contact_name').value.trim() || null,
+      phone: $('#contact_phone').value.trim() || null,
+      email: $('#contact_email').value.trim() || null
+    },
+    status: $('#status').value || null
+  };
+}
+function setBadge(status){
+  const b=$('#emailBadge'); b.textContent = `Email: ${status||'unknown'}`;
+  b.classList.remove('ok','warn'); if(status==='sent') b.classList.add('ok'); else b.classList.add('warn');
+}
+function fillJobModal({customer_name, customer_id, job_id, job_number, job_api_url, links={}, email_status}){
+  $('#kv_customer_name').textContent=customer_name||'N/A';
+  $('#kv_customer_id').textContent=customer_id||'N/A';
+  $('#kv_job_id').textContent=job_id||'N/A';
+  $('#kv_job_number').textContent=job_number||'N/A';
+  $('#kv_job_url').textContent=job_api_url||'N/A';
+  setBadge(email_status);
+  const list=$('#linkList'); list.innerHTML='';
+  const arr=[];
+  if(links.docx) arr.push({href:links.docx,label:'Download DOCX'});
+  if(links.json) arr.push({href:links.json,label:'View JSON'});
+  for(const it of arr){ const a=document.createElement('a'); a.href=it.href; a.target='_blank'; a.rel='noopener'; a.textContent=it.label; list.appendChild(a); }
+  $$('.copy').forEach(btn=>{
+    btn.onclick=()=>{ const sel=btn.getAttribute('data-copy'); const t=document.querySelector(sel)?.textContent||''; navigator.clipboard.writeText(t).then(()=>{btn.textContent='Copied'; setTimeout(()=>btn.textContent='Copy',1200);}); };
+  });
+}
+$('#btnCreate').onclick=async ()=>{
+  $('#formErr').style.display='none';
+  const p=collectJobPayload();
+  if(!p.customer_name || !p.service_location?.name || !p.problem_details){
+    $('#formErr').textContent='Please fill Customer Name, Service Location and Description.'; $('#formErr').style.display='block'; return;
+  }
+  const btn=$('#btnCreate'); btn.disabled=true; btn.textContent='Creating…'; startLoading();
+  try{
+    const res=await API.createJob(p);
+    fillJobModal({
+      customer_name: p.customer_name,
+      customer_id: p.customer_id || 'N/A',
+      job_id: res.job_id || (res.service_fusion && res.service_fusion.id) || null,
+      job_number: res.job_number || (res.service_fusion && res.service_fusion.number) || null,
+      job_api_url: res.job_api_url || (res.service_fusion && res.service_fusion.id ? `https://api.servicefusion.com/v1/jobs/${res.service_fusion.id}` : null),
+      links: res.links || {},
+      email_status: res.email_status || 'unknown',
+    });
+    $('#resultModal').classList.add('show');
+  }catch(err){
+    $('#formErr').textContent = err.message || 'Create job failed'; $('#formErr').style.display='block';
+  }finally{
+    btn.disabled=false; btn.textContent='Create Job'; endLoading();
+  }
+};
+
+/* ====== Close modals => refresh page ====== */
+function reloadSoon(){ setTimeout(()=>window.location.reload(), 120); }
+$('#closeModal').onclick=()=>{ $('#resultModal').classList.remove('show'); reloadSoon(); };
+$('#custCloseModal').onclick=()=>{ $('#custModal').classList.remove('show'); reloadSoon(); };
+$('#custGoToJob').onclick=()=>{ $('#custModal').classList.remove('show'); showExisting(); jobStepper.setActive(2); window.scrollTo({top: document.getElementById('panelExisting').offsetTop, behavior:'smooth'}); };
+
+/* ====== Directory logic ====== */
+function renderDirList(items){
+  const box=$('#dirList'); box.innerHTML='';
+  $('#dirCount').textContent = `${items?.length||0} result${(items?.length||0)>1?'s':''}`;
+  if(!items?.length){ box.innerHTML='<div class="dir-item"><div>No customer found.</div></div>'; return; }
+  for(const it of items){
+    const name=it.customer_name||it.name||'(no name)';
+    const loc=(it.locations&&it.locations[0])||{};
+    const city=loc.city||''; const state=loc.state_prov||'';
+    const addr=[loc.street_1, loc.postal_code].filter(Boolean).join(', ');
+    const row=document.createElement('div'); row.className='dir-item'; row.setAttribute('role','option'); row.tabIndex=0;
+    row.innerHTML = `
+      <div style="flex:1">
+        <div class="dir-title">${name}</div>
+        <div class="dir-sub">ID: ${it.id||'N/A'} • ${city} ${state}${addr?(' • '+addr):''}</div>
+      </div>
+      <div><button class="btn ghost" data-open="${it.id}">Open</button></div>`;
+    box.appendChild(row);
+  }
+  box.querySelectorAll('[data-open]').forEach(btn=>{
+    btn.onclick=()=> loadCustomerDetail(btn.getAttribute('data-open'));
+  });
+}
+async function dirSearch(q){
+  startLoading();
+  try{ renderDirList(await API.search(q)); }catch{ renderDirList([]); }finally{ endLoading(); }
+}
+async function loadCustomerDetail(id){
+  startLoading();
+  try{
+    const d = await API.getCustomer(id);
+    // Fill the right detail pane
+    const contacts=(d.contacts||[]).map(c=>{
+      const nm=[c.fname,c.lname].filter(Boolean).join(' ')||'(no name)';
+      const em=(c.emails&&c.emails[0]?.email)||'';
+      const ph=(c.phones&&c.phones[0]?.phone)||'';
+      return `<li>${nm}${em?' • '+em:''}${ph?' • '+ph:''}</li>`;
+    }).join('') || '<li class="dir-sub">No contacts</li>';
+
+    const locs=(d.locations||[]).map(l=>{
+      const line=[l.nickname||'', l.street_1||'', [l.city||'', l.state_prov||'', l.postal_code||''].join(' ').trim()].filter(Boolean).join(' — ');
+      return `<li>${line}</li>`;
+    }).join('') || '<li class="dir-sub">No locations</li>';
+
+    $('#dirDetail').innerHTML = `
+      <h3>${d.customer_name||d.name||'(no name)'} <span class="pill" style="margin-left:6px">ID: ${d.id||'N/A'}</span></h3>
+      <div class="block">
+        <strong>Primary Contact & Emails</strong>
+        <ul class="klist">${contacts}</ul>
+      </div>
+      <div class="block">
+        <strong>Locations</strong>
+        <ul class="klist">${locs}</ul>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:10px">
+        <button class="btn ghost" id="useCustomerBtn">Create Job for this Customer</button>
+      </div>
+    `;
+
+    // Wire "Use" -> prefills job and switch tab
+    $('#useCustomerBtn').onclick = ()=>{
+      const loc=(d.locations&&d.locations[0])||{};
+      $('#customer_id').value=d.id||'';
+      $('#customer_name').value=d.customer_name||d.name||'';
+      $('#location_name').value=loc.nickname||$('#customer_name').value||'';
+      $('#street_1').value=loc.street_1||'';
+      $('#city').value=loc.city||'';
+      $('#state').value=loc.state_prov||'';
+      $('#zip').value=loc.postal_code||'';
+      const c=(d.contacts&&d.contacts[0])||{};
+      $('#contact_name').value=[c.fname,c.lname].filter(Boolean).join(' ')||'';
+      if(c.emails&&c.emails[0]?.email) $('#contact_email').value=c.emails[0].email;
+      if(c.phones&&c.phones[0]?.phone) $('#contact_phone').value=c.phones[0].phone;
+
+      showExisting();
+      jobStepper.setActive(2);
+      window.scrollTo({top: document.getElementById('panelExisting').offsetTop, behavior:'smooth'});
+    };
+  }catch(e){
+    $('#dirDetail').innerHTML = `<div class="err">Failed to load details: ${e.message||e}</div>`;
+  }finally{ endLoading(); }
+}
+
+/* Boot the directory with a broad query ('a') */
+async function bootDirectory(){ await dirSearch('a'); }
+$('#dirSearchBtn').onclick=()=> dirSearch(($('#dirQ').value||'a').trim() || 'a');
+$('#dirQ').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); $('#dirSearchBtn').click(); }});
+
+/* ====== Init ====== */
+function refreshCustomerReviewInit(){ refreshCustomerReview(); }
+refreshCustomerReviewInit();
+bootDirectory();
+
+/* ===== Theme controls (no removals, only additions) ===== */
+(function(){
+  const ROOT = document.documentElement;
+  const BTN = document.getElementById('themeToggle');
+  const STORAGE_KEY = 'ui.theme';
+
+  function applyTheme(theme){
+    ROOT.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
+    updateButtonLabel();
+  }
+  function getStoredTheme(){ try{ return localStorage.getItem(STORAGE_KEY); }catch{ return null; } }
+  function setTheme(theme){ try{ localStorage.setItem(STORAGE_KEY, theme); }catch{} applyTheme(theme); }
+  function getEffectiveTheme(){ return getStoredTheme() || ROOT.getAttribute('data-theme') || 'light'; }
+  function updateButtonLabel(){
+    const effective = getEffectiveTheme();
+    BTN.textContent = (effective === 'dark') ? 'White' : 'Dark';
+    BTN.setAttribute('aria-label', `Switch to ${(effective === 'dark') ? 'White' : 'Dark'} theme`);
+    BTN.title = 'Toggle Dark / White theme';
+  }
+  const initial = getStoredTheme() || 'light';
+  applyTheme(initial);
+  BTN.addEventListener('click', ()=> setTheme(getEffectiveTheme()==='dark'?'light':'dark'));
+  updateButtonLabel();
+})();
+    </script>
+</body>
+</html>

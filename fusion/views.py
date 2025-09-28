@@ -56,6 +56,10 @@ _OAUTH_CACHE: Dict[str, Any] = {"access_token": None, "exp": 0}
 def home(request: HttpRequest):
     return render(request, 'index.html')
 
+
+def connect(request: HttpRequest):
+    return render(request, 'bluecollar_website_connected.html')
+
 def mapping(request: HttpRequest):
     return render(request, 'Ecotrak+SF-api_payload_mapping.html')
 

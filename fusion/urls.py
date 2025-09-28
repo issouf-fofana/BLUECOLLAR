@@ -2,11 +2,12 @@ from django.urls import path
 from .views import (
     home, mapping, fsm_wizard,
     sf_search_customers, sf_get_customer, sf_create_job,
-    sf_oauth_test, sf_create_customer,platform_server   # <-- AJOUTER ICI
+    sf_oauth_test, sf_create_customer,platform_server,connect,   # <-- AJOUTER ICI
 )
 
 urlpatterns = [
-    path("", home, name="home"),
+    path("", connect, name="connect"),
+    path("home/", home, name="home"),
     path("mapping/", mapping, name="mapping"),
     path("fsm/", fsm_wizard, name="fsm_wizard"),
 
