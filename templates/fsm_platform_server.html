@@ -19,6 +19,33 @@
   --ring:0 0 0 3px rgba(31,89,216,.25);
   --shadow:0 20px 60px rgba(2,6,23,.06)
 }
+
+/* ===== Improved dark theme with strong contrast (English comments) ===== */
+:root[data-theme="light"]{
+  --bg:#f6f8fb; --panel:#ffffff; --soft:#f9fbff; --line:#e6eaf2;
+  --text:#0f172a; --muted:#5b677a;
+  --brand:#1f59d8; --brand2:#0ea5e9; --accent:#7c3aed;
+  --ok:#10b981; --warn:#f59e0b; --err:#ef4444;
+  --ring:0 0 0 3px rgba(31,89,216,.25);
+  --shadow:0 20px 60px rgba(2,6,23,.06)
+}
+:root[data-theme="dark"]{
+  /* Dark palette tuned for readability on OLED-like backgrounds */
+  --bg:#0b111d;      /* page background */
+  --panel:#0f1627;   /* cards / panels */
+  --soft:#0c1422;    /* subtle gradient stop */
+  --line:#26324a;    /* borders/dividers */
+  --text:#e8edf6;    /* primary text */
+  --muted:#b3c0d6;   /* secondary text */
+  --brand:#62a0ff;   /* primary brand for buttons/links */
+  --brand2:#22d3ee;  /* secondary accent */
+  --accent:#a78bfa;
+  --ok:#34d399; --warn:#fbbf24; --err:#f87171;
+  --ring:0 0 0 3px rgba(98,160,255,.35);
+  --shadow:0 28px 80px rgba(2,6,23,.65);
+}
+
+/* Global background/typography stays driven by variables */
 *{box-sizing:border-box} html,body{height:100%}
 body{margin:0;background:linear-gradient(180deg,var(--bg),var(--bg));color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
 
@@ -141,6 +168,65 @@ textarea{min-height:120px;resize:vertical}
 .detail h3{margin:0 0 6px;font-size:20px}
 .block{border:1px dashed #e5e7eb;border-radius:12px;padding:12px;margin:10px 0;background:#fafcff}
 .klist{margin:0;padding-left:18px}
+
+/* ===== DARK MODE COMPONENT OVERRIDES (high-contrast) ===== */
+:root[data-theme="dark"] .nav h4{color:#8ea0bf}
+:root[data-theme="dark"] .link{color:#d6e2f7;border-color:transparent}
+:root[data-theme="dark"] .link:hover{background:rgba(98,160,255,.12);border-color:#3a4d73}
+:root[data-theme="dark"] .link.active{background:linear-gradient(180deg, rgba(98,160,255,.16), rgba(34,211,238,.14));border-color:#3a4d73;color:#f3f8ff}
+
+:root[data-theme="dark"] .topbar{border-bottom:1px solid var(--line)}
+:root[data-theme="dark"] .badge{background:rgba(255,255,255,.06);border-color:#31415f;color:#dfe9ff}
+:root[data-theme="dark"] .pill{background:rgba(255,255,255,.06);border-color:#31415f;color:#dfe9ff}
+:root[data-theme="dark"] .muted{color:#b7c4da}
+
+:root[data-theme="dark"] .hero{
+  background:linear-gradient(90deg, rgba(98,160,255,.14), rgba(34,211,238,.10));
+  border-color:var(--line); color:var(--text)
+}
+:root[data-theme="dark"] .h1{color:#f0f4fb}
+:root[data-theme="dark"] .sub{color:#b0bdd3}
+
+:root[data-theme="dark"] .tabs{border-bottom:1px solid var(--line)}
+:root[data-theme="dark"] .tab{background:rgba(255,255,255,.05);border-color:var(--line);color:var(--text)}
+:root[data-theme="dark"] .tab.active{background:var(--panel);border-color:var(--line)}
+
+:root[data-theme="dark"] .panel{background:var(--panel);border-color:var(--line);box-shadow:var(--shadow)}
+
+:root[data-theme="dark"] .search-card{
+  border-color:var(--line);
+  background:linear-gradient(180deg, color-mix(in lab,var(--panel) 92%, transparent), var(--panel));
+}
+:root[data-theme="dark"] .search-bar input{
+  background:#0c1424; color:var(--text); border-color:#31415f;
+}
+:root[data-theme="dark"] .search-bar input::placeholder{color:#91a3bf}
+:root[data-theme="dark"] .search-bar input:focus{border-color:#5a8cff; box-shadow:var(--ring)}
+
+:root[data-theme="dark"] label{color:#dbe6fb}
+:root[data-theme="dark"] input, :root[data-theme="dark"] select, :root[data-theme="dark"] textarea{
+  background:#0c1424; color:var(--text); border-color:#2f3c59;
+}
+:root[data-theme="dark"] .reslist{border-top-color:#354666}
+:root[data-theme="dark"] .item{border-bottom-color:#354666}
+
+:root[data-theme="dark"] .btn.ghost{background:rgba(255,255,255,.05); border:1px solid #32466c; color:#e9f1ff}
+:root[data-theme="dark"] .btn.flat{background:rgba(98,160,255,.14); border:1px solid #3a4d73; color:#e9f1ff}
+:root[data-theme="dark"] .logout{background:rgba(255,255,255,.06); border:1px solid #32466c; color:#e9f1ff}
+
+:root[data-theme="dark"] .overlay{background:rgba(0,0,0,.55)}
+:root[data-theme="dark"] .modal{background:rgba(0,0,0,.6)}
+:root[data-theme="dark"] .modal-card{background:var(--panel); border:1px solid var(--line); box-shadow:0 30px 80px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .kv code{background:#0c1424; border-color:#2f3c59; color:#e9f1ff}
+:root[data-theme="dark"] .linklist a{color:#cfe0ff; border-color:#3a4d73}
+
+:root[data-theme="dark"] .dir-pane{background:var(--panel); border-color:var(--line)}
+:root[data-theme="dark"] .dir-pane.head{background:linear-gradient(180deg, color-mix(in lab,var(--panel) 88%, transparent), var(--panel)); border-bottom-color:var(--line)}
+:root[data-theme="dark"] .dir-item{border-top-color:#31415f}
+:root[data-theme="dark"] .dir-item:hover{background:rgba(98,160,255,.10)}
+:root[data-theme="dark"] .dir-item.active{background:rgba(98,160,255,.16)}
+:root[data-theme="dark"] .dir-sub{color:#b0bdd3}
+:root[data-theme="dark"] .block{background:#101a2e; border-color:#2f3c59}
 </style>
 </head>
 <body>
@@ -194,10 +280,14 @@ textarea{min-height:120px;resize:vertical}
         <div class="badge">Session: SS-892341</div>
         <div class="badge">Date: <span id="today"></span></div>
       </div>
-      <button class="logout" id="logoutBtn">
-        <svg class="icon" viewBox="0 0 24 24" style="margin-right:6px"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
-        Logout
-      </button>
+      <!-- Theme toggle button -->
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn flat" id="themeToggle" type="button" aria-live="polite" title="Toggle Dark / White theme">Dark</button>
+        <button class="logout" id="logoutBtn">
+          <svg class="icon" viewBox="0 0 24 24" style="margin-right:6px"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+          Logout
+        </button>
+      </div>
     </div>
 
     <div class="page">
@@ -486,7 +576,7 @@ const showNew=()=>{ $('#tabNew').classList.add('active'); $('#tabExisting').clas
 const showDirectory=()=>{ $('#tabDirectory').classList.add('active'); $('#tabExisting').classList.remove('active'); $('#tabNew').classList.remove('active'); show($('#panelExisting'),false); show($('#panelNew'),false); show($('#panelDirectory'),true); };
 $('#tabExisting').onclick=showExisting; $('#tabNew').onclick=showNew; $('#tabDirectory').onclick=showDirectory;
 
-/* ====== Stepper engine (robuste) ====== */
+/* ====== Stepper engine (robust) ====== */
 function stepperInit(stepsContainerSel, paneSelector){
   const stepsContainer=$(stepsContainerSel);
   const steps=$$(`${stepsContainerSel} .step`);
@@ -514,7 +604,6 @@ function stepperInit(stepsContainerSel, paneSelector){
   });
   return { setActive };
 }
-// ✅ branchement sur les bons conteneurs
 const jobStepper = stepperInit('#jobStepper', '.job-step');
 const custStepper = stepperInit('#custStepper', '.cust-step');
 
@@ -807,6 +896,31 @@ $('#dirQ').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault
 function refreshCustomerReviewInit(){ refreshCustomerReview(); }
 refreshCustomerReviewInit();
 bootDirectory();
+
+/* ===== Theme controls (no removals, only additions) ===== */
+(function(){
+  const ROOT = document.documentElement;
+  const BTN = document.getElementById('themeToggle');
+  const STORAGE_KEY = 'ui.theme';
+
+  function applyTheme(theme){
+    ROOT.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
+    updateButtonLabel();
+  }
+  function getStoredTheme(){ try{ return localStorage.getItem(STORAGE_KEY); }catch{ return null; } }
+  function setTheme(theme){ try{ localStorage.setItem(STORAGE_KEY, theme); }catch{} applyTheme(theme); }
+  function getEffectiveTheme(){ return getStoredTheme() || ROOT.getAttribute('data-theme') || 'light'; }
+  function updateButtonLabel(){
+    const effective = getEffectiveTheme();
+    BTN.textContent = (effective === 'dark') ? 'White' : 'Dark';
+    BTN.setAttribute('aria-label', `Switch to ${(effective === 'dark') ? 'White' : 'Dark'} theme`);
+    BTN.title = 'Toggle Dark / White theme';
+  }
+  const initial = getStoredTheme() || 'light';
+  applyTheme(initial);
+  BTN.addEventListener('click', ()=> setTheme(getEffectiveTheme()==='dark'?'light':'dark'));
+  updateButtonLabel();
+})();
 </script>
 </body>
 </html>

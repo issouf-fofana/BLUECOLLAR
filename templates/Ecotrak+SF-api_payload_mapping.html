@@ -10,7 +10,7 @@
   <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="%232563eb"/><stop offset="1" stop-color="%2306b6d4"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(%23g)"/><path d="M16 36h20a4 4 0 0 0 0-8H16m22 8v10" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/></svg>'/>
 
   <style>
-    /* ====================== Theme (aligné à tes pages) ====================== */
+    /* ====================== Theme (aligned to your pages) ====================== */
     :root{
       --bg:#f7fafc; --panel:#ffffff; --soft:#f0f7ff; --line:#e2e8f0;
       --text:#0f172a; --muted:#475569;
@@ -29,6 +29,44 @@
         --ring:0 0 0 3px rgba(96,165,250,.45); --shadow:0 20px 55px rgba(2,6,23,.35);
       }
     }
+
+    /* ---------- ADDED: explicit theme overrides via data-theme attribute (English comments) ---------- */
+    /* When the user forces Light ("White") theme */
+    :root[data-theme="light"]{
+      --bg:#f7fafc; --panel:#ffffff; --soft:#f0f7ff; --line:#e2e8f0;
+      --text:#0f172a; --muted:#475569;
+      --brand:#2563eb; --brand2:#06b6d4; --accent:#7c3aed;
+      --eco:#2196f3; --sf:#9c27b0; --map:#ff6b6b;
+      --warn:#ffeaa7; --warnText:#856404;
+      --ring:0 0 0 3px rgba(37,99,235,.22); --shadow:0 18px 50px rgba(2,6,23,.08);
+    }
+    /* When the user forces Dark theme */
+    :root[data-theme="dark"]{
+      --bg:#0b1020; --panel:#0f172a; --soft:#0c1428; --line:#202b3b;
+      --text:#e2e8f0; --muted:#94a3b8;
+      --brand:#60a5fa; --brand2:#22d3ee; --accent:#a78bfa;
+      --eco:#5aaefc; --sf:#c789ff; --map:#ff7d7d;
+      --warn:#3d2f12; --warnText:#f7e7a1;
+      --ring:0 0 0 3px rgba(96,165,250,.45); --shadow:0 20px 55px rgba(2,6,23,.35);
+    }
+    /* Dark-specific UI fixes to avoid washed out hard-coded light colors */
+    :root[data-theme="dark"] .badge{
+      background:rgba(148,163,184,.12); border-color:#334155; color:#cbd5e1;
+    }
+    :root[data-theme="dark"] .link{color:#cbd5e1}
+    :root[data-theme="dark"] .link.active{
+      background:linear-gradient(180deg, rgba(100,116,139,.18), rgba(100,116,139,.12));
+      border-color:#334155; color:var(--text);
+    }
+    :root[data-theme="dark"] .api-title{
+      background:linear-gradient(90deg, color-mix(in lab,var(--brand) 22%, var(--panel)), color-mix(in lab,var(--accent) 16%, var(--panel)));
+      border-color:#2b3547;
+    }
+    :root[data-theme="dark"] .search{border-color:#334155;background:var(--panel)}
+    :root[data-theme="dark"] .logout{border-color:#334155;color:#e2e8f0}
+    :root[data-theme="dark"] .btn{border-color:#334155;color:#e2e8f0}
+    /* ---------- END ADDED ---------- */
+
     *{box-sizing:border-box} html,body{height:100%}
     body{
       margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
@@ -60,6 +98,7 @@
     .topbar{display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid var(--line)}
     .badges{display:flex; gap:8px; flex-wrap:wrap}
     .badge{font-size:12px; background:#eef2ff; border:1px solid #dbe3ff; color:#374151; padding:6px 10px; border-radius:999px; display:flex; align-items:center; gap:6px}
+    .top-actions{display:flex; gap:10px; align-items:center} /* ADDED: right-side container */
     .logout{background:transparent; border:1px solid #cbd5e1; color:#334155; border-radius:12px; padding:10px 14px; cursor:pointer}
 
     .page{padding:24px}
@@ -112,11 +151,7 @@
     .wire.active{ opacity:1 }
 
     .hl{ background:linear-gradient(180deg, #fff19c 40%, transparent 41%); border-radius:2px; padding:0 2px }
-    .link.disabled {
-pointer-events: none;
-opacity: 0.5;
-cursor: not-allowed;
-}
+    .link.disabled { pointer-events: none; opacity: 0.5; cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -165,10 +200,14 @@ cursor: not-allowed;
         <div class="badge">Module: Work Order</div>
         <div class="badge">Date: <span id="today"></span></div>
       </div>
-      <button class="logout" id="logoutBtn">
-        <svg class="icon" viewBox="0 0 24 24" style="margin-right:6px"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
-        Logout
-      </button>
+      <div class="top-actions">
+        <!-- ADDED: second theme toggle near Logout -->
+        <button class="btn theme-toggle" id="themeToggleTop" type="button" aria-live="polite" title="Toggle Dark / White theme">Dark</button>
+        <button class="logout" id="logoutBtn">
+          <svg class="icon" viewBox="0 0 24 24" style="margin-right:6px"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+          Logout
+        </button>
+      </div>
     </div>
 
     <div class="page">
@@ -189,7 +228,8 @@ cursor: not-allowed;
           </div>
           <button class="btn" id="collapseBtn" type="button">Collapse all</button>
           <button class="btn" id="expandBtn" type="button">Expand all</button>
-          <button class="btn primary" id="themeToggle" type="button">Dark</button>
+          <!-- keep existing toggle (do not remove) -->
+          <button class="btn primary theme-toggle" id="themeToggle" type="button" aria-live="polite" title="Toggle Dark / White theme">Dark</button>
         </div>
       </div>
 
@@ -449,7 +489,7 @@ cursor: not-allowed;
   // Boutons sidebar (démos)
   document.getElementById('logoutBtn').onclick = ()=> history.back();
 
-  // ---- Dark toggle
+  // ---- Dark toggle (kept as-is; this toggles a separate attribute not used by CSS variables)
   document.getElementById('themeToggle').addEventListener('click', ()=>{
     const dark = document.documentElement.getAttribute('data-theme-dark');
     if(dark){ document.documentElement.removeAttribute('data-theme-dark'); }
@@ -539,6 +579,76 @@ cursor: not-allowed;
     document.getElementById('ecoScroll').addEventListener(evt, clearWire, {passive:true});
     document.getElementById('sfScroll').addEventListener(evt, clearWire, {passive:true});
   });
+
+  /* ============================== ADDED THEME CONTROLS (English comments) ==============================
+     We do NOT remove the existing listener above. We introduce a stronger theme system:
+     - data-theme="dark" or data-theme="light" on <html> will override variables defined in CSS.
+     - The two buttons (toolbar + topbar) toggle and stay in sync, with label persisted in localStorage.
+     - If no user choice exists, the page respects the OS preference via the media query defined in CSS.
+  ====================================================================================================== */
+
+  (function(){
+    const ROOT = document.documentElement;
+    const BTNS = Array.from(document.querySelectorAll('.theme-toggle')); // both buttons
+    const STORAGE_KEY = 'ui.theme'; // 'dark' | 'light'
+
+    // Apply a theme to <html data-theme="..."> or clear for system.
+    function applyTheme(theme){
+      if(theme === 'dark'){
+        ROOT.setAttribute('data-theme', 'dark');
+      } else if(theme === 'light'){
+        ROOT.setAttribute('data-theme', 'light');
+      } else {
+        ROOT.removeAttribute('data-theme'); // fallback to system (media query)
+      }
+      updateButtonLabels();
+    }
+
+    // Read stored theme
+    function getStoredTheme(){
+      try { return localStorage.getItem(STORAGE_KEY); } catch { return null; }
+    }
+
+    // Persist and apply theme
+    function setTheme(theme){
+      try { localStorage.setItem(STORAGE_KEY, theme); } catch {}
+      applyTheme(theme);
+    }
+
+    // Toggle between Dark and White (Light)
+    function toggleTheme(){
+      const stored = getStoredTheme();
+      const current = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+    }
+
+    // Update labels of all theme toggle buttons
+    function updateButtonLabels(){
+      const attr = ROOT.getAttribute('data-theme');
+      let effective = attr ? attr : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const stored = getStoredTheme();
+      if(stored) effective = stored;
+      const nextLabel = (effective === 'dark') ? 'White' : 'Dark';
+      BTNS.forEach(btn=>{
+        btn.textContent = nextLabel;
+        btn.setAttribute('aria-label', `Switch to ${nextLabel} theme`);
+      });
+    }
+
+    // Initialize
+    applyTheme(getStoredTheme()); // null -> system
+    BTNS.forEach(btn=> btn.addEventListener('click', toggleTheme));
+
+    // React to system changes only if user hasn't chosen explicitly
+    try{
+      const mq = matchMedia('(prefers-color-scheme: dark)');
+      mq.addEventListener?.('change', ()=>{ if(!getStoredTheme()){ applyTheme(null); } });
+    }catch{}
+
+    updateButtonLabels();
+  })();
+  /* ============================ END ADDED THEME CONTROLS ============================ */
 </script>
 </body>
 </html>

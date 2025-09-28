@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="%232563eb"/><stop offset="1" stop-color="%2306b6d4"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(%23g)"/><path d="M16 36h20a4 4 0 0 0 0-8H16m22 8v10" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/></svg>'/>
 <style>
+/* ===== Base palette (system default) ===== */
 :root{
   --bg:#f7fafc; --surface:#ffffff; --text:#0f172a; --muted:#475569; --line:#e2e8f0;
   --brand:#2563eb; --brand-2:#06b6d4; --accent:#7c3aed; --success:#10b981; --danger:#ef4444;
@@ -23,8 +24,38 @@
     --ring:0 0 0 3px rgba(96,165,250,.45); --shadow:0 24px 60px rgba(2,6,23,.45);
   }
 }
+
+/* ===== Explicit overrides via data-theme (user-chosen) — English comments ===== */
+:root[data-theme="light"]{
+  --bg:#f7fafc; --surface:#ffffff; --text:#0f172a; --muted:#475569; --line:#e2e8f0;
+  --brand:#2563eb; --brand-2:#06b6d4; --accent:#7c3aed; --success:#10b981; --danger:#ef4444;
+  --ring:0 0 0 3px rgba(37,99,235,.25); --shadow:0 18px 55px rgba(2,6,23,.10);
+}
+:root[data-theme="dark"]{
+  --bg:#0b1020; --surface:#0f172a; --text:#e2e8f0; --muted:#94a3b8; --line:#1f2937;
+  --brand:#60a5fa; --brand-2:#22d3ee; --accent:#a78bfa; --success:#34d399; --danger:#f87171;
+  --ring:0 0 0 3px rgba(96,165,250,.45); --shadow:0 24px 60px rgba(2,6,23,.45);
+}
+
+/* Small dark-mode UI fixes (keep light styles untouched) */
+:root[data-theme="dark"] .brand-badge{background:linear-gradient(90deg,var(--brand),var(--brand-2)); box-shadow:0 0 0 1px rgba(255,255,255,.06) inset}
+:root[data-theme="dark"] .btn-ghost{border-color:#334155;color:var(--text);background:transparent}
+:root[data-theme="dark"] .btn-outline{border-color:rgba(148,163,184,.45);color:var(--brand)}
+:root[data-theme="dark"] .card{box-shadow:0 22px 60px rgba(0,0,0,.35)}
+:root[data-theme="dark"] .card:hover{box-shadow:0 26px 70px rgba(0,0,0,.45)}
+:root[data-theme="dark"] .ico{border-color:#273244;background:linear-gradient(180deg,rgba(34,211,238,.12),rgba(96,165,250,.10))}
+:root[data-theme="dark"] input{background:rgba(15,23,42,.6);color:var(--text);border-color:#334155}
+:root[data-theme="dark"] header{background:linear-gradient(180deg,rgba(2,6,23,.35),rgba(2,6,23,.15))}
+
+/* ===== Layout & components (original) ===== */
 *{box-sizing:border-box} html,body{height:100%}
-body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);background:radial-gradient(1200px 600px at 10% -10%,#e9f1ff 0,#f7fafc 45%,transparent 60%),var(--bg);overflow-x:hidden}
+body{
+  margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 10% -10%,color-mix(in lab,var(--brand-2) 20%,transparent) 0,transparent 60%),
+    var(--bg);
+  overflow-x:hidden
+}
 
 /* Background orbs */
 .scene{position:fixed;inset:-40vh -10vw -10vh -10vw;pointer-events:none;z-index:-1;filter:saturate(120%) blur(60px)}
@@ -34,6 +65,10 @@ body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,R
 .blob.c{width:55vmax;height:55vmax;left:20vmax;bottom:-20vmax;background:radial-gradient(60% 60% at 50% 50%,var(--accent),transparent 70%);animation-delay:-3s}
 @keyframes float{0%{transform:translateY(0) translateX(0) scale(1)}50%{transform:translateY(-2vh) translateX(1vw) scale(1.03)}100%{transform:translateY(0) translateX(0) scale(1)}}
 
+/* Scene blend tweak for dark so blobs don't wash out */
+:root[data-theme="dark"] .blob{opacity:.28;mix-blend-mode:screen}
+
+/* Containers */
 .container{max-width:1100px;margin:0 auto;padding:0 2rem}
 
 /* Header */
@@ -71,6 +106,7 @@ main section.active{display:block}
 .form{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow)}
 label{display:block;color:var(--muted);margin:12px 0 6px;font-size:.85rem;letter-spacing:.2px}
 input{width:100%;border-radius:12px;border:1px solid var(--line);padding:12px 14px;background:#fff;color:var(--text);outline:none;transition:box-shadow .2s,border-color .2s}
+/* keep original dark input rule; variables override above for explicit dark */
 @media (prefers-color-scheme: dark){input{background:rgba(15,23,42,.6);color:var(--text)}}
 input:focus{box-shadow:var(--ring);border-color:color-mix(in lab,var(--brand) 55%,var(--line))}
 
@@ -88,6 +124,8 @@ input:focus{box-shadow:var(--ring);border-color:color-mix(in lab,var(--brand) 55
   <div class="container nav">
     <div class="brand"><div class="logo" aria-hidden="true"></div><div>BlueCollar <span class="brand-badge">AI</span></div></div>
     <div style="display:flex; gap:.5rem">
+      <!-- ADDED: theme toggle button (kept simple ghost style) -->
+      <button id="themeToggle" class="btn btn-ghost" type="button" aria-live="polite" title="Toggle Dark / White theme">Dark</button>
       <button id="signInTop" class="btn btn-ghost" type="button">Sign in</button>
       <button id="getStartedTop" class="btn btn-solid" type="button">Start</button>
     </div>
@@ -180,6 +218,46 @@ document.getElementById('skipToApp').onclick=()=>window.location.href='/fsm/';
 document.getElementById('signupForm').onsubmit=(e)=>{ e.preventDefault(); window.location.href='/fsm/'; };
 document.getElementById('googleBtn').onclick=()=>window.location.href='/fsm/';
 document.getElementById('microsoftBtn').onclick=()=>window.location.href='/fsm/';
+
+/* ================= Theme controls (English comments) =================
+   - data-theme="dark" | "light" on <html> overrides variables.
+   - Button text shows the NEXT action ("Dark" or "White").
+   - Choice is persisted in localStorage; fallback to OS preference.
+===================================================================== */
+(function(){
+  const ROOT = document.documentElement;
+  const BTN  = document.getElementById('themeToggle');
+  const KEY  = 'ui.theme';
+
+  function getStored(){ try{return localStorage.getItem(KEY);}catch{return null;} }
+  function apply(theme){
+    if(theme==='dark') ROOT.setAttribute('data-theme','dark');
+    else if(theme==='light') ROOT.setAttribute('data-theme','light');
+    else ROOT.removeAttribute('data-theme'); // system
+    updateLabel();
+  }
+  function setTheme(theme){ try{localStorage.setItem(KEY,theme);}catch{} apply(theme); }
+  function toggle(){
+    const stored = getStored();
+    const effective = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(effective==='dark' ? 'light' : 'dark');
+  }
+  function updateLabel(){
+    const attr = ROOT.getAttribute('data-theme');
+    let effective = attr || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const stored = getStored(); if(stored) effective = stored;
+    BTN.textContent = (effective==='dark') ? 'White' : 'Dark';
+    BTN.setAttribute('aria-label', `Switch to ${(effective==='dark')?'White':'Dark'} theme`);
+  }
+
+  apply(getStored()); // initialize from storage (or system)
+  BTN.addEventListener('click', toggle);
+  try{
+    const mq = matchMedia('(prefers-color-scheme: dark)');
+    mq.addEventListener?.('change', ()=>{ if(!getStored()) apply(null); });
+  }catch{}
+  updateLabel();
+})();
 </script>
 </body>
 </html>
