@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ brand.name|default:"BlueCollar AI" }}</title>
+  <style>
+    /* ---- Email-safe reset ---- */
+    body,table,td,p{margin:0;padding:0} img{border:0;outline:none;text-decoration:none;height:auto;line-height:100%}
+    table{border-collapse:collapse!important} body{width:100%!important;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+
+    /* IMPORTANT: No CSS variables, no gradients, no box-shadow for maximum client support (esp. Outlook). */
+    .font{font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    .outer{width:100%;background:#f4f6fb;padding:28px 12px}
+    .card{max-width:760px;margin:0 auto;background:#ffffff;border-radius:0;border:1px solid #e5e7eb}
+
+    /* Header (solid color, not gradient) */
+    .hdr{background:#3f51b5;color:#ffffff}
+
+    .section{padding:22px 26px}
+    .divider{height:1px;background:#e5e7eb}
+
+    .h-xs{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7a819a}
+    .v{font-weight:800;color:#0b1c3a}
+    .t{color:#6b7280}
+
+    .cell{border:1px solid #e5e7eb;padding:12px 14px;background:#ffffff}
+    .cellTint{background:#f7f9ff}
+
+    /* Bulletproof buttons (works in Outlook) */
+    .btn{display:inline-block;text-decoration:none;font-weight:800;border-radius:999px;padding:12px 18px}
+    .btnPrimary{background:#4f46e5;color:#ffffff;border:1px solid #4f46e5}
+    .btnGhost{background:#ffffff;color:#4f46e5;border:1px solid #c7d2fe}
+    .btnRow td{padding-right:8px;padding-bottom:10px}
+
+    .ftr{background:#1f2a44;color:#d9e3ff}
+    .ftr small{opacity:.92}
+
+    @media (max-width:560px){
+      .section{padding:18px 16px}
+      .stack td{display:block;width:100%!important;padding-bottom:10px}
+      .btnRow td{display:block;width:100%!important;padding-right:0}
+      .btn{display:block;text-align:center}
+    }
+  </style>
+</head>
+<body class="font" style="background:#f4f6fb">
+  <table role="presentation" class="outer" width="100%" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">
+        <table role="presentation" class="card" width="100%" cellpadding="0" cellspacing="0">
+
+          <!-- ======= HEADER / BRAND ======= -->
+          <tr>
+            <td class="hdr" style="padding:18px 22px">
+              <table role="presentation" width="100%">
+                <tr>
+                  <td style="vertical-align:middle">
+                    <!-- Simple square logo (no conic-gradient) -->
+                    <span aria-hidden="true" style="display:inline-block;width:32px;height:32px;border-radius:6px;background:#9aa5ff;margin-right:10px"></span>
+                    <span style="font-weight:900;font-size:16px;vertical-align:middle">{{ brand.name|default:"BlueCollar AI" }}</span>
+                  </td>
+                  <td align="right" style="vertical-align:middle">
+                    {% if type == 'job_created' %}
+                      <div style="font-size:18px;font-weight:900;margin:0">New Work Order</div>
+                      <div style="opacity:.95;font-weight:600;margin-top:2px">Automated notification</div>
+                    {% else %}
+                      <div style="font-size:18px;font-weight:900;margin:0">New Customer Created</div>
+                      <div style="opacity:.95;font-weight:600;margin-top:2px">Automated notification</div>
+                    {% endif %}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Thin solid divider (no gradient) -->
+          <tr><td><div style="height:4px;background:#4f46e5"></div></td></tr>
+
+          {% if type == 'job_created' %}
+          <!-- ==================== WORK ORDER ==================== -->
+          <tr>
+            <td class="section">
+              <div class="h-xs" style="margin:0 0 12px">Work Order</div>
+              <table role="presentation" width="100%" class="stack" cellpadding="8">
+                <tr>
+                  <td class="cell cellTint" width="33%">
+                    <div class="h-xs">Job Number</div>
+                    <div class="v">{{ job.number|default:"N/A" }}</div>
+                  </td>
+                  <td class="cell" width="33%">
+                    <div class="h-xs">ID</div>
+                    <div class="v">{{ job.id|default:"N/A" }}</div>
+                  </td>
+                  <td class="cell" width="34%">
+                    <div class="h-xs">Status</div>
+                    <div class="v">{{ job.status|default:"Unscheduled" }}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cell">
+                    <div class="h-xs">Priority</div>
+                    <div class="v">{{ job.priority|default:"Normal" }}</div>
+                  </td>
+                  <td class="cell cellTint">
+                    <div class="h-xs">Category</div>
+                    <div class="v">{{ job.category|default:"N/A" }}</div>
+                  </td>
+                  <td class="cell">
+                    <div class="h-xs">Created</div>
+                    <!-- TIP: pass a pre-formatted value like job.created_at_human (string) for consistent rendering across stacks -->
+                    <div class="v">{{ job.created_at_human|default:job.created_at }}</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ==================== CUSTOMER ==================== -->
+          <tr><td class="divider"></td></tr>
+          <tr>
+            <td class="section">
+              <div class="h-xs" style="margin:0 0 12px">Customer</div>
+              <table role="presentation" width="100%" class="stack" cellpadding="8">
+                <tr>
+                  <td class="cell" width="50%">
+                    <div class="h-xs">Name</div>
+                    <div class="v">{{ customer.name|default:"" }}</div>
+                  </td>
+                  <td class="cell cellTint" width="50%">
+                    <div class="h-xs">Contact</div>
+                    {% with c=customer.contact %}
+                      <div class="v">{% if c.name %}{{ c.name }}{% else %}-{% endif %}</div>
+                      <div class="t" style="font-size:12px">
+                        {% if c.email %}{{ c.email }}{% endif %}
+                        {% if c.phone %}{% if c.email %}&nbsp;•&nbsp;{% endif %}{{ c.phone }}{% endif %}
+                      </div>
+                    {% endwith %}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ==================== SERVICE LOCATION ==================== -->
+          <tr><td class="divider"></td></tr>
+          <tr>
+            <td class="section">
+              <div class="h-xs" style="margin:0 0 12px">Service Location</div>
+              <table role="presentation" width="100%" class="stack" cellpadding="8">
+                <tr>
+                  <td class="cell cellTint" width="50%">
+                    <div class="h-xs">Location</div>
+                    <div class="v">{{ location.name|default:"" }}</div>
+                  </td>
+                  <td class="cell" width="50%">
+                    <div class="h-xs">Address</div>
+                    <div class="v">{{ location.address|default:"" }}</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ==================== DESCRIPTION ==================== -->
+          <tr><td class="divider"></td></tr>
+          <tr>
+            <td class="section">
+              <div class="h-xs" style="margin:0 0 8px">Original Description</div>
+              <div class="t" style="white-space:pre-wrap;line-height:1.5">{{ job.description|default:"(empty)" }}</div>
+            </td>
+          </tr>
+
+          <!-- ==================== ACTIONS ==================== -->
+          <tr>
+            <td class="section" style="padding-top:4px">
+              <table role="presentation" class="btnRow" cellpadding="0" cellspacing="0">
+                <tr>
+                  {% if job.api_url %}
+                  <td>
+                    <!-- Bulletproof button with VML background for Outlook -->
+                    <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ job.api_url }}" style="height:44px;v-text-anchor:middle;width:230px;" arcsize="50%" strokecolor="#4f46e5" fillcolor="#4f46e5">
+                      <w:anchorlock/>
+                      <center style="color:#ffffff;font-family:Arial,sans-serif;font-size:14px;font-weight:800;">Open in Service Fusion</center>
+                    </v:roundrect>
+                    <![endif]-->
+                    <!--[if !mso]><!-- -->
+                    <!--<![endif]-->
+                  </td>
+                  {% endif %}
+                  {% if links.docx %}
+                  <td>
+                    <a class="btn btnGhost" href="{{ links.docx }}" target="_blank" rel="noopener">Download DOCX</a>
+                  </td>
+                  {% endif %}
+                  {% if links.json %}
+                  <td>
+                    <a class="btn btnGhost" href="{{ links.json }}" target="_blank" rel="noopener">View JSON</a>
+                  </td>
+                  {% endif %}
+                  {% if links.rag %}
+                  <td>
+                    <a class="btn btnGhost" href="{{ links.rag }}" target="_blank" rel="noopener">RAG Summary</a>
+                  </td>
+                  {% endif %}
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          {% else %}
+          <!-- ==================== CUSTOMER CREATED ==================== -->
+          <tr>
+            <td class="section">
+              <div class="h-xs" style="margin:0 0 12px">Customer</div>
+              <table role="presentation" width="100%" class="stack" cellpadding="8">
+                <tr>
+                  <td class="cell cellTint" width="50%">
+                    <div class="h-xs">Customer ID</div>
+                    <div class="v">{{ customer.id|default:"N/A" }}</div>
+                  </td>
+                  <td class="cell" width="50%">
+                    <div class="h-xs">Customer Name</div>
+                    <div class="v">{{ customer.name|default:"" }}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="cell" width="50%">
+                    <div class="h-xs">Primary Contact</div>
+                    {% with c=customer.contact %}
+                      <div class="v">{% if c.name %}{{ c.name }}{% else %}-{% endif %}</div>
+                      <div class="t" style="font-size:12px">
+                        {% if c.email %}{{ c.email }}{% endif %}
+                        {% if c.phone %}{% if c.email %}&nbsp;•&nbsp;{% endif %}{{ c.phone }}{% endif %}
+                      </div>
+                    {% endwith %}
+                  </td>
+                  <td class="cell cellTint" width="50%">
+                    <div class="h-xs">Location</div>
+                    <div class="v">{{ location.name|default:"" }}</div>
+                    <div class="t" style="font-size:12px">{{ location.address|default:"" }}
+                      {% if location.city %} • {{ location.city }}{% endif %}
+                      {% if location.state %} {{ location.state }}{% endif %}
+                      {% if location.zip %} {{ location.zip }}{% endif %}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          {% endif %}
+
+          <!-- ======= FOOTER ======= -->
+          <tr>
+            <td class="ftr" style="padding:14px 22px" align="center">
+              <small>Sent automatically by {{ brand.name|default:"BlueCollar AI" }}. Please do not reply to this email.</small>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

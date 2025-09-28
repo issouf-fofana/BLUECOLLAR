@@ -11,6 +11,7 @@ from django.conf import settings
 from django.core.mail import EmailMessage, get_connection
 from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 
 # ===================== Constantes API SF =====================
@@ -300,11 +301,15 @@ def api_job_add_note(job_id: Any, text: str) -> None:
     except Exception:
         pass
 
-# ===================== LLM + Email =====================
+# ===================== LLM + Email (RESTORED) =====================
 def _llm_headers() -> Dict[str, str]:
     return {"Content-Type": "application/json", "x-api-key": getattr(settings, "LLM_API_KEY", "")}
 
 def call_llm(name: str, title: str, description: str) -> Dict[str, Any]:
+    """
+    Calls your external LLM summarizer. Returns {"links": {...}, "rag_url": "..."} (best-effort).
+    If LLM_API_URL is not set, returns {} without raising.
+    """
     url = getattr(settings, "LLM_API_URL", "")
     if not url:
         return {}
@@ -319,6 +324,7 @@ def call_llm(name: str, title: str, description: str) -> Dict[str, Any]:
     rag_url = links.get("docx") or links.get("json")
     return {"links": links, "rag_url": rag_url, "raw": data}
 
+# ===================== Email helpers =====================
 def _conn_from_settings():
     return get_connection(
         backend=getattr(settings, "EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend"),
@@ -344,45 +350,85 @@ def _conn_gmail_ssl():
         timeout=30,
     )
 
-def email_workorder(subject: str, lines: list[str], to_email: Optional[str] = None) -> bool:
+def _send_html_email(subject: str, html: str, to_email: str) -> bool:
+    """
+    Low-level HTML sender with robust fallbacks.
+    """
     recipient = (to_email or getattr(settings, "WORKORDER_RECIPIENT", "")).strip()
     if not recipient:
         print("⚠️ No recipient provided; skip email.")
         return False
 
-    body = "\n".join(lines).strip()
     sender = getattr(settings, "DEFAULT_FROM_EMAIL", getattr(settings, "EMAIL_HOST_USER", None))
 
-    # 1) tentative avec la config courante
+    # 1) primary connection
     try:
         with _conn_from_settings() as conn:
-            EmailMessage(subject=subject, body=body, from_email=sender, to=[recipient], connection=conn).send(fail_silently=False)
-        print("✅ Email sent (primary settings).")
+            msg = EmailMessage(subject=subject, body=html, from_email=sender, to=[recipient], connection=conn)
+            msg.content_subtype = "html"
+            msg.send(fail_silently=False)
+        print("✅ HTML Email sent (primary settings).")
         return True
     except Exception as e1:
         print(f"❌ SMTP send error (primary): {e1}")
 
-    # 2) fallback Gmail SSL 465 si host semble être Gmail
+    # 2) gmail ssl fallback
     try:
         host = (getattr(settings, "EMAIL_HOST", "") or "").lower()
         if "gmail.com" in host or host == "":
             with _conn_gmail_ssl() as conn:
-                EmailMessage(subject=subject, body=body, from_email=sender, to=[recipient], connection=conn).send(fail_silently=False)
-            print("✅ Email sent (fallback gmail ssl:465).")
+                msg = EmailMessage(subject=subject, body=html, from_email=sender, to=[recipient], connection=conn)
+                msg.content_subtype = "html"
+                msg.send(fail_silently=False)
+            print("✅ HTML Email sent (fallback gmail ssl:465).")
             return True
     except Exception as e2:
         print(f"❌ SMTP send error (gmail ssl fallback): {e2}")
 
-    # 3) fallback console pour ne pas bloquer le flux
+    # 3) console fallback
     try:
         from django.core.mail import get_connection as gc
         with gc("django.core.mail.backends.console.EmailBackend") as conn:
-            EmailMessage(subject=subject, body=body, from_email=sender, to=[recipient], connection=conn).send(fail_silently=True)
-        print("ℹ️ Email printed to console backend as fallback.")
+            msg = EmailMessage(subject=subject, body=html, from_email=sender, to=[recipient], connection=conn)
+            msg.content_subtype = "html"
+            msg.send(fail_silently=True)
+        print("ℹ️ HTML Email printed to console backend as fallback.")
     except Exception as e3:
         print(f"⚠️ Console email fallback failed: {e3}")
-
     return False
+
+def _render_email(template_ctx: Dict[str, Any]) -> str:
+    """
+    Renders the email HTML using templates/send_mail.html
+    """
+    return render_to_string("send_mail.html", template_ctx or {})
+
+# ---- Legacy text email kept intact (not used by new HTML flow but preserved) ----
+def email_workorder(subject: str, lines: list[str], to_email: Optional[str] = None) -> bool:
+    recipient = (to_email or getattr(settings, "WORKORDER_RECIPIENT", "")).strip()
+    if not recipient:
+        print("⚠️ No recipient provided; skip email.")
+        return False
+    sender = getattr(settings, "DEFAULT_FROM_EMAIL", getattr(settings, "EMAIL_HOST_USER", None))
+    body = "\n".join(lines).strip()
+    try:
+        with _conn_from_settings() as conn:
+            EmailMessage(subject=subject, body=body, from_email=sender, to=[recipient], connection=conn).send(fail_silently=False)
+        return True
+    except Exception:
+        try:
+            with _conn_gmail_ssl() as conn:
+                EmailMessage(subject=subject, body=body, from_email=sender, to=[recipient], connection=conn).send(fail_silently=False)
+            return True
+        except Exception:
+            try:
+                from django.core.mail import get_connection as gc
+                with gc("django.core.mail.backends.console.EmailBackend") as conn:
+                    EmailMessage(subject=subject, body=body, from_email=sender, to=[recipient], connection=conn).send(fail_silently=True)
+            except Exception:
+                pass
+    return False
+# -----------------------------------------------------------------------------
 
 # ===================== API JSON (front) =====================
 def sf_search_customers(request: HttpRequest):
@@ -429,14 +475,9 @@ def sf_get_job(request: HttpRequest, jid: str):
 def sf_create_customer(request: HttpRequest):
     """
     Crée un client Service Fusion (minimal), puis essaie d’ajouter une localisation primaire.
+    Envoie un e-mail HTML de notification avec les informations du client créé.
     JSON attendu:
-    {
-      "customer_name": "...",                # requis
-      "service_location": {                  # optionnel mais conseillé
-         "name": "...", "address": "...", "city": "...", "state": "...", "zip": "..."
-      },
-      "contact": { "name": "...", "email": "...", "phone": "..." }  # ignoré côté SF v1 create, laissé pour le front
-    }
+    { "customer_name": "...", "service_location": {...}, "contact": {...}, "email": {"to": "..."} }
     """
     if request.method != "POST":
         return JsonResponse({"error": "Method not allowed"}, status=405)
@@ -454,19 +495,40 @@ def sf_create_customer(request: HttpRequest):
         cust = api_customer_create_minimal(cname)
         cust_id = _safe_get(cust, "id") or _safe_get(cust, "customer_id")
         if not cust_id:
-            # Réponse inattendue: renvoie ce qu'on a pour debug
             return JsonResponse({"error": "Create customer failed", "raw": cust}, status=502)
 
-        # 2) Best-effort: primary location
+        # 2) Best-effort location
         loc = payload.get("service_location") or {}
         if loc:
             api_location_create_for_customer(cust_id, loc)
 
-        # 3) Renvoie le client (avec expand) pour pré-remplir le formulaire front
+        # 3) Fetch full (best-effort)
         try:
             full = api_customer_by_id(cust_id)
         except Exception:
             full = {"id": cust_id, "customer_name": cname}
+
+        # 4) Send HTML notification
+        to_email = _safe_get(payload, "email", "to")
+        ctx = {
+            "type": "customer_created",
+            "brand": {"name": "BlueCollar AI"},
+            "customer": {
+                "id": full.get("id"),
+                "name": full.get("customer_name") or cname,
+                "contact": _safe_get(payload, "contact") or {},
+            },
+            "location": {
+                "name": loc.get("name") or "",
+                "address": (loc.get("address") or loc.get("street_1") or ""),
+                "city": loc.get("city") or "",
+                "state": loc.get("state") or "",
+                "zip": loc.get("zip") or "",
+            },
+            "links": {},
+        }
+        html = _render_email(ctx)
+        _send_html_email(subject=f"[Customer Created] {cname}", html=html, to_email=to_email or getattr(settings, "WORKORDER_RECIPIENT", ""))
 
         return JsonResponse(full, safe=False, status=200)
 
@@ -498,7 +560,7 @@ def sf_create_job(request: HttpRequest):
         category = payload.get("category") or payload.get("category_ui") or ""
         priority = payload.get("priority") or "Normal"
         problem = payload.get("problem_details") or ""
-        llm = call_llm(customer_name or "Client", f"{category}/{priority}", problem)
+        llm = call_llm(customer_name or "Client", f"{category}/{priority}", problem)  # <-- RESTORED
         links, rag = llm.get("links", {}), llm.get("rag_url")
 
         if job_id and (rag or links):
@@ -517,24 +579,40 @@ def sf_create_job(request: HttpRequest):
                 if links.get("docx"): note.append(f"- DOCX: {links['docx']}")
                 api_job_add_note(job_id, "\n".join(note))
 
-        # 3) Email (prend en priorité payload.email.to)
+        # 3) Email HTML
         to_email = _safe_get(payload, "email", "to")
-        email_ok = email_workorder(
-            subject=f"[Work Order] {customer_name or ''} – {category}/{priority}",
-            lines=[
-                f"Job ID: {job_id}",
-                f"Job Number: {job_number or 'N/A'}",
-                f"API URL: {job_api_url or 'N/A'}",
-                "",
-                "Original description:",
-                problem or "(empty)",
-                "",
-                "Links:",
-                f"- DOCX: {links.get('docx') or 'N/A'}",
-                f"- JSON: {links.get('json') or 'N/A'}",
-                f"- RAG : {rag or 'N/A'}",
-            ],
-            to_email=to_email,
+        ctx = {
+            "type": "job_created",
+            "brand": {"name": "BlueCollar AI"},
+            "job": {
+                "id": job_id,
+                "number": job_number,
+                "status": _safe_get(job_resp, "status"),
+                "priority": _safe_get(job_resp, "priority") or payload.get("priority"),
+                "category": _safe_get(job_resp, "category") or payload.get("category"),
+                "created_at": _safe_get(job_resp, "created_at"),
+                "api_url": job_api_url,
+                "description": problem or "(empty)",
+            },
+            "customer": {
+                "name": _norm(payload.get("customer_name")),
+                "contact": _safe_get(payload, "contact") or {},
+            },
+            "location": {
+                "name": _safe_get(payload, "service_location", "name") or "",
+                "address": _safe_get(payload, "service_location", "address") or "",
+            },
+            "links": {
+                "docx": links.get("docx"),
+                "json": links.get("json"),
+                "rag": rag,
+            },
+        }
+        html = _render_email(ctx)
+        email_ok = _send_html_email(
+            subject=f"[Work Order] {ctx['customer']['name']} — {category}/{priority}",
+            html=html,
+            to_email=to_email or getattr(settings, "WORKORDER_RECIPIENT", "")
         )
 
         return JsonResponse({
@@ -561,9 +639,9 @@ def fsm_wizard(request: HttpRequest):
     }
     return render(request, "fsm_platform_server.html", ctx)
 
-
 def platform_server(request: HttpRequest):
     return render(request, "fsm_platform_server.html")
+
 # ===================== Debug =====================
 def sf_oauth_test(request: HttpRequest):
     try:
