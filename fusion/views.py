@@ -324,71 +324,170 @@ def call_llm(name: str, title: str, description: str) -> Dict[str, Any]:
     return {"links": links, "rag_url": rag_url, "raw": data}
 
 # ===================== Email helpers =====================
+# The ONLY changes in this file are in this section below.
+
+def _smtp_creds() -> Dict[str, Any]:
+    """
+    Normalize SMTP credentials from settings.
+    Supports both Gmail and Mailjet configurations.
+    """
+    host = (getattr(settings, "EMAIL_HOST", "") or "").strip()
+    port = int(getattr(settings, "EMAIL_PORT", 0) or 0)
+    user = (getattr(settings, "EMAIL_HOST_USER", "") or "").strip()
+    pwd = (getattr(settings, "EMAIL_HOST_PASSWORD", "") or "").strip()
+    use_tls = bool(getattr(settings, "EMAIL_USE_TLS", False))
+    use_ssl = bool(getattr(settings, "EMAIL_USE_SSL", False))
+    timeout = int(getattr(settings, "EMAIL_TIMEOUT", 30) or 30)
+    return {
+        "host": host, "port": port, "user": user, "pwd": pwd,
+        "use_tls": use_tls, "use_ssl": use_ssl, "timeout": timeout,
+    }
+
 def _conn_from_settings():
+    """
+    Primary SMTP connection using the project's email settings.
+    We sanitize username/password and rely on Django's EmailBackend to STARTTLS when requested.
+    """
+    creds = _smtp_creds()
     return get_connection(
         backend=getattr(settings, "EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend"),
-        host=getattr(settings, "EMAIL_HOST", None),
-        port=getattr(settings, "EMAIL_PORT", None),
-        username=getattr(settings, "EMAIL_HOST_USER", None),
-        password=getattr(settings, "EMAIL_HOST_PASSWORD", None),
-        use_tls=getattr(settings, "EMAIL_USE_TLS", False),
-        use_ssl=getattr(settings, "EMAIL_USE_SSL", False),
-        timeout=getattr(settings, "EMAIL_TIMEOUT", 30),
+        host=creds["host"] or None,
+        port=creds["port"] or None,
+        username=creds["user"] or None,
+        password=creds["pwd"] or None,
+        use_tls=creds["use_tls"],
+        use_ssl=creds["use_ssl"],
+        timeout=creds["timeout"],
     )
 
 def _conn_gmail_ssl():
-    # Fallback Gmail SSL:465
+    """
+    Gmail SSL:465 fallback. This uses the same sanitized username/password.
+    """
+    creds = _smtp_creds()
     return get_connection(
         backend="django.core.mail.backends.smtp.EmailBackend",
         host="smtp.gmail.com",
         port=465,
-        username=getattr(settings, "EMAIL_HOST_USER", None),
-        password=getattr(settings, "EMAIL_HOST_PASSWORD", None),
+        username=creds["user"] or None,
+        password=creds["pwd"] or None,
         use_tls=False,
         use_ssl=True,
-        timeout=30,
+        timeout=creds["timeout"],
     )
+
+def _resolve_from_addresses() -> tuple[str, dict]:
+    """
+    Resolve sender addresses for email sending.
+    For Mailjet: Use the sender email from DEFAULT_FROM_EMAIL
+    For Gmail: Use EMAIL_HOST_USER as envelope sender
+    Returns (envelope_from_email, headers)
+    """
+    user_addr = (getattr(settings, "EMAIL_HOST_USER", "") or "").strip()
+    display = (getattr(settings, "DEFAULT_FROM_EMAIL", "") or "").strip()
+    host = (getattr(settings, "EMAIL_HOST", "") or "").strip().lower()
+
+    # For Mailjet, use the sender email from DEFAULT_FROM_EMAIL
+    if "mailjet" in host:
+        # Extract email from DEFAULT_FROM_EMAIL (e.g., "AI_WORK_ORDER <operation@blue-collar.us>")
+        import re
+        email_match = re.search(r'<([^>]+)>', display)
+        if email_match:
+            envelope_from = email_match.group(1)
+        else:
+            envelope_from = display or "no-reply@localhost"
+    else:
+        # For Gmail, use EMAIL_HOST_USER as envelope sender
+        envelope_from = user_addr or display or "no-reply@localhost"
+    
+    headers = {}
+
+    # If a branded DEFAULT_FROM_EMAIL exists, pass it via the 'From' header
+    if display and envelope_from:
+        headers["From"] = display
+
+    return envelope_from, headers
 
 def _send_html_email(subject: str, html: str, to_email: str) -> bool:
     """
-    Low-level HTML sender with robust fallbacks.
+    Robust HTML sender with strict Gmail/Workspace compatibility.
+    Steps:
+      1) Validate recipient; build a primary SMTP connection (STARTTLS 587 if configured).
+      2) Force envelope sender to SMTP username; keep display name in 'From' header.
+      3) On 535 or any SMTP error, retry with SSL:465 fallback.
+      4) If everything fails, print to console backend so no data is lost.
     """
     recipient = (to_email or getattr(settings, "WORKORDER_RECIPIENT", "")).strip()
+    print(f"🔍 DEBUG EMAIL: to_email='{to_email}', WORKORDER_RECIPIENT='{getattr(settings, 'WORKORDER_RECIPIENT', '')}', final_recipient='{recipient}'")
     if not recipient:
         print("⚠️ No recipient provided; skip email.")
         return False
 
-    sender = getattr(settings, "DEFAULT_FROM_EMAIL", getattr(settings, "EMAIL_HOST_USER", None))
+    # Resolve envelope sender + branded header.
+    from_email, from_headers = _resolve_from_addresses()
+    print(f"🔍 DEBUG EMAIL: from_email='{from_email}', from_headers={from_headers}")
 
-    # 1) primary connection
+    # 1) Primary connection (from settings).
     try:
         with _conn_from_settings() as conn:
-            msg = EmailMessage(subject=subject, body=html, from_email=sender, to=[recipient], connection=conn)
+            msg = EmailMessage(
+                subject=subject,
+                body=html,
+                from_email=from_email,   # envelope sender MUST match SMTP auth user for Gmail
+                to=[recipient],
+                connection=conn,
+                headers=from_headers     # keep 'Bluecollar <...>' display if configured
+            )
             msg.content_subtype = "html"
             msg.send(fail_silently=False)
-        print("✅ HTML Email sent (primary settings).")
+        print("✅ HTML Email sent (primary SMTP settings).")
         return True
     except Exception as e1:
-        print(f"❌ SMTP send error (primary): {e1}")
+        # Provide a targeted hint when Gmail refuses credentials.
+        msg = str(e1)
+        if "535" in msg and "Username and Password not accepted" in msg:
+            print("❌ SMTP 535 (primary): Gmail/Workspace rejected credentials. "
+                  "Ensure EMAIL_HOST_USER is the mailbox and EMAIL_HOST_PASSWORD is an App Password.")
+        else:
+            print(f"❌ SMTP send error (primary): {e1}")
 
-    # 2) gmail ssl fallback
+    # 2) Gmail SSL:465 fallback — only if host is gmail or unspecified (keeps prior behavior).
     try:
-        host = (getattr(settings, "EMAIL_HOST", "") or "").lower()
+        host = (getattr(settings, "EMAIL_HOST", "") or "").lower().strip()
         if "gmail.com" in host or host == "":
             with _conn_gmail_ssl() as conn:
-                msg = EmailMessage(subject=subject, body=html, from_email=sender, to=[recipient], connection=conn)
+                msg = EmailMessage(
+                    subject=subject,
+                    body=html,
+                    from_email=from_email,
+                    to=[recipient],
+                    connection=conn,
+                    headers=from_headers
+                )
                 msg.content_subtype = "html"
                 msg.send(fail_silently=False)
-            print("✅ HTML Email sent (fallback gmail ssl:465).")
+            print("✅ HTML Email sent (fallback Gmail SSL:465).")
             return True
     except Exception as e2:
-        print(f"❌ SMTP send error (gmail ssl fallback): {e2}")
+        msg = str(e2)
+        if "535" in msg and "Username and Password not accepted" in msg:
+            print("❌ SMTP 535 (gmail ssl fallback): Gmail/Workspace rejected credentials. "
+                  "Verify that the account uses an App Password and the domain is on Google Workspace.")
+        else:
+            print(f"❌ SMTP send error (gmail ssl fallback): {e2}")
 
-    # 3) console fallback
+    # 3) Console fallback (no external SMTP; guarantees traceability).
     try:
         from django.core.mail import get_connection as gc
         with gc("django.core.mail.backends.console.EmailBackend") as conn:
-            msg = EmailMessage(subject=subject, body=html, from_email=sender, to=[recipient], connection=conn)
+            msg = EmailMessage(
+                subject=subject,
+                body=html,
+                from_email=from_email,
+                to=[recipient],
+                connection=conn,
+                headers=from_headers
+            )
             msg.content_subtype = "html"
             msg.send(fail_silently=True)
         print("ℹ️ HTML Email printed to console backend as fallback.")
@@ -408,22 +507,46 @@ def email_workorder(subject: str, lines: list[str], to_email: Optional[str] = No
     if not recipient:
         print("⚠️ No recipient provided; skip email.")
         return False
-    sender = getattr(settings, "DEFAULT_FROM_EMAIL", getattr(settings, "EMAIL_HOST_USER", None))
+
+    # Force envelope sender to SMTP user for Gmail compliance.
+    from_email, from_headers = _resolve_from_addresses()
+
     body = "\n".join(lines).strip()
     try:
         with _conn_from_settings() as conn:
-            EmailMessage(subject=subject, body=body, from_email=sender, to=[recipient], connection=conn).send(fail_silently=False)
+            EmailMessage(
+                subject=subject,
+                body=body,
+                from_email=from_email,
+                to=[recipient],
+                connection=conn,
+                headers=from_headers
+            ).send(fail_silently=False)
         return True
     except Exception:
         try:
             with _conn_gmail_ssl() as conn:
-                EmailMessage(subject=subject, body=body, from_email=sender, to=[recipient], connection=conn).send(fail_silently=False)
+                EmailMessage(
+                    subject=subject,
+                    body=body,
+                    from_email=from_email,
+                    to=[recipient],
+                    connection=conn,
+                    headers=from_headers
+                ).send(fail_silently=False)
             return True
         except Exception:
             try:
                 from django.core.mail import get_connection as gc
                 with gc("django.core.mail.backends.console.EmailBackend") as conn:
-                    EmailMessage(subject=subject, body=body, from_email=sender, to=[recipient], connection=conn).send(fail_silently=True)
+                    EmailMessage(
+                        subject=subject,
+                        body=body,
+                        from_email=from_email,
+                        to=[recipient],
+                        connection=conn,
+                        headers=from_headers
+                    ).send(fail_silently=True)
             except Exception:
                 pass
     return False

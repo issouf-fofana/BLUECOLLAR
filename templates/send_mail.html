@@ -39,22 +39,14 @@
           <div class="row"><span class="k">Location</span><span class="v">{{ location.name|default:"N/A" }}{% if location.address %} — {{ location.address }}{% endif %}</span></div>
           <div class="row"><span class="k">Description</span><span class="v">{{ job.description|default:"(empty)" }}</span></div>
 
-          {% if job.api_url %}
+          {% if links.docx or links.json or links.rag %}
             <div class="row">
-              <a class="btn" href="{{ job.api_url }}" target="_blank" rel="noopener">Open in Service Fusion</a>
+              {% if links.docx %}<a class="btn"href="{{ links.docx }}" target="_blank" rel="noopener">Open DOCX</a>{% endif %}
+
             </div>
           {% endif %}
 
-          {% if links.docx or links.json or links.rag %}
-            <div class="hr"></div>
-            <div class="row"><span class="k">Attachments</span>
-              <span class="v">
-                {% if links.docx %}<div><a href="{{ links.docx }}" target="_blank" rel="noopener">DOCX</a></div>{% endif %}
-                {% if links.json %}<div><a href="{{ links.json }}" target="_blank" rel="noopener">JSON</a></div>{% endif %}
-                {% if links.rag %}<div><a href="{{ links.rag }}" target="_blank" rel="noopener">RAG</a></div>{% endif %}
-              </span>
-            </div>
-          {% endif %}
+          
 
         {# Customer created email #}
         {% elif type == "customer_created" %}

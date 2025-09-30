@@ -12,40 +12,185 @@
         }
 
         :root {
-            --primary: #59ACE1;
-            --primary-dark: #4A91C7;
-            --secondary: #FFB100;
-            --accent: #FFB100;
-            --dark: #000000;
-            --gray-900: #111111;
-            --gray-800: #222222;
-            --gray-700: #333333;
-            --gray-600: #555555;
-            --gray-500: #6B7280;
-            --gray-400: #9CA3AF;
-            --gray-300: #D1D5DB;
-            --gray-200: #E5E7EB;
-            --gray-100: #F3F4F6;
-            --white: #ffffff;
-            --success: #10B981;
-            --error: #EF4444;
-            --warning: #F59E0B;
-            --gradient-primary: linear-gradient(135deg, #59ACE1 0%, #4A91C7 100%);
-            --gradient-secondary: linear-gradient(135deg, #FFB100 0%, #E69A00 100%);
+            /* Couleurs principales de l'entreprise - Bleu & Jaune */
+            --primary: #59ACE1;        /* Bleu principal */
+            --primary-light: #7BC4F0;  /* Bleu clair */
+            --primary-dark: #4A91C7;   /* Bleu foncé */
+            --primary-50: #F0F8FF;     /* Bleu très clair */
+            --primary-100: #E1F2FF;    /* Bleu clair */
+            --primary-200: #C2E5FF;    /* Bleu moyen-clair */
+            --primary-300: #A3D8FF;    /* Bleu moyen */
+            --primary-400: #84CBFF;    /* Bleu moyen-foncé */
+            --primary-500: #59ACE1;    /* Bleu standard */
+            --primary-600: #4A91C7;    /* Bleu foncé */
+            --primary-700: #3B76AD;    /* Bleu très foncé */
+            --primary-800: #2C5B93;    /* Bleu principal */
+            --primary-900: #1D4079;    /* Bleu le plus foncé */
+            
+            --secondary: #FFB100;      /* Jaune doré */
+            --secondary-light: #FFC233; /* Jaune clair */
+            --secondary-dark: #E69A00;  /* Jaune foncé */
+            --secondary-50: #FFFBF0;   /* Jaune très clair */
+            --secondary-100: #FFF7E1;  /* Jaune clair */
+            --secondary-200: #FFEFC2;  /* Jaune moyen-clair */
+            --secondary-300: #FFE7A3;  /* Jaune moyen */
+            --secondary-400: #FFDF84;  /* Jaune moyen-foncé */
+            --secondary-500: #FFB100;  /* Jaune standard */
+            --secondary-600: #E69A00;  /* Jaune foncé */
+            --secondary-700: #CC8800;  /* Jaune très foncé */
+            --secondary-800: #B37600;  /* Jaune le plus foncé */
+            --secondary-900: #996400;  /* Jaune ultra foncé */
+            
+            /* Couleurs d'accent */
+            --accent: #10B981;         /* Vert succès */
+            --accent-light: #34D399;   /* Vert clair */
+            --accent-dark: #059669;    /* Vert foncé */
+            --warning: #F59E0B;        /* Jaune warning */
+            --error: #EF4444;          /* Rouge erreur */
+            --info: #3B82F6;           /* Bleu info */
+            
+            /* Couleurs neutres modernes */
+            --dark: #0F172A;           /* Noir bleuté */
+            --gray-50: #F8FAFC;        /* Gris ultra clair */
+            --gray-100: #F1F5F9;       /* Gris très clair */
+            --gray-200: #E2E8F0;       /* Gris clair */
+            --gray-300: #CBD5E1;       /* Gris moyen-clair */
+            --gray-400: #94A3B8;       /* Gris moyen */
+            --gray-500: #64748B;       /* Gris moyen-foncé */
+            --gray-600: #475569;       /* Gris foncé */
+            --gray-700: #334155;       /* Gris très foncé */
+            --gray-800: #1E293B;       /* Gris ultra foncé */
+            --gray-900: #0F172A;       /* Gris le plus foncé */
+            --white: #FFFFFF;
+            
+            /* Dégradés modernes */
+            --gradient-primary: linear-gradient(135deg, #59ACE1 0%, #7BC4F0 50%, #4A91C7 100%);
+            --gradient-secondary: linear-gradient(135deg, #FFB100 0%, #FFC233 50%, #E69A00 100%);
             --gradient-accent: linear-gradient(135deg, #59ACE1 0%, #FFB100 100%);
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --gradient-hero: linear-gradient(135deg, #59ACE1 0%, #7BC4F0 25%, #FFB100 75%, #E69A00 100%);
+            --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%);
+            --gradient-glass: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            --gradient-dark: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            
+            /* Ombres modernes et colorées */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-colored: 0 20px 40px -12px rgba(89, 172, 225, 0.25);
+            --shadow-yellow: 0 20px 40px -12px rgba(255, 177, 0, 0.25);
+            --shadow-green: 0 20px 40px -12px rgba(16, 185, 129, 0.25);
+            
+            /* Animations et transitions */
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            
+            /* Bordures arrondies */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-3xl: 2rem;
+            --radius-full: 9999px;
         }
 
         body {
-            font-family: 'Georgia Pro', Georgia, 'Times New Roman', serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: var(--dark);
-            background: var(--gray-100);
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
             overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animations globales */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40%, 43% {
+                transform: translateY(-10px);
+            }
+            70% {
+                transform: translateY(-5px);
+            }
+            90% {
+                transform: translateY(-2px);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200px 0;
+            }
+            100% {
+                background-position: calc(200px + 100%) 0;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+         @keyframes glow {
+             0%, 100% {
+                 box-shadow: 0 0 5px rgba(89, 172, 225, 0.3);
+             }
+             50% {
+                 box-shadow: 0 0 20px rgba(89, 172, 225, 0.6), 0 0 30px rgba(89, 172, 225, 0.4);
+             }
         }
 
         /* Common Components */
@@ -53,49 +198,104 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
+            padding: 0.875rem 2rem;
+            border-radius: var(--radius-xl);
             font-weight: 600;
             text-decoration: none;
             border: none;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all var(--transition-normal);
             font-size: 1rem;
-            min-height: 2.75rem;
+            min-height: 3rem;
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+            gap: 0.5rem;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
             background: var(--gradient-primary);
             color: var(--white);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-colored);
+            border: 2px solid transparent;
         }
 
         .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: var(--shadow-2xl);
+            animation: glow 2s infinite;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0) scale(0.98);
         }
 
         .btn-secondary {
             background: var(--white);
             color: var(--primary);
             border: 2px solid var(--primary);
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-secondary:hover {
-            background: var(--primary);
+            background: var(--gradient-primary);
             color: var(--white);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: var(--shadow-colored);
         }
 
         .btn-outline {
             background: transparent;
             color: var(--gray-700);
             border: 2px solid var(--gray-300);
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-outline:hover {
             border-color: var(--primary);
             color: var(--primary);
+            background: var(--primary-50);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success {
+            background: var(--gradient-secondary);
+            color: var(--white);
+            box-shadow: var(--shadow-yellow);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: var(--shadow-2xl);
+            animation: pulse 1s infinite;
+        }
+
+        .btn-lg {
+            padding: 1rem 2.5rem;
+            font-size: 1.125rem;
+            min-height: 3.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            min-height: 2.25rem;
         }
 
         .btn-google {
@@ -158,11 +358,54 @@
         }
 
         .card {
-            background: var(--white);
-            border-radius: 1rem;
+            background: var(--gradient-card);
+            border-radius: var(--radius-2xl);
             box-shadow: var(--shadow-xl);
             padding: 2rem;
             border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-normal);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform var(--transition-normal);
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-2xl);
+            border-color: var(--primary-200);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-interactive {
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .card-interactive:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: var(--shadow-colored);
+        }
+
+        .card-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         .alert {
@@ -201,10 +444,62 @@
             display: none;
             min-height: 100vh;
             padding: 2rem 0;
+            animation: fadeInUp 0.6s ease-out;
         }
 
         .page.active {
             display: block;
+        }
+
+        /* Animations d'entrée pour les éléments */
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .fade-in-left {
+            animation: fadeInLeft 0.6s ease-out;
+        }
+
+        .fade-in-right {
+            animation: fadeInRight 0.6s ease-out;
+        }
+
+        /* Effets de chargement */
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        /* Amélioration des focus states pour l'accessibilité */
+        .btn:focus,
+        .card:focus,
+        .user-type-card:focus,
+        .dashboard-card:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Amélioration des transitions pour les éléments interactifs */
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
         }
 
         /* Navigation */
@@ -248,31 +543,80 @@
         }
 
         .user-type-card {
-            background: var(--white);
-            border-radius: 1rem;
-            padding: 2rem;
+            background: var(--gradient-card);
+            border-radius: var(--radius-2xl);
+            padding: 2.5rem;
             box-shadow: var(--shadow-lg);
             border: 3px solid transparent;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-normal);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .user-type-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: 1;
+        }
+
+        .user-type-card > * {
+            position: relative;
+            z-index: 2;
         }
 
         .user-type-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-colored);
             border-color: var(--primary);
+        }
+
+        .user-type-card:hover::before {
+            opacity: 0.05;
         }
 
         .user-type-card.selected {
             border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(89, 172, 225, 0.05) 0%, rgba(74, 145, 199, 0.05) 100%);
+            background: linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-50) 100%);
+            box-shadow: var(--shadow-colored);
+            animation: pulse 2s infinite;
+        }
+
+        .user-type-card.selected::before {
+            opacity: 0.1;
         }
 
         .user-type-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-colored);
+            transition: all var(--transition-normal);
+        }
+
+        .user-type-card:hover .user-type-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--shadow-yellow);
+        }
+
+        .user-type-card.selected .user-type-icon {
+            background: var(--gradient-secondary);
+            box-shadow: var(--shadow-yellow);
+            animation: bounce 1s infinite;
         }
 
         .user-type-title {
@@ -280,6 +624,81 @@
             font-weight: 700;
             color: var(--dark);
             margin-bottom: 1rem;
+            transition: all var(--transition-normal);
+        }
+
+        .user-type-card:hover .user-type-title {
+            color: var(--primary);
+        }
+
+        .user-type-card.selected .user-type-title {
+            color: var(--primary);
+        }
+
+        /* Styles pour les icônes SVG */
+        .user-type-icon svg,
+        .dashboard-card-icon svg,
+        .file-upload-icon svg,
+        .redirect-icon svg {
+            transition: all var(--transition-normal);
+            stroke: currentColor;
+        }
+
+        .user-type-card:hover .user-type-icon svg {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .user-type-card.selected .user-type-icon svg {
+            animation: bounce 1s infinite;
+        }
+
+        .dashboard-card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-colored);
+            transition: all var(--transition-normal);
+        }
+
+        .dashboard-card:hover .dashboard-card-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--shadow-yellow);
+        }
+
+        .file-upload-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-secondary);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-yellow);
+            transition: all var(--transition-normal);
+        }
+
+        .file-upload:hover .file-upload-icon {
+            transform: scale(1.1);
+            animation: pulse 1s infinite;
+        }
+
+        .redirect-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-2xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow-colored);
+            animation: float 3s ease-in-out infinite;
         }
 
         .user-type-description {
@@ -290,62 +709,116 @@
 
         /* Dashboard */
         .dashboard-header {
-            background: var(--gradient-primary);
+            background: var(--gradient-hero);
             color: var(--white);
-            padding: 2rem;
-            border-radius: 1rem;
+            padding: 3rem 2rem;
+            border-radius: var(--radius-2xl);
             margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .dashboard-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .dashboard-header > * {
+            position: relative;
+            z-index: 2;
         }
 
         .dashboard-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F0F9FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInLeft 0.8s ease-out;
         }
 
         .dashboard-subtitle {
+            font-size: 1.25rem;
             opacity: 0.9;
-            font-size: 1.1rem;
+            animation: fadeInRight 0.8s ease-out;
         }
 
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
         .dashboard-card {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-200);
+            background: var(--gradient-card);
+            padding: 2rem;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-lg);
+            border: 2px solid transparent;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all var(--transition-normal);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: 1;
+        }
+
+        .dashboard-card > * {
+            position: relative;
+            z-index: 2;
         }
 
         .dashboard-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-colored);
+            border-color: var(--primary);
         }
 
-        .dashboard-card-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
+        .dashboard-card:hover::before {
+            opacity: 0.05;
         }
 
         .dashboard-card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: var(--dark);
             margin-bottom: 0.5rem;
+            transition: all var(--transition-normal);
+        }
+
+        .dashboard-card:hover .dashboard-card-title {
+            color: var(--primary);
         }
 
         .dashboard-card-description {
             color: var(--gray-600);
             font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         /* Profile Forms */
@@ -615,6 +1088,82 @@
             margin-bottom: 2rem;
         }
 
+        /* Multi-step Form Styles */
+        .form-step {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-navigation {
+            border-top: 1px solid var(--gray-200);
+            padding-top: 1.5rem;
+        }
+
+        .review-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+
+        .review-content {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-200);
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .review-label {
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .review-value {
+            color: var(--gray-600);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Alert Styles */
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+        }
+
+        .alert-error {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+        }
+
+        .alert-success {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #16a34a;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -623,18 +1172,55 @@
             
             .user-type-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .user-type-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .user-type-icon {
+                width: 60px;
+                height: 60px;
             }
             
             .dashboard-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .dashboard-card {
+                padding: 1.5rem;
+            }
+            
+            .dashboard-card-icon {
+                width: 50px;
+                height: 50px;
             }
             
             .form-row {
                 grid-template-columns: 1fr;
             }
+
+            /* Very small screens - single column for dashboard */
+            @media (max-width: 480px) {
+                .dashboard-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
             
             .nav-menu {
                 display: none;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn-lg {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
             }
             
             .progress-steps {
@@ -744,7 +1330,11 @@
     <!-- Service Provider Redirect Modal -->
     <div id="redirect-modal" class="redirect-modal">
         <div class="redirect-content">
-            <div class="redirect-icon">🔧</div>
+            <div class="redirect-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                </svg>
+            </div>
             <h2 class="redirect-title">Welcome, Service Provider!</h2>
             <p class="redirect-description">
                 You're being redirected to the Field Service Management Platform where you can manage work orders, track equipment, and streamline your service operations.
@@ -766,7 +1356,13 @@
             
             <div class="user-type-grid">
                 <div class="user-type-card" data-type="restaurant" onclick="selectUserType('restaurant')">
-                    <span class="user-type-icon">🍽️</span>
+                    <div class="user-type-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 2v7c0 1.1.9 2 2 2h4v11a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V11h4c1.1 0 2-.9 2-2V2H3z"/>
+                            <path d="M8 11h8"/>
+                            <path d="M12 15h0"/>
+                        </svg>
+                    </div>
                     <h3 class="user-type-title">Restaurant Operator</h3>
                     <p class="user-type-description">Manage kitchen equipment, reduce downtime, and optimize your restaurant operations with AI-powered monitoring.</p>
                     <ul style="text-align: left; margin-top: 1rem; color: var(--gray-600);">
@@ -778,7 +1374,11 @@
                 </div>
                 
                 <div class="user-type-card" data-type="service" onclick="selectUserType('service')">
-                    <span class="user-type-icon">🔧</span>
+                    <div class="user-type-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </div>
                     <h3 class="user-type-title">Service Provider</h3>
                     <p class="user-type-description">Get qualified leads, optimize routes, and deliver exceptional service with AI-powered tools and insights.</p>
                     <ul style="text-align: left; margin-top: 1rem; color: var(--gray-600);">
@@ -799,7 +1399,7 @@
     <!-- Sign Up Page -->
     <div id="signup" class="page">
         <div class="container">
-            <div class="card" style="max-width: 500px; margin: 0 auto;">
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
                 <div class="text-center mb-4">
                     <h2 style="font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem;">Create Your Account</h2>
                     <p style="color: var(--gray-600);">Start your 30-day free trial today</p>
@@ -808,6 +1408,7 @@
                 <div id="signup-alert" class="hidden"></div>
 
                 <form id="signup-form" onsubmit="handleSignup(event)">
+                    <!-- First Row: Name fields -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName" class="form-label">First Name</label>
@@ -819,61 +1420,72 @@
                         </div>
                     </div>
 
+                    <!-- Second Row: Email and Company -->
+                    <div class="form-row">
                     <div class="form-group">
                         <label for="email" class="form-label">Email Address</label>
                         <input type="email" id="email" name="email" class="form-input" required>
                     </div>
-
                     <div class="form-group">
                         <label for="company" class="form-label">Company Name</label>
                         <input type="text" id="company" name="company" class="form-input" required>
+                        </div>
                     </div>
 
+                    <!-- Third Row: Phone and Password -->
+                    <div class="form-row">
                     <div class="form-group">
                         <label for="phone" class="form-label">Phone Number</label>
                         <input type="tel" id="phone" name="phone" class="form-input" required>
                     </div>
-
                     <div class="form-group">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" id="password" name="password" class="form-input" required minlength="8">
-                        <small style="color: var(--gray-500);">Minimum 8 characters</small>
+                            <small style="color: var(--gray-500); font-size: 0.75rem;">Min 8 characters</small>
+                        </div>
                     </div>
 
+                    <!-- Fourth Row: Confirm Password and Terms -->
+                    <div class="form-row">
                     <div class="form-group">
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
                     </div>
-
                     <div class="form-group">
-                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; margin-top: 1.5rem;">
                             <input type="checkbox" id="terms" name="terms" required>
-                            <span style="font-size: 0.9rem; color: var(--gray-600);">I agree to the <a href="#" style="color: var(--primary);">Terms of Service</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a></span>
+                                <span style="font-size: 0.85rem; color: var(--gray-600);">I agree to the <a href="#" style="color: var(--primary);">Terms</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a></span>
                         </label>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                    <!-- Action Buttons Row -->
+                    <div class="form-row" style="margin-top: 1.5rem;">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
                         Create Account
                     </button>
+                </div>
+                        <div class="form-group">
+                            <div style="text-align: center; margin: 0.5rem 0;">
+                                <span style="color: var(--gray-500); font-size: 0.9rem;">or continue with</span>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button type="button" class="btn btn-google" onclick="handleSocialLogin('google')" style="flex: 1; padding: 0.5rem;">
+                                    <span style="margin-right: 0.25rem;">🔓</span>
+                                    Google
+                    </button>
+                                <button type="button" class="btn btn-microsoft" onclick="handleSocialLogin('microsoft')" style="flex: 1; padding: 0.5rem;">
+                                    <span style="margin-right: 0.25rem;">⊞</span>
+                                    Microsoft
+                    </button>
+                </div>
+                        </div>
+                    </div>
                 </form>
 
-                <div style="text-align: center; margin: 1.5rem 0;">
-                    <span style="color: var(--gray-500);">or continue with</span>
-                </div>
-
-                <div style="display: grid; gap: 1rem;">
-                    <button class="btn btn-google" onclick="handleSocialLogin('google')">
-                        <span style="margin-right: 0.5rem;">🔓</span>
-                        Continue with Google
-                    </button>
-                    <button class="btn btn-microsoft" onclick="handleSocialLogin('microsoft')">
-                        <span style="margin-right: 0.5rem;">⊞</span>
-                        Continue with Microsoft
-                    </button>
-                </div>
-
-                <div class="text-center mt-4">
-                    <p style="color: var(--gray-600);">Already have an account? <a href="#" onclick="showPage('login')" style="color: var(--primary); font-weight: 600;">Sign in</a></p>
+                <div class="text-center mt-3">
+                    <p style="color: var(--gray-600); font-size: 0.9rem;">Already have an account? <a href="#" onclick="showPage('login')" style="color: var(--primary); font-weight: 600;">Sign in</a></p>
                 </div>
             </div>
         </div>
@@ -882,7 +1494,7 @@
     <!-- Login Page -->
     <div id="login" class="page">
         <div class="container">
-            <div class="card" style="max-width: 400px; margin: 0 auto;">
+            <div class="card" style="max-width: 600px; margin: 0 auto;">
                 <div class="text-center mb-4">
                     <h2 style="font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem;">Welcome Back</h2>
                     <p style="color: var(--gray-600);">Sign in to your account</p>
@@ -891,46 +1503,58 @@
                 <div id="login-alert" class="hidden"></div>
 
                 <form id="login-form" onsubmit="handleLogin(event)">
+                    <!-- Login Row: Email and Password -->
+                    <div class="form-row">
                     <div class="form-group">
                         <label for="loginEmail" class="form-label">Email Address</label>
                         <input type="email" id="loginEmail" name="email" class="form-input" required>
                     </div>
-
                     <div class="form-group">
                         <label for="loginPassword" class="form-label">Password</label>
                         <input type="password" id="loginPassword" name="password" class="form-input" required>
+                        </div>
                     </div>
 
-                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                    <!-- Action Row: Remember me, Forgot password, and Sign in button -->
+                    <div class="form-row" style="margin-top: 1rem;">
+                        <div class="form-group">
                         <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
                             <input type="checkbox" id="remember" name="remember">
                             <span style="font-size: 0.9rem; color: var(--gray-600);">Remember me</span>
                         </label>
-                        <a href="#" onclick="showPage('forgot-password')" style="color: var(--primary); font-size: 0.9rem;">Forgot password?</a>
+                        </div>
+                        <div class="form-group">
+                            <a href="#" onclick="showPage('forgot-password')" style="color: var(--primary); font-size: 0.9rem; text-align: right; display: block;">Forgot password?</a>
+                        </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">
+                    <!-- Sign in button -->
+                    <div class="form-row" style="margin-top: 1rem;">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
                         Sign In
                     </button>
+                </div>
+                        <div class="form-group">
+                            <div style="text-align: center; margin: 0.5rem 0;">
+                                <span style="color: var(--gray-500); font-size: 0.9rem;">or continue with</span>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button type="button" class="btn btn-google" onclick="handleSocialLogin('google')" style="flex: 1; padding: 0.5rem;">
+                                    <span style="margin-right: 0.25rem;">🔓</span>
+                                    Google
+                    </button>
+                                <button type="button" class="btn btn-microsoft" onclick="handleSocialLogin('microsoft')" style="flex: 1; padding: 0.5rem;">
+                                    <span style="margin-right: 0.25rem;">⊞</span>
+                                    Microsoft
+                    </button>
+                </div>
+                        </div>
+                    </div>
                 </form>
 
-                <div style="text-align: center; margin: 1.5rem 0;">
-                    <span style="color: var(--gray-500);">or continue with</span>
-                </div>
-
-                <div style="display: grid; gap: 1rem;">
-                    <button class="btn btn-google" onclick="handleSocialLogin('google')">
-                        <span style="margin-right: 0.5rem;">🔓</span>
-                        Continue with Google
-                    </button>
-                    <button class="btn btn-microsoft" onclick="handleSocialLogin('microsoft')">
-                        <span style="margin-right: 0.5rem;">⊞</span>
-                        Continue with Microsoft
-                    </button>
-                </div>
-
-                <div class="text-center mt-4">
-                    <p style="color: var(--gray-600);">Don't have an account? <a href="#" onclick="showPage('user-type')" style="color: var(--primary); font-weight: 600;">Sign up</a></p>
+                <div class="text-center mt-3">
+                    <p style="color: var(--gray-600); font-size: 0.9rem;">Don't have an account? <a href="#" onclick="showPage('user-type')" style="color: var(--primary); font-weight: 600;">Sign up</a></p>
                 </div>
             </div>
         </div>
@@ -975,7 +1599,11 @@
 
             <div class="progress-steps">
                 <div class="progress-step completed">
-                    <div class="step-number">✓</div>
+                    <div class="step-number">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4"/>
+                        </svg>
+                    </div>
                     <span>Account Created</span>
                 </div>
                 <div class="step-connector"></div>
@@ -997,25 +1625,45 @@
 
             <div class="dashboard-grid" id="dashboard-grid">
                 <div class="dashboard-card" onclick="showPage('profile-setup')">
-                    <div class="dashboard-card-icon">👤</div>
+                    <div class="dashboard-card-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
                     <h3 class="dashboard-card-title">Complete Profile</h3>
                     <p class="dashboard-card-description">Add your business details and preferences</p>
                 </div>
 
                 <div class="dashboard-card" onclick="showPage('payment')">
-                    <div class="dashboard-card-icon">💳</div>
+                    <div class="dashboard-card-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                            <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </div>
                     <h3 class="dashboard-card-title">Payment Information</h3>
                     <p class="dashboard-card-description">Set up billing for when your trial ends</p>
                 </div>
 
                 <div class="dashboard-card" id="assets-card" onclick="showPage('restaurant-assets')">
-                    <div class="dashboard-card-icon">🏪</div>
+                    <div class="dashboard-card-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9,22 9,12 15,12 15,22"/>
+                        </svg>
+                    </div>
                     <h3 class="dashboard-card-title">Create Restaurant Assets Pod</h3>
                     <p class="dashboard-card-description">Set up your restaurant locations and equipment inventory</p>
                 </div>
 
                 <div class="dashboard-card" onclick="showPage('profile-manage')">
-                    <div class="dashboard-card-icon">⚙️</div>
+                    <div class="dashboard-card-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                    </div>
                     <h3 class="dashboard-card-title">Account Settings</h3>
                     <p class="dashboard-card-description">Manage your account and preferences</p>
                 </div>
@@ -1052,7 +1700,12 @@
                         <div class="form-group">
                             <label class="form-label">Profile Photo</label>
                             <div class="file-upload" onclick="document.getElementById('avatar').click()">
-                                <div class="file-upload-icon">📷</div>
+                                <div class="file-upload-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                        <circle cx="12" cy="13" r="4"/>
+                                    </svg>
+                                </div>
                                 <p>Click to upload profile photo</p>
                                 <input type="file" id="avatar" accept="image/*" style="display: none;" onchange="previewImage(this)">
                             </div>
@@ -1230,16 +1883,38 @@
                     <p style="color: var(--gray-600);">Set up your restaurant locations and equipment for monitoring and service management</p>
                 </div>
 
+                <!-- Progress Steps -->
+                <div class="progress-steps" style="margin-bottom: 2rem;">
+                    <div class="progress-step" data-step="1">
+                        <div class="step-number">1</div>
+                        <span>Location Info</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-number">2</div>
+                        <span>Equipment</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-number">3</div>
+                        <span>Review</span>
+                    </div>
+                </div>
+
                 <div class="card">
-                    <div id="assets-alert" class="hidden"></div>
+                    <div id="assets-alert" class="alert" style="display: none;"></div>
                     
                     <form id="assets-form" onsubmit="handleAssetsCreation(event)">
+                        <!-- Step 1: Location Information -->
+                        <div class="form-step active" id="step-1">
+                            <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--dark);">📍 Location Information</h3>
+                            
                         <div class="location-container" id="locations-container">
                             <!-- Primary Location -->
                             <div class="location-card" data-location="1">
                                 <div class="location-header">
                                     <div class="location-title">
-                                        📍 Primary Location (Billing Address)
+                                            Primary Location (Billing Address)
                                     </div>
                                 </div>
                                 
@@ -1295,9 +1970,26 @@
                                             <input type="checkbox" id="billingAddress1" name="billingAddress1" checked>
                                             <span style="color: var(--gray-600);">Billing Address</span>
                                         </label>
+                                        </div>
+                                    </div>
+                                </div>
                                     </div>
 
-                                    <!-- Equipment for Location 1 -->
+                            <div style="text-align: center; margin: 2rem 0;">
+                                <button type="button" class="btn btn-secondary" onclick="addLocation()" style="width: 100%;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"/>
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                    </svg>
+                                    Add More Locations
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Equipment Information -->
+                        <div class="form-step" id="step-2">
+                            <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--dark);">🔧 Equipment Information</h3>
+                            
                                     <div class="equipment-container" id="equipment-container-1">
                                         <h4 style="margin: 1.5rem 0 1rem 0; color: var(--gray-800); border-bottom: 2px solid var(--gray-200); padding-bottom: 0.5rem;">Equipment at this Location</h4>
                                         
@@ -1305,7 +1997,13 @@
                                             <div class="equipment-header">
                                                 <div class="equipment-title">Equipment 1</div>
                                                 <button type="button" class="equipment-remove" onclick="removeEquipment(1, 1)" style="display: none;" id="remove-equipment-1-1">
-                                                    🗑️ Remove
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="3,6 5,6 21,6"/>
+                                                <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                                                <line x1="10" y1="11" x2="10" y2="17"/>
+                                                <line x1="14" y1="11" x2="14" y2="17"/>
+                                            </svg>
+                                            Remove
                                                 </button>
                                             </div>
 
@@ -1343,7 +2041,12 @@
                                             <div class="form-group">
                                                 <label class="form-label">Equipment Photos</label>
                                                 <div class="file-upload" onclick="document.getElementById('equipmentPhoto1_1').click()">
-                                                    <div class="file-upload-icon">📷</div>
+                                            <div class="file-upload-icon">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                                    <circle cx="12" cy="13" r="4"/>
+                                                </svg>
+                                            </div>
                                                     <p>Choose files or drag and drop photos here</p>
                                                     <input type="file" id="equipmentPhoto1_1" name="equipmentPhoto1_1" accept="image/*" multiple style="display: none;" onchange="previewEquipmentImage(this, 1, 1)">
                                                 </div>
@@ -1353,21 +2056,39 @@
                                     </div>
 
                                     <button type="button" class="btn btn-outline" onclick="addEquipment(1)" style="margin: 1rem 0; width: 100%;">
-                                        ➕ Add Equipment to this Location
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                Add Equipment to this Location
                                     </button>
+                                </div>
+
+                        <!-- Step 3: Review and Submit -->
+                        <div class="form-step" id="step-3">
+                            <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--dark);">📋 Review Information</h3>
+                            
+                            <div class="review-section">
+                                <h4 style="color: var(--gray-800); margin-bottom: 1rem;">Location Summary</h4>
+                                <div id="review-locations" class="review-content">
+                                    <!-- Location summary will be populated here -->
+                            </div>
+                        </div>
+
+                            <div class="review-section">
+                                <h4 style="color: var(--gray-800); margin-bottom: 1rem;">Equipment Summary</h4>
+                                <div id="review-equipment" class="review-content">
+                                    <!-- Equipment summary will be populated here -->
                                 </div>
                             </div>
                         </div>
 
-                        <div style="text-align: center; margin: 2rem 0;">
-                            <button type="button" class="btn btn-secondary" onclick="addLocation()" style="width: 100%;">
-                                ➕ Add More Locations
-                            </button>
-                        </div>
-
-                        <div style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 2rem;">
-                            <button type="button" class="btn btn-outline" onclick="showPage('dashboard')">← Back to Dashboard</button>
-                            <button type="submit" class="btn btn-primary">Create Restaurant Assets Pod</button>
+                        <!-- Navigation Buttons -->
+                        <div class="form-navigation" style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 2rem;">
+                            <button type="button" class="btn btn-outline" id="back-btn" onclick="showPage('dashboard')" style="display: none;">← Back to Dashboard</button>
+                            <button type="button" class="btn btn-outline" id="prev-step-btn" onclick="prevStep()" style="display: none;">← Previous</button>
+                            <button type="button" class="btn btn-primary" id="next-step-btn" onclick="nextStep()">Next →</button>
+                            <button type="submit" class="btn btn-primary" id="submit-btn" style="display: none;">Create Restaurant Assets Pod</button>
                         </div>
                     </form>
                 </div>
@@ -2048,10 +2769,19 @@
                         </div>
                         <div class="fs-header-user">
                             <div class="fs-user-badge">
-                                🛡️ SOC 2 Compliant • Enterprise Ready
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px; display: inline-block;">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <path d="M9 12l2 2 4-4"/>
+                                </svg>
+                                SOC 2 Compliant • Enterprise Ready
                             </div>
-                            <button onclick="fsLogout()" style="background: none; border: none; color: white; cursor: pointer; padding: 0.5rem;">
-                                🚪 Logout
+                            <button onclick="fsLogout()" style="background: none; border: none; color: white; cursor: pointer; padding: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                    <polyline points="16,17 21,12 16,7"/>
+                                    <line x1="21" y1="12" x2="9" y2="12"/>
+                                </svg>
+                                Logout
                             </button>
                         </div>
                     </header>
@@ -2064,16 +2794,33 @@
                                 <div class="fs-menu-section">
                                     <div class="fs-menu-section-title">Core Modules</div>
                                     <button class="fs-menu-item active" onclick="fsLoadContent('field-service')" data-content="field-service">
-                                        🔧 <span class="fs-menu-text">Field Service Management</span>
+                                        <svg class="fs-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                                        </svg>
+                                        <span class="fs-menu-text">Field Service Management</span>
                                     </button>
                                     <button class="fs-menu-item" onclick="fsLoadContent('work-order')" data-content="work-order">
-                                        📄 <span class="fs-menu-text">Work Order Integration</span>
+                                        <svg class="fs-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                            <polyline points="14,2 14,8 20,8"/>
+                                            <line x1="16" y1="13" x2="8" y2="13"/>
+                                            <line x1="16" y1="17" x2="8" y2="17"/>
+                                            <polyline points="10,9 9,9 8,9"/>
+                                        </svg>
+                                        <span class="fs-menu-text">Work Order Integration</span>
                                     </button>
                                     <button class="fs-menu-item" onclick="fsLoadContent('warranty')" data-content="warranty">
-                                        🛡️ <span class="fs-menu-text">Warranty Processing</span>
+                                        <svg class="fs-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                            <path d="M9 12l2 2 4-4"/>
+                                        </svg>
+                                        <span class="fs-menu-text">Warranty Processing</span>
                                     </button>
                                     <button class="fs-menu-item" onclick="fsLoadContent('call-center')" data-content="call-center">
-                                        🎧 <span class="fs-menu-text">Answering Service Agent</span>
+                                        <svg class="fs-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                        </svg>
+                                        <span class="fs-menu-text">Answering Service Agent</span>
                                     </button>
                                 </div>
 
@@ -2081,7 +2828,7 @@
                                 <div class="fs-menu-section">
                                     <div class="fs-menu-section-title">System Management</div>
                                     <button class="fs-menu-item" onclick="fsLoadContent('system-status')" data-content="system-status">
-                                        📊 <span class="fs-menu-text">System Status</span>
+                                        <svg class="icon" viewBox="0 0 24 24" style="width: 18px; height: 18px; margin-right: 8px;"><path d="M3 3v18h18"/><path d="M7 13v5"/><path d="M12 9v9"/><path d="M17 5v13"/></svg><span class="fs-menu-text">System Status</span>
                                         <span class="fs-menu-badge" id="fs-status-badge">5</span>
                                     </button>
                                 </div>
@@ -2126,7 +2873,7 @@
                                 <!-- Field Service Management Content -->
                                 <div id="fs-field-service-content" class="fs-content-panel fs-hidden">
                                     <div class="fs-module-content">
-                                        <div style="text-align: center; margin-bottom: 2rem;">
+                                        <div style="text-align: left; margin-bottom: 2rem;">
                                             <h2 style="font-size: 2rem; font-weight: 700; color: #59ACE1; margin-bottom: 0.5rem;">Field Service Contractor Integration</h2>
                                             <p style="color: #6b7280; font-size: 1.1rem;">Connect with leading field service management platforms</p>
                                         </div>
@@ -2162,7 +2909,13 @@
                                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                                     <span id="fs-config-status" style="padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.9rem; font-weight: 600; background: rgba(16, 185, 129, 0.1); color: #10b981;">● Connected</span>
                                                     <button class="fs-btn fs-btn-success" onclick="fsTestConnection()">
-                                                        📶 Test Connection
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                            <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                                                            <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                                                            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                                                            <line x1="12" y1="20" x2="12.01" y2="20"/>
+                                                        </svg>
+                                                        Test Connection
                                                     </button>
                                                 </div>
                                             </div>
@@ -2236,7 +2989,15 @@
                                                 <h3 id="fs-wo-config-title" style="font-size: 1.5rem; color: #000000; margin-bottom: 1rem;">Ecotrak Integration Configuration</h3>
                                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                                     <span id="fs-wo-config-status" style="padding: 0.5rem 1rem; border-radius: 12px; font-size: 0.9rem; font-weight: 600; background: rgba(16, 185, 129, 0.1); color: #10b981;">● Connected</span>
-                                                    <button class="fs-btn fs-btn-success" onclick="fsTestWorkOrderConnection()">📶 Test Connection</button>
+                                                    <button class="fs-btn fs-btn-success" onclick="fsTestWorkOrderConnection()">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                            <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                                                            <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                                                            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                                                            <line x1="12" y1="20" x2="12.01" y2="20"/>
+                                                        </svg>
+                                                        Test Connection
+                                                    </button>
                                                 </div>
                                             </div>
                                             
@@ -2273,14 +3034,23 @@
                                         <!-- Add Provider Button -->
                                         <div style="text-align: center; margin-bottom: 2rem;">
                                             <button class="fs-btn fs-btn-primary" onclick="fsOpenProviderModal()" style="font-size: 1.1rem; padding: 0.75rem 2rem;">
-                                                ➕ Add Provider
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                                </svg>
+                                                Add Provider
                                             </button>
                                         </div>
 
                                         <!-- Warranty Partner Tiles -->
                                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
                                             <div class="fs-provider-card" onclick="fsSelectWarranty('newco')" data-company="newco">
-                                                <div style="display: inline-flex; align-items: center; justify-content: center; width: 4rem; height: 4rem; background: linear-gradient(45deg, #59ACE1, #FFB100); border-radius: 1rem; margin-bottom: 1.5rem;">🛡️</div>
+                                                <div style="display: inline-flex; align-items: center; justify-content: center; width: 4rem; height: 4rem; background: linear-gradient(45deg, #59ACE1, #FFB100); border-radius: 1rem; margin-bottom: 1.5rem;">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: white;">
+                                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                                        <path d="M9 12l2 2 4-4"/>
+                                                    </svg>
+                                                </div>
                                                 <h3 style="font-size: 1.25rem; font-weight: 700; color: #000000; margin-bottom: 0.5rem;">NewCo Warranty</h3>
                                                 <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Click to access portal</p>
                                                 <div style="background: #f8fafc; border-radius: 12px; padding: 1rem;">
@@ -2292,7 +3062,12 @@
                                             </div>
 
                                             <div class="fs-provider-card" onclick="fsSelectWarranty('nsc')" data-company="nsc">
-                                                <div style="display: inline-flex; align-items: center; justify-content: center; width: 4rem; height: 4rem; background: linear-gradient(45deg, #16a34a, #15803d); border-radius: 1rem; margin-bottom: 1.5rem;">⚙️</div>
+                                                <div style="display: inline-flex; align-items: center; justify-content: center; width: 4rem; height: 4rem; background: linear-gradient(45deg, #16a34a, #15803d); border-radius: 1rem; margin-bottom: 1.5rem;">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: white;">
+                                                        <circle cx="12" cy="12" r="3"/>
+                                                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                                                    </svg>
+                                                </div>
                                                 <h3 style="font-size: 1.25rem; font-weight: 700; color: #000000; margin-bottom: 0.5rem;">NSC</h3>
                                                 <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Click to access portal</p>
                                                 <div style="background: #f8fafc; border-radius: 12px; padding: 1rem;">
@@ -2309,14 +3084,19 @@
                                 <!-- Call Center Content -->
                                 <div id="fs-call-center-content" class="fs-content-panel fs-hidden">
                                     <div class="fs-module-content">
-                                        <div style="text-align: center; margin-bottom: 2rem;">
+                                        <div style="text-align: left; margin-bottom: 2rem;">
                                             <h2 style="font-size: 2rem; font-weight: 700; color: #59ACE1; margin-bottom: 0.5rem;">Call Center Work Order System</h2>
                                             <p style="color: #6b7280; font-size: 1.1rem;">Streamlined work order submission for client service requests</p>
                                         </div>
 
                                         <!-- Operator Information -->
                                         <div style="background: linear-gradient(45deg, #ecfdf5, #d1fae5); border: 1px solid #86efac; border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
-                                            <div style="background: #059669; color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem;">✓ Call Center Agent</div>
+                                            <div style="background: #059669; color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem;">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M9 12l2 2 4-4"/>
+                                                </svg>
+                                                Call Center Agent
+                                            </div>
                                             <div><strong>Operator ID:</strong> OP-A7B3C9 | <strong>Session:</strong> SS-892341 | <strong>Date:</strong> ${new Date().toLocaleDateString()}</div>
                                         </div>
 
@@ -2325,16 +3105,23 @@
                                             <!-- Tab Headers -->
                                             <div style="display: flex; border-bottom: 1px solid #e5e7eb;">
                                                 <button class="fs-tab fs-tab-active" onclick="fsSwitchCallCenterTab('existing')" data-tab="existing" style="flex: 1; padding: 1.5rem 2rem; background: white; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 600; color: #59ACE1; border: none; border-bottom: 3px solid #59ACE1;">
-                                                    ✓ Create Job (Existing Customer)
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M9 12l2 2 4-4"/>
+                                                    </svg>
+                                                    Create Job (Existing Customer)
                                                 </button>
                                                 <button class="fs-tab" onclick="fsSwitchCallCenterTab('new')" data-tab="new" style="flex: 1; padding: 1.5rem 2rem; background: #f9fafb; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 600; color: #6b7280; border: none;">
-                                                    ➕ Create New Customer
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <line x1="12" y1="5" x2="12" y2="19"/>
+                                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                                    </svg>
+                                                    Create New Customer
                                                 </button>
                                             </div>
 
                                             <!-- Existing Customer Tab Content -->
                                             <div id="fs-existing-customer-tab" class="fs-tab-content" style="display: block; padding: 2rem;">
-                                                <div style="text-align: center; margin-bottom: 2rem;">
+                                                <div style="text-align: left; margin-bottom: 2rem;">
                                                     <h3 style="font-size: 1.5rem; font-weight: 700; color: #000000; margin-bottom: 0.5rem;">Create Job for Existing Customer</h3>
                                                     <p style="color: #6b7280;">Quick job creation for established customers</p>
                                                 </div>
@@ -2383,14 +3170,20 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <div style="text-align: center; margin-top: 2rem;">
-                                                    <button class="fs-btn fs-btn-success" onclick="fsCreateJob()" style="width: auto; padding: 1rem 2rem; font-size: 1.125rem;">➕ Create Job</button>
+                                                <div style="text-align: left; margin-top: 2rem;">
+                                                    <button class="fs-btn fs-btn-success" onclick="fsCreateJob()" style="width: auto; padding: 1rem 2rem; font-size: 1.125rem;">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                            <line x1="12" y1="5" x2="12" y2="19"/>
+                                                            <line x1="5" y1="12" x2="19" y2="12"/>
+                                                        </svg>
+                                                        Create Job
+                                                    </button>
                                                 </div>
                                             </div>
 
                                             <!-- New Customer Tab Content -->
                                             <div id="fs-new-customer-tab" class="fs-tab-content" style="display: none; padding: 2rem;">
-                                                <div style="text-align: center; margin-bottom: 2rem;">
+                                                <div style="text-align: left; margin-bottom: 2rem;">
                                                     <h3 style="font-size: 1.5rem; font-weight: 700; color: #000000; margin-bottom: 0.5rem;">Create New Customer</h3>
                                                     <p style="color: #6b7280;">Add a new customer to the system</p>
                                                 </div>
@@ -2416,8 +3209,14 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <div style="text-align: center; margin-top: 2rem;">
-                                                    <button class="fs-btn fs-btn-primary" onclick="fsCreateNewCustomer()" style="width: auto; padding: 1rem 2rem; font-size: 1.125rem;">➕ Create New Customer</button>
+                                                <div style="text-align: left; margin-top: 2rem;">
+                                                    <button class="fs-btn fs-btn-primary" onclick="fsCreateNewCustomer()" style="width: auto; padding: 1rem 2rem; font-size: 1.125rem;">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                            <line x1="12" y1="5" x2="12" y2="19"/>
+                                                            <line x1="5" y1="12" x2="19" y2="12"/>
+                                                        </svg>
+                                                        Create New Customer
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -3129,6 +3928,10 @@
         // Initialize autocomplete functionality
         document.addEventListener('DOMContentLoaded', function() {
             initCustomerAutocompleteBindings();
+            
+            // Initialize multi-step form navigation
+            updateProgressSteps();
+            updateNavigationButtons();
         });
         // Also try binding immediately in case script loads after DOM
         if (document.getElementById('fs-customer-name')) {
@@ -3735,6 +4538,177 @@
             Analytics.track('User Type Selected', { userType: type });
         }
 
+        // Multi-step Form Navigation
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function nextStep() {
+            console.log('nextStep called, currentStep:', currentStep);
+            
+            // Temporarily skip validation for testing
+            if (currentStep < totalSteps) {
+                console.log('Moving to next step');
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                currentStep++;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                updateProgressSteps();
+                updateNavigationButtons();
+                
+                if (currentStep === 3) {
+                    generateReviewSummary();
+                }
+            } else {
+                console.log('Already at last step');
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                updateProgressSteps();
+                updateNavigationButtons();
+            }
+        }
+
+        function validateCurrentStep() {
+            const currentStepElement = document.getElementById(`step-${currentStep}`);
+            console.log('Validating step:', currentStep, 'Element:', currentStepElement);
+            
+            if (!currentStepElement) {
+                console.log('Step element not found');
+                return false;
+            }
+            
+            // For step 1, validate location fields
+            if (currentStep === 1) {
+                const locationName = document.getElementById('locationName1');
+                const businessNumber = document.getElementById('businessNumber1');
+                const streetAddress = document.getElementById('streetAddress1');
+                const city = document.getElementById('locationCity1');
+                const state = document.getElementById('locationState1');
+                const zip = document.getElementById('locationZip1');
+                
+                if (!locationName.value.trim() || !businessNumber.value.trim() || 
+                    !streetAddress.value.trim() || !city.value.trim() || 
+                    !state.value.trim() || !zip.value.trim()) {
+                    showAlert('assets-alert', 'error', 'Please fill in all required location fields before proceeding.');
+                    return false;
+                }
+            }
+            
+            // For step 2, validate equipment fields
+            if (currentStep === 2) {
+                const equipmentType = document.getElementById('equipmentType1_1');
+                const manufacturer = document.getElementById('manufacturer1_1');
+                const modelNumber = document.getElementById('modelNumber1_1');
+                const serialNumber = document.getElementById('serialNumber1_1');
+                
+                if (!equipmentType.value.trim() || !manufacturer.value.trim() || 
+                    !modelNumber.value.trim() || !serialNumber.value.trim()) {
+                    showAlert('assets-alert', 'error', 'Please fill in all required equipment fields before proceeding.');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        function updateProgressSteps() {
+            const steps = document.querySelectorAll('.progress-step');
+            steps.forEach((step, index) => {
+                const stepNumber = index + 1;
+                if (stepNumber < currentStep) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                } else if (stepNumber === currentStep) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                }
+            });
+        }
+
+        function updateNavigationButtons() {
+            const backBtn = document.getElementById('back-btn');
+            const prevBtn = document.getElementById('prev-step-btn');
+            const nextBtn = document.getElementById('next-step-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            if (currentStep === 1) {
+                backBtn.style.display = 'inline-block';
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'inline-block';
+                submitBtn.style.display = 'none';
+            } else if (currentStep === totalSteps) {
+                backBtn.style.display = 'none';
+                prevBtn.style.display = 'inline-block';
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'inline-block';
+            } else {
+                backBtn.style.display = 'none';
+                prevBtn.style.display = 'inline-block';
+                nextBtn.style.display = 'inline-block';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        function generateReviewSummary() {
+            const locationsContainer = document.getElementById('review-locations');
+            const equipmentContainer = document.getElementById('review-equipment');
+            
+            // Generate location summary
+            let locationHtml = '';
+            const locationCards = document.querySelectorAll('.location-card');
+            locationCards.forEach((card, index) => {
+                const locationName = card.querySelector('input[name*="locationName"]').value || 'Unnamed Location';
+                const streetAddress = card.querySelector('input[name*="streetAddress"]').value || 'Not provided';
+                const city = card.querySelector('input[name*="locationCity"]').value || '';
+                const state = card.querySelector('input[name*="locationState"]').value || '';
+                const zip = card.querySelector('input[name*="locationZip"]').value || '';
+                const address = `${streetAddress}, ${city}, ${state} ${zip}`.replace(/,\s*,/g, ',').replace(/,\s*$/, '');
+                
+                locationHtml += `
+                    <div class="review-item">
+                        <span class="review-label">Location ${index + 1}</span>
+                        <span class="review-value">${locationName}</span>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">Address</span>
+                        <span class="review-value">${address}</span>
+                    </div>
+                `;
+            });
+            locationsContainer.innerHTML = locationHtml;
+
+            // Generate equipment summary
+            let equipmentHtml = '';
+            const equipmentItems = document.querySelectorAll('.equipment-item');
+            equipmentItems.forEach((item, index) => {
+                const equipmentType = item.querySelector('select[name*="equipmentType"]').value || 'Not selected';
+                const manufacturer = item.querySelector('input[name*="manufacturer"]').value || 'Not provided';
+                const model = item.querySelector('input[name*="modelNumber"]').value || 'Not provided';
+                
+                equipmentHtml += `
+                    <div class="review-item">
+                        <span class="review-label">Equipment ${index + 1}</span>
+                        <span class="review-value">${equipmentType}</span>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">Manufacturer</span>
+                        <span class="review-value">${manufacturer}</span>
+                    </div>
+                    <div class="review-item">
+                        <span class="review-label">Model</span>
+                        <span class="review-value">${model}</span>
+                    </div>
+                `;
+            });
+            equipmentContainer.innerHTML = equipmentHtml;
+        }
+
         // Restaurant Assets Management (Restaurant Operators Only)
         async function handleAssetsCreation(event) {
             event.preventDefault();
@@ -3916,7 +4890,12 @@
                                 <div class="form-group">
                                     <label class="form-label">Equipment Photos</label>
                                     <div class="file-upload" onclick="document.getElementById('equipmentPhoto${locationId}_1').click()">
-                                        <div class="file-upload-icon">📷</div>
+                                        <div class="file-upload-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                        <circle cx="12" cy="13" r="4"/>
+                                    </svg>
+                                </div>
                                         <p>Choose files or drag and drop photos here</p>
                                         <input type="file" id="equipmentPhoto${locationId}_1" name="equipmentPhoto${locationId}_1" accept="image/*" multiple style="display: none;" onchange="previewEquipmentImage(this, ${locationId}, 1)">
                                     </div>
@@ -4183,9 +5162,12 @@
             
             container.className = `alert alert-${type}`;
             container.textContent = message;
+            container.style.display = 'block';
             container.classList.remove('hidden');
             
+            // Auto-hide after 5 seconds
             setTimeout(() => {
+                container.style.display = 'none';
                 container.classList.add('hidden');
             }, 5000);
         }
