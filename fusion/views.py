@@ -49,11 +49,18 @@ ALLOWED_STATUSES = [
 ]
 STATUS_DEFAULT = "Unscheduled"
 
-# ----------------- Technicien par défaut -----------------
-DEFAULT_TECHNICIAN = {
-    "id": 980629768,  # ID réel du technicien "AnswringAgent AfterHours" dans Service Fusion
-    "first_name": "AnswringAgent",
-    "last_name": "AfterHours"
+# ----------------- Techniciens -----------------
+TECHNICIANS = {
+    "answering_agent": {
+        "id": 980629768,  # ID réel du technicien "AnswringAgent AfterHours" dans Service Fusion
+        "first_name": "AnswringAgent",
+        "last_name": "AfterHours"
+    },
+    "answering_agent_hours": {
+        "id": 980629768,  # Même technicien mais pour les heures 8am-5pm
+        "first_name": "AnswringAgent",
+        "last_name": "AfterHours"
+    }
 }
 
 # ===================== Cache runtime =====================
@@ -157,6 +164,11 @@ def _patch(path: str, json_body: Dict[str, Any]) -> requests.Response:
     r.raise_for_status()
     return r
 
+def _put(path: str, json_body: Dict[str, Any]) -> requests.Response:
+    r = requests.put(_url(path), headers=_headers_json(), json=json_body, timeout=_timeout())
+    r.raise_for_status()
+    return r
+
 # ===================== API — Customers =====================
 def api_customers_search(q: str) -> list[dict]:
     params = {
@@ -249,8 +261,43 @@ def _map_status(ui_value: str | None) -> str:
     }
     return aliases.get(wanted, STATUS_DEFAULT)
 
+# ===================== Fonctions utilitaires =====================
+def get_technician_by_time() -> Dict[str, Any]:
+    """
+    Retourne le technicien approprié selon l'heure actuelle.
+    - 8am-5pm : AnswringAgent AfterHours (pour le dispatch grid)
+    - Autres heures : AnswringAgent AfterHours (par défaut)
+    """
+    from datetime import datetime
+    current_hour = datetime.now().hour
+    
+    # Entre 8h et 17h (8am-5pm)
+    if 8 <= current_hour < 17:
+        return TECHNICIANS["answering_agent_hours"]
+    else:
+        return TECHNICIANS["answering_agent"]
+
+def get_scheduling_info() -> Dict[str, Any]:
+    """
+    Retourne les informations de planification pour que le job apparaisse sur le dispatch grid.
+    """
+    from datetime import datetime, timedelta
+    
+    now = datetime.now()
+    current_hour = now.hour
+    
+    # Toujours planifier pour aujourd'hui à 8h du matin pour les démonstrations
+    start_time = now.replace(hour=8, minute=0, second=0, microsecond=0)
+    end_time = start_time + timedelta(hours=2)  # 2 heures de durée
+    
+    return {
+        "start_date": start_time.strftime("%Y-%m-%d"),
+        "end_date": end_time.strftime("%Y-%m-%d"),
+        "status": "Scheduled"
+    }
+
 # ===================== API — Jobs (création robuste) =====================
-def build_sf_job_payload(form_payload: Dict[str, Any]) -> Dict[str, Any]:
+def build_sf_job_payload(form_payload: Dict[str, Any], tech_notes: str = None) -> Dict[str, Any]:
     customer_name = _norm(form_payload.get("customer_name"))
     location = form_payload.get("service_location") or {}
     contact = form_payload.get("contact") or {}
@@ -271,13 +318,11 @@ def build_sf_job_payload(form_payload: Dict[str, Any]) -> Dict[str, Any]:
     if extra: desc_lines.append(" | ".join(extra))
     description = "\n".join([ln for ln in desc_lines if ln]).strip() or "Work order created via integration."
 
-    # Créer l'objet technicien basé sur le nom fourni
-    technician_parts = technician_name.split(" ", 1)
-    technician_obj = {
-        "id": 980629768,  # ID réel du technicien "AnswringAgent AfterHours" dans Service Fusion
-        "first_name": technician_parts[0] if technician_parts else "AnswringAgent",
-        "last_name": technician_parts[1] if len(technician_parts) > 1 else "AfterHours"
-    }
+    # Assigner le technicien selon l'heure actuelle
+    technician_obj = get_technician_by_time()
+    
+    # Obtenir les informations de planification pour le dispatch grid
+    scheduling = get_scheduling_info()
 
     payload: Dict[str, Any] = {
         "customer_name": customer_name,
@@ -288,23 +333,50 @@ def build_sf_job_payload(form_payload: Dict[str, Any]) -> Dict[str, Any]:
         "postal_code": _norm(location.get("zip")),
         "priority": priority,
         "description": description,
-        "status": _map_status(status_ui),
+        "status": scheduling["status"],  # Utiliser le statut calculé
         # Assignation du technicien spécifié
         "techs_assigned": [technician_obj]
     }
+    
+    # Ajouter les dates seulement si elles sont définies
+    if scheduling["start_date"]:
+        payload["start_date"] = scheduling["start_date"]
+    if scheduling["end_date"]:
+        payload["end_date"] = scheduling["end_date"]
+    
+    # Add technician notes if provided
+    if tech_notes:
+        payload["tech_notes"] = tech_notes
+        # Also try with completion_notes which might be displayed in the interface
+        payload["completion_notes"] = tech_notes
+
+    # DETAILED LOGS FOR DEBUG
+    print(f"\n🔍 ===== JOB CREATION - DEBUG ======")
+    print(f"📋 Customer: {customer_name}")
+    print(f"📍 Location: {_norm(location.get('name'))}")
+    print(f"🏷️  Category: {category_ui}")
+    print(f"⚡ Priority: {priority}")
+    print(f"📝 Description: {description[:100]}...")
+    print(f"👨‍💼 Technician: {technician_obj['first_name']} {technician_obj['last_name']} (ID: {technician_obj['id']})")
+    print(f"📅 Status: {scheduling['status']}")
+    print(f"📅 Start Date: {scheduling.get('start_date', 'None')}")
+    print(f"📅 End Date: {scheduling.get('end_date', 'None')}")
+    if tech_notes:
+        print(f"📝 Tech Notes: {tech_notes[:100]}...")
+    print(f"🔍 ======================================\n")
     mapped_cat = _map_category(category_ui)
     if mapped_cat:
         payload["category"] = mapped_cat
     else:
-        # Service Fusion exige qu'une catégorie soit fournie
-        payload["category"] = "Warranty"  # Catégorie par défaut
+        # Service Fusion requires a category to be provided
+        payload["category"] = "Warranty"  # Default category
 
     return {k: v for k, v in payload.items() if v not in (None, "", "None")}
 
-def api_job_create_strict(form_payload: Dict[str, Any]) -> Dict[str, Any]:
-    payload = build_sf_job_payload(form_payload)
+def api_job_create_strict(form_payload: Dict[str, Any], tech_notes: str = None) -> Dict[str, Any]:
+    payload = build_sf_job_payload(form_payload, tech_notes)
     r = _post("/jobs", payload, params={
-        "fields": "id,number,status,customer_name,description,priority,created_at,location_name,category",
+        "fields": "id,number,status,customer_name,description,priority,created_at,location_name,category,tech_notes",
         "expand": "notes",
     })
     return r.json() if r.content else {}
@@ -320,6 +392,17 @@ def api_job_add_note(job_id: Any, text: str) -> None:
         _post(f"/jobs/{job_id}/notes", {"note": text, "visibility": "internal"})
     except Exception:
         pass
+
+def api_job_update_tech_notes(job_id: Any, notes: str) -> None:
+    """
+    Met à jour les notes pour les techniciens dans Service Fusion.
+    """
+    try:
+        _put(f"/jobs/{job_id}", {"tech_notes": notes})
+        print(f"✅ Notes pour techniciens mises à jour pour le job {job_id}")
+    except Exception as e:
+        print(f"❌ Erreur lors de la mise à jour des notes techniciens: {e}")
+
 
 # ===================== LLM + Email (RESTORED) =====================
 def _llm_headers() -> Dict[str, str]:
@@ -343,6 +426,65 @@ def call_llm(name: str, title: str, description: str) -> Dict[str, Any]:
     links = data.get("links") or {}
     rag_url = links.get("docx") or links.get("json")
     return {"links": links, "rag_url": rag_url, "raw": data}
+
+def get_rag_document_content(rag_url: str) -> str:
+    """
+    Récupère le contenu du document RAG depuis l'URL.
+    """
+    try:
+        if not rag_url:
+            return "Document RAG non disponible"
+        
+        # Pour les documents .docx, on va extraire le contenu textuel
+        if rag_url.endswith('.docx'):
+            try:
+                import zipfile
+                import xml.etree.ElementTree as ET
+                from io import BytesIO
+                
+                print(f"🔍 Tentative d'extraction du contenu .docx depuis: {rag_url}")
+                response = requests.get(rag_url, timeout=30)
+                response.raise_for_status()
+                
+                # Extraire le contenu textuel du document .docx
+                with zipfile.ZipFile(BytesIO(response.content)) as docx:
+                    # Lire le document principal
+                    document_xml = docx.read('word/document.xml')
+                    root = ET.fromstring(document_xml)
+                    
+                    # Extraire tout le texte des paragraphes
+                    text_content = []
+                    for paragraph in root.iter():
+                        if paragraph.text and paragraph.text.strip():
+                            text_content.append(paragraph.text.strip())
+                    
+                    # Joindre le contenu et nettoyer
+                    full_text = ' '.join(text_content)
+                    
+                    print(f"📄 Contenu extrait: {full_text[:200]}...")
+                    
+                    # Limiter la longueur et nettoyer
+                    if len(full_text) > 2000:
+                        full_text = full_text[:2000] + "..."
+                    
+                    if full_text.strip():
+                        return full_text
+                    else:
+                        print("⚠️ Aucun contenu textuel trouvé dans le document .docx")
+                        return f"📄 Document technique disponible: {rag_url}\n\nCe document contient l'analyse détaillée du problème et les recommandations de réparation."
+                    
+            except Exception as docx_error:
+                print(f"❌ Erreur lors de l'extraction du contenu .docx: {docx_error}")
+                return f"📄 Document technique disponible: {rag_url}\n\nCe document contient l'analyse détaillée du problème et les recommandations de réparation."
+        else:
+            # Pour les autres types de fichiers
+            response = requests.get(rag_url, timeout=30)
+            response.raise_for_status()
+            return response.text[:2000] + "..." if len(response.text) > 2000 else response.text
+            
+    except Exception as e:
+        print(f"❌ Erreur lors de la récupération du document RAG: {e}")
+        return f"📄 Document technique disponible: {rag_url}\n\nErreur lors de la récupération du contenu détaillé."
 
 # ===================== Email helpers =====================
 # The ONLY changes in this file are in this section below.
@@ -692,20 +834,91 @@ def sf_create_job(request: HttpRequest):
         return JsonResponse({"error": "Invalid JSON"}, status=400)
 
     try:
-        # 1) Créer le job
-        job_resp = api_job_create_strict(payload)
-        job_id = _safe_get(job_resp, "id") or _safe_get(job_resp, "job_id") or _safe_get(job_resp, "data", "id")
-        job_number = _safe_get(job_resp, "number") or _safe_get(job_resp, "data", "number")
-        job_api_url = f"{API_BASE}/{API_VERSION}/jobs/{job_id}" if job_id else None
-
-        # 2) LLM & enrichissements
+        # 1) Générer les notes RAG AVANT la création du job
         customer_name = _norm(payload.get("customer_name"))
         category = payload.get("category") or payload.get("category_ui") or ""
         priority = payload.get("priority") or "Normal"
         problem = payload.get("problem_details") or ""
-        llm = call_llm(customer_name or "Client", f"{category}/{priority}", problem)  # <-- RESTORED
+        
+        print(f"\n🤖 ===== RAG GENERATION BEFORE CREATION ======")
+        llm = call_llm(customer_name or "Client", f"{category}/{priority}", problem)
         links, rag = llm.get("links", {}), llm.get("rag_url")
+       
+        # Prepare technician notes
+        tech_notes = None
+        if rag or links:
+            try:
+                # Try JSON content first which is easier to read
+                json_url = links.get("json")
+                if json_url:
+                    response = requests.get(json_url, timeout=30)
+                    response.raise_for_status()
+                    json_content = response.text
+                    print(f"📄 JSON content retrieved: {json_content[:200]}...")
+                    
+                    # Extract only the 'reply' field content from JSON
+                    try:
+                        json_data = json.loads(json_content)
+                        reply_content = json_data.get('reply', json_content)
+                        tech_notes = f"AI ANALYSIS & RECOMMENDATIONS:\n\n{reply_content}\n\nComplete document sent by email with attachments."
+                    except Exception as json_error:
+                        print(f"⚠️ JSON parsing error: {json_error}")
+                        # Fallback if JSON parsing fails
+                        tech_notes = f"AI ANALYSIS & RECOMMENDATIONS:\n\n{json_content}\n\nComplete document sent by email with attachments."
+                else:
+                    # Fallback to .docx document
+                    rag_content = get_rag_document_content(rag)
+                    tech_notes = f"AI ANALYSIS & RECOMMENDATIONS:\n\n{rag_content}\n\nComplete document sent by email with attachments."
+                
+                print(f"📝 Tech Notes prepared: {tech_notes[:100]}...")
+            except Exception as e:
+                print(f"❌ Error during RAG notes generation: {e}")
+                tech_notes = f"AI ANALYSIS & RECOMMENDATIONS:\n\nTechnical document available: {rag}\n\nComplete document sent by email with attachments."
+        
+        print(f"🤖 ===========================================\n")
 
+        # 2) Create job with RAG notes included
+        print(f"\n🚀 ===== SENDING TO SERVICE FUSION ======")
+        print(f"📤 Sending payload to Service Fusion API...")
+        job_resp = api_job_create_strict(payload, tech_notes)
+        print(f"📥 Response received from Service Fusion:")
+        
+        job_id = _safe_get(job_resp, "id") or _safe_get(job_resp, "job_id") or _safe_get(job_resp, "data", "id")
+        job_number = _safe_get(job_resp, "number") or _safe_get(job_resp, "data", "number")
+        job_api_url = f"{API_BASE}/{API_VERSION}/jobs/{job_id}" if job_id else None
+        
+        print(f"✅ JOB CREATED SUCCESSFULLY!")
+        print(f"🆔 Job ID: {job_id}")
+        print(f"🔢 Job Number: {job_number}")
+        print(f"🔗 Job URL: {job_api_url}")
+        
+        # Check if tech_notes are present in the response
+        tech_notes_in_response = _safe_get(job_resp, 'tech_notes')
+        if tech_notes_in_response:
+            print(f"📝 Tech Notes in response: {tech_notes_in_response[:100]}...")
+        else:
+            print(f"⚠️ Tech Notes not found in Service Fusion response")
+        
+        # Force verification via GET to ensure tech_notes are properly saved
+        if job_id and tech_notes:
+            try:
+                print(f"🔍 Final verification of tech_notes via GET /jobs/{job_id}")
+                job_details = api_job_by_id(job_id)
+                tech_notes_verified = _safe_get(job_details, 'tech_notes')
+                if tech_notes_verified:
+                    print(f"✅ Tech Notes confirmed via GET: {tech_notes_verified[:100]}...")
+                    print(f"🎯 Tech notes are properly saved in Service Fusion!")
+                else:
+                    print(f"❌ Tech Notes still missing after GET verification")
+                    print(f"🔍 Available fields in GET response: {list(job_details.keys()) if isinstance(job_details, dict) else 'Not a dict'}")
+            except Exception as e:
+                print(f"❌ Error during final verification: {e}")
+                import traceback
+                print(f"🔍 Full traceback: {traceback.format_exc()}")
+        
+        print(f"🚀 ======================================\n")
+
+        # 3) Add RAG notes and documents (to enrich description)
         if job_id and (rag or links):
             extras = []
             if rag: extras.append(f"RAG: {rag}")
@@ -717,10 +930,23 @@ def sf_create_job(request: HttpRequest):
                     api_job_patch_description(job_id, new_desc)
                 except Exception:
                     pass
-                note = ["Auto-generated summary links:"]
-                if rag: note.append(f"- RAG: {rag}")
-                if links.get("docx"): note.append(f"- DOCX: {links['docx']}")
-                api_job_add_note(job_id, "\n".join(note))
+                
+                # Créer une note formatée pour la section notes
+                note_parts = ["🔍 AI-Generated Analysis & Resources:"]
+                if rag: 
+                    note_parts.append(f"📊 RAG Analysis: {rag}")
+                if links.get("docx"): 
+                    note_parts.append(f"📄 Document: {links['docx']}")
+                
+                # Ajouter des informations sur l'assignation du technicien
+                from datetime import datetime
+                current_hour = datetime.now().hour
+                if 8 <= current_hour < 17:
+                    note_parts.append("⏰ Assigned during business hours (8am-5pm) - Visible on dispatch grid")
+                else:
+                    note_parts.append("🌙 Assigned after hours - Will appear on next business day dispatch")
+                
+                api_job_add_note(job_id, "\n".join(note_parts))
 
         # 3) Email HTML
         to_email = _safe_get(payload, "email", "to")

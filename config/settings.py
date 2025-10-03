@@ -120,18 +120,40 @@ if not DEBUG:
     X_FRAME_OPTIONS = "DENY"
 
 # -----------------------------------------------------------------------------
-# Logging (console; level configurable)
+# Logging (console + file; level configurable)
 # -----------------------------------------------------------------------------
-LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
+LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG").upper()
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {"console": {"class": "logging.StreamHandler"}},
-    "root": {"handlers": ["console"], "level": LOG_LEVEL},
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "django_debug.log",
+            "formatter": "verbose",
+        },
+    },
+    "root": {"handlers": ["console", "file"], "level": LOG_LEVEL},
     "loggers": {
-        "django.server": {"handlers": ["console"], "level": LOG_LEVEL, "propagate": False},
-        "django.security": {"handlers": ["console"], "level": LOG_LEVEL, "propagate": False},
-        "fusion": {"handlers": ["console"], "level": LOG_LEVEL, "propagate": False},
+        "django.server": {"handlers": ["console", "file"], "level": LOG_LEVEL, "propagate": False},
+        "django.security": {"handlers": ["console", "file"], "level": LOG_LEVEL, "propagate": False},
+        "fusion": {"handlers": ["console", "file"], "level": "DEBUG", "propagate": False},
+        "fusion.views": {"handlers": ["console", "file"], "level": "DEBUG", "propagate": False},
     },
 }
 
