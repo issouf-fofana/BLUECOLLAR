@@ -254,7 +254,9 @@ $('#jobForm').addEventListener('submit', async (e)=>{
     },
     preferred_window: { start: $('#win_start').value || null, end: $('#win_end').value || null },
     service_fusion: { board: BOARD, paste_to: PASTE },
-    email: { to: $('#shared_email').value.trim() || null }
+    email: { to: $('#shared_email').value.trim() || null },
+    // Technicien par défaut assigné automatiquement
+    technician: "AnswringAgent AfterHours"
   };
 
   try{

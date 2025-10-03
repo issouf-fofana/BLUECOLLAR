@@ -49,6 +49,13 @@ ALLOWED_STATUSES = [
 ]
 STATUS_DEFAULT = "Unscheduled"
 
+# ----------------- Technicien par défaut -----------------
+DEFAULT_TECHNICIAN = {
+    "id": 980629768,  # ID réel du technicien "AnswringAgent AfterHours" dans Service Fusion
+    "first_name": "AnswringAgent",
+    "last_name": "AfterHours"
+}
+
 # ===================== Cache runtime =====================
 _OAUTH_CACHE: Dict[str, Any] = {"access_token": None, "exp": 0}
 
@@ -251,6 +258,7 @@ def build_sf_job_payload(form_payload: Dict[str, Any]) -> Dict[str, Any]:
     priority = form_payload.get("priority") or "Normal"
     problem = form_payload.get("problem_details") or ""
     status_ui = form_payload.get("status")
+    technician_name = form_payload.get("technician", "AnswringAgent AfterHours")
 
     desc_lines = [problem.strip()] if problem else []
     c_name = _norm(contact.get("name"))
@@ -263,6 +271,14 @@ def build_sf_job_payload(form_payload: Dict[str, Any]) -> Dict[str, Any]:
     if extra: desc_lines.append(" | ".join(extra))
     description = "\n".join([ln for ln in desc_lines if ln]).strip() or "Work order created via integration."
 
+    # Créer l'objet technicien basé sur le nom fourni
+    technician_parts = technician_name.split(" ", 1)
+    technician_obj = {
+        "id": 980629768,  # ID réel du technicien "AnswringAgent AfterHours" dans Service Fusion
+        "first_name": technician_parts[0] if technician_parts else "AnswringAgent",
+        "last_name": technician_parts[1] if len(technician_parts) > 1 else "AfterHours"
+    }
+
     payload: Dict[str, Any] = {
         "customer_name": customer_name,
         "location_name": _norm(location.get("name")),
@@ -273,10 +289,15 @@ def build_sf_job_payload(form_payload: Dict[str, Any]) -> Dict[str, Any]:
         "priority": priority,
         "description": description,
         "status": _map_status(status_ui),
+        # Assignation du technicien spécifié
+        "techs_assigned": [technician_obj]
     }
     mapped_cat = _map_category(category_ui)
     if mapped_cat:
         payload["category"] = mapped_cat
+    else:
+        # Service Fusion exige qu'une catégorie soit fournie
+        payload["category"] = "Warranty"  # Catégorie par défaut
 
     return {k: v for k, v in payload.items() if v not in (None, "", "None")}
 
